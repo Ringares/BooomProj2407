@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ly0qfj2ewghx"]
+
+[ext_resource type="PackedScene" uid="uid://ds4lhiuv5dkni" path="res://scene/ui/option_control.tscn" id="1_q0cto"]
+
+[node name="OptionControl" instance=ExtResource("1_q0cto")]
+
+[node name="CheckButton" type="CheckButton" parent="." index="1"]
+layout_mode = 2

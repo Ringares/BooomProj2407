@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://beaj3udobexnc"]
+
+[ext_resource type="Script" path="res://scene/menu/option_menu/simple_option_menu.gd" id="1_glyp7"]
+[ext_resource type="PackedScene" uid="uid://ba30xhnse6vcf" path="res://scene/ui/slider_option_control.tscn" id="2_0lmpi"]
+[ext_resource type="PackedScene" uid="uid://ly0qfj2ewghx" path="res://scene/ui/toggle_option_control.tscn" id="2_kauh3"]
+
+[node name="SimpleOptionMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_glyp7")
+audio_control_scene = ExtResource("2_0lmpi")
+
+[node name="ControlContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AudioControlContainer" type="VBoxContainer" parent="ControlContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MuteControl" parent="ControlContainer" instance=ExtResource("2_kauh3")]
+unique_name_in_owner = true
+layout_mode = 2
+option_name = "Mute"
+option_section = 2
+key = "Mute"
+section = "AudioSettings"
+
+[node name="FullScreenControl" parent="ControlContainer" instance=ExtResource("2_kauh3")]
+unique_name_in_owner = true
+layout_mode = 2
+option_name = "Fullscreen"
+option_section = 3
+key = "FullscreenEnabled"
+section = "VideoSettings"
+
+[connection signal="setting_changed" from="ControlContainer/MuteControl" to="." method="_on_mute_control_setting_changed"]
+[connection signal="setting_changed" from="ControlContainer/FullScreenControl" to="." method="_on_full_screen_control_setting_changed"]

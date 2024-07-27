@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://t0y32g116ek4"]
+
+[ext_resource type="Script" path="res://autoload/scene_loader.gd" id="1_utuvo"]
+
+[node name="SceneLoader" type="Node"]
+script = ExtResource("1_utuvo")
+loading_screen_path = null

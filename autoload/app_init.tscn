@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq3yfldc7p2wd"]
+
+[ext_resource type="Script" path="res://autoload/app_init.gd" id="1_2n36c"]
+
+[node name="AppInit" type="Node"]
+script = ExtResource("1_2n36c")

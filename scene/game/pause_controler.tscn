@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmd3n7oiftiss"]
+
+[ext_resource type="Script" path="res://scene/game/pause_controler.gd" id="1_k52mo"]
+
+[node name="PauseControler" type="Node"]
+script = ExtResource("1_k52mo")

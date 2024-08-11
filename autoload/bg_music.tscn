@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bln1tbuys7dgi"]
+
+[ext_resource type="AudioStream" uid="uid://dccg0s66f3bdv" path="res://asset/music/Blippy Trance.mp3" id="1_jheax"]
+
+[node name="BgMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_jheax")
+autoplay = true
+bus = &"Music"

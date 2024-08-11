@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemRes" load_steps=5 format=3 uid="uid://bn4caokyh1lnc"]
+
+[ext_resource type="PackedScene" uid="uid://kdvu61ir8tbe" path="res://scene/game/entity/func_item/item_trail.tscn" id="1_o8b7h"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/item_res.gd" id="2_akbdt"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="3_co2rs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hddmi"]
+atlas = ExtResource("3_co2rs")
+region = Rect2(128, 0, 128, 128)
+
+[resource]
+script = ExtResource("2_akbdt")
+entity_type = 2
+texture = SubResource("AtlasTexture_hddmi")
+block_scene = ExtResource("1_o8b7h")
+tile_cell = Vector2i(1, 0)

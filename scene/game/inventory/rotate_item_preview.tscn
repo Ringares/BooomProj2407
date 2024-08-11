@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://qbnv7l0m3oe2"]
+
+[ext_resource type="Script" path="res://scene/game/inventory/rotate_item_preview.gd" id="1_6la1n"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="2_ytlsh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptro3"]
+atlas = ExtResource("2_ytlsh")
+region = Rect2(128, 0, 128, 128)
+
+[node name="RotateItemPreview" type="Node2D"]
+modulate = Color(1, 1, 1, 0.658824)
+script = ExtResource("1_6la1n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_ptro3")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = 64.0
+offset_right = 45.0
+offset_bottom = 104.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "  [R] to rotate  "

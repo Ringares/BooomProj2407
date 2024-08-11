@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bknm3xrst1afj"]
+
+[ext_resource type="Texture2D" uid="uid://m8qpyxdmwtpy" path="res://asset/image/tile128.png" id="1_7xyul"]
+[ext_resource type="Script" path="res://scene/game/inventory/item_container.gd" id="1_jwopd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owcfb"]
+atlas = ExtResource("1_7xyul")
+region = Rect2(0, 0, 128, 128)
+
+[node name="ItemContainer" type="MarginContainer" groups=["item_slot"]]
+script = ExtResource("1_jwopd")
+
+[node name="TextureRectBG" type="TextureRect" parent="."]
+modulate = Color(0.485703, 0.485704, 0.485703, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = SubResource("AtlasTexture_owcfb")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+expand_mode = 1
+
+[node name="CountLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

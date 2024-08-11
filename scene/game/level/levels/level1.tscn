@@ -1,0 +1,132 @@
+[gd_scene load_steps=10 format=3 uid="uid://vveuub1gdeuw"]
+
+[ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_0aac6"]
+[ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="2_86fer"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="3_lsdqq"]
+[ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="4_lhxx1"]
+[ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="5_gkxtl"]
+[ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_vsfj5"]
+[ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/status_ui.tscn" id="7_ns6dt"]
+
+[sub_resource type="Resource" id="Resource_geuyl"]
+script = ExtResource("3_lsdqq")
+cell_idx = Vector2i(3, 0)
+contain_type = 2
+contain_count = 3
+
+[sub_resource type="Resource" id="Resource_vxa5p"]
+script = ExtResource("3_lsdqq")
+cell_idx = Vector2i(1, 3)
+contain_type = 4
+contain_count = 1
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_0aac6")
+
+[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
+unique_name_in_owner = true
+script = ExtResource("2_86fer")
+base_tile = NodePath("../TileContainer/BaseTileMap")
+entity_tile = NodePath("../TileContainer/EntityTileMap")
+inventory = NodePath("../LevelUILayer/Inventory")
+step_timer = NodePath("../Timer")
+level_name = "Level 1"
+chest_contains = Array[ExtResource("3_lsdqq")]([SubResource("Resource_geuyl"), SubResource("Resource_vxa5p")])
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="TileContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 128)
+
+[node name="BaseTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("4_lhxx1")
+format = 2
+layer_0/tile_data = PackedInt32Array(196608, 65536, 0, 262144, 65536, 0, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 1, 196609, 65536, 1, 262145, 65536, 1, 2, 65536, 1, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 65536, 0, 3, 65536, 1, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 65536, 1, 4, 65536, 1, 65540, 65536, 0, 131076, 65536, 0, 196612, 65536, 1, 262148, 65536, 1, 0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0)
+
+[node name="EntityTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("5_gkxtl")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 262145, 65536, 0, 4, 65536, 805306368, 2, 0, 1, 131073, 0, 1, 196609, 262144, 0, 3, 262144, 0, 196612, 65536, 1, 262148, 327680, 0, 65537, 131072, 0, 262147, 65536, 1)
+
+[node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
+unique_name_in_owner = true
+
+[node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
+
+[node name="StatusUI" parent="LevelUILayer" instance=ExtResource("7_ns6dt")]
+
+[node name="Inventory" parent="LevelUILayer" instance=ExtResource("6_vsfj5")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+grow_vertical = 0
+
+[node name="DebugContainer" type="VBoxContainer" parent="LevelUILayer"]
+offset_left = 64.0
+offset_top = 864.0
+offset_right = 384.0
+offset_bottom = 1044.0
+
+[node name="Label" type="Label" parent="LevelUILayer/DebugContainer"]
+layout_mode = 2
+text = "
+Test Info
+Test Level 1"
+
+[node name="WinButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Win"
+
+[node name="LoseButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Lose"
+
+[node name="ResetButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Reset"
+
+[node name="StepControl" type="Control" parent="LevelUILayer"]
+layout_mode = 3
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 1528.0
+offset_top = 452.0
+offset_right = 1528.0
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="LevelUILayer/StepControl"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelUILayer/StepControl/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelUILayer/StepControl/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="StepButton" type="Button" parent="LevelUILayer/StepControl/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 2.08165e-12)
+layout_mode = 2
+text = "Step Move
+[X]"
+
+[node name="AutoRunButton" type="Button" parent="LevelUILayer/StepControl/PanelContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 2.08165e-12)
+layout_mode = 2
+text = "Auto Run
+[SPACE]"
+
+[connection signal="pressed" from="LevelUILayer/DebugContainer/WinButton" to="." method="_on_win_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/DebugContainer/LoseButton" to="." method="_on_lose_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/DebugContainer/ResetButton" to="." method="_on_reset_button_pressed"]

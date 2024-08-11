@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cir2lf4vpe2tv"]
 
 [ext_resource type="PackedScene" uid="uid://bmd3n7oiftiss" path="res://scene/game/pause_controler.tscn" id="1_fcv4u"]
-[ext_resource type="PackedScene" uid="uid://xk25yrywtijf" path="res://scene/game/game_placeholder_scene.tscn" id="1_fxss7"]
 [ext_resource type="Script" path="res://scene/game/game_ui.gd" id="1_haa44"]
 [ext_resource type="PackedScene" uid="uid://cew1lc4b8f86w" path="res://scene/menu/pause_menu.tscn" id="2_31bm0"]
+[ext_resource type="Script" path="res://scene/game/level/level_loader.gd" id="5_v2d4l"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -17,6 +17,24 @@ script = ExtResource("1_haa44")
 [node name="PauseController" parent="." instance=ExtResource("1_fcv4u")]
 pause_menu_packed = ExtResource("2_31bm0")
 
-[node name="GamePlaceholderScene" parent="." instance=ExtResource("1_fxss7")]
+[node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
+script = ExtResource("5_v2d4l")
+level_container = NodePath("../ViewportContainer/SubViewport")
+files = Array[String](["res://scene/game/level/levels/level1.tscn", "res://scene/game/level/levels/level2.tscn"])
+directory = "res://scene/game/level/levels"
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[connection signal="level_load_started" from="LevelLoader" to="." method="_on_level_loader_level_load_started"]
+[connection signal="level_loaded" from="LevelLoader" to="." method="_on_level_loader_level_loaded"]
+[connection signal="levels_finished" from="LevelLoader" to="." method="_on_level_loader_levels_finished"]

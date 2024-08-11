@@ -1,0 +1,21 @@
+extends Node
+
+signal signal_level_won
+signal signal_level_advance
+signal signal_level_fail
+signal signal_level_reset
+
+signal signal_level_timer_stopped
+
+
+signal signal_pickitem_drop
+signal signal_pickitem_drop_update_inventory
+signal signal_pickitem_cancel
+
+
+signal signal_step_update
+signal signal_hp_update
+signal signal_str_update
+signal signal_energy_update
+
+signal signal_inventory_capacity_increase

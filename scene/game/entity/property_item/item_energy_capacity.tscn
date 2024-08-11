@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://buupb6p6b8tai"]
+
+[ext_resource type="Script" path="res://scene/game/entity/property_item/property_item.gd" id="1_onmq2"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="2_bk3tt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3nu3"]
+atlas = ExtResource("2_bk3tt")
+region = Rect2(768, 128, 128, 128)
+
+[node name="ItemEnergyCapacity" type="Node2D"]
+script = ExtResource("1_onmq2")
+type = 10
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+texture = SubResource("AtlasTexture_s3nu3")

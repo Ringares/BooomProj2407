@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdip4qdrigbtl"]
+
+[ext_resource type="Script" path="res://scene/game/entity/property_item/property_item.gd" id="1_6v88w"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="2_mtn0y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ws8g"]
+atlas = ExtResource("2_mtn0y")
+region = Rect2(384, 0, 128, 128)
+
+[node name="ItemStrTemp" type="Node2D"]
+script = ExtResource("1_6v88w")
+points = 4
+type = 4
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+texture = SubResource("AtlasTexture_6ws8g")

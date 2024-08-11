@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemRes" load_steps=5 format=3 uid="uid://dp0uxsfxjd0a3"]
+
+[ext_resource type="PackedScene" uid="uid://b0qrt2xcl1tn3" path="res://scene/game/entity/enermy/enermy_a.tscn" id="1_bcoxq"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/item_res.gd" id="2_6ybje"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="3_1m7x1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hddmi"]
+atlas = ExtResource("3_1m7x1")
+region = Rect2(0, 128, 128, 128)
+
+[resource]
+script = ExtResource("2_6ybje")
+entity_type = 20
+texture = SubResource("AtlasTexture_hddmi")
+block_scene = ExtResource("1_bcoxq")
+tile_cell = Vector2i(0, 1)

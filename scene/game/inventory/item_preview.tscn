@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx2hd1f5drmr7"]
+
+[ext_resource type="Script" path="res://scene/game/inventory/item_preview.gd" id="1_ojhrj"]
+
+[node name="ItemPreview" type="Node2D"]
+modulate = Color(1, 1, 1, 0.658824)
+script = ExtResource("1_ojhrj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

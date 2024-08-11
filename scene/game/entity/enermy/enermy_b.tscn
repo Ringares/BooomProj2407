@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwfnmf2im67hs"]
+
+[ext_resource type="Script" path="res://scene/game/entity/enermy/enermy.gd" id="1_etinw"]
+[ext_resource type="Script" path="res://component/attack_component.gd" id="2_lcop8"]
+[ext_resource type="Script" path="res://component/health_component.gd" id="3_x3p7m"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="4_ravsl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivpil"]
+atlas = ExtResource("4_ravsl")
+region = Rect2(128, 128, 128, 128)
+
+[node name="EnermyB" type="Node2D"]
+script = ExtResource("1_etinw")
+loot_energy = 1
+type = 21
+
+[node name="AttackComponent" type="Node" parent="."]
+script = ExtResource("2_lcop8")
+temp_attack = 3
+base_attack = 3
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_x3p7m")
+curr_hp = 5
+max_hp = 5
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+texture = SubResource("AtlasTexture_ivpil")
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HPLabel" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -23.0
+offset_right = 48.0
+grow_vertical = 0
+text = "HP:"
+
+[node name="AtkLabel" type="Label" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -23.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "ATK:"

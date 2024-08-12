@@ -13,4 +13,5 @@ script = ExtResource("2_6ybje")
 entity_type = 20
 texture = SubResource("AtlasTexture_hddmi")
 block_scene = ExtResource("1_bcoxq")
+energy_cost = 1
 tile_cell = Vector2i(0, 1)

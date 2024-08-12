@@ -11,6 +11,7 @@ const ROTATE_ITEM_PREVIEW = preload("res://scene/game/inventory/rotate_item_prev
 
 var hover_slot:ItemSlot = null
 var curr_preview:ItemPreview = null
+var is_stackable = false
 
 
 func _ready():
@@ -71,31 +72,67 @@ func update_ui():
 	grid_container.columns = inven_size
 
 
+#func add_pickup(contain_type:Constants.ENTITY_TYPE, count:int=1)->bool:
+	#"""
+	#return true if has room
+	#"""
+	#var first_null_idx = null
+	#for i in range(inven_data.size()):
+		#if inven_data[i] != null:
+			#var data = inven_data[i] as IvenItem
+			#if data.item_res.entity_type == contain_type:
+				## TODO add anim
+				#data.count += count
+				#update_ui()
+				#return true
+		#else:
+			#if first_null_idx == null:
+				#first_null_idx = i
+				#
+	#if first_null_idx != null:
+		#var new_item = IvenItem.new()
+		#inven_data[first_null_idx] = IvenItem.instantiate(contain_type, count)
+		#update_ui()
+		#print('inven_data', inven_data)
+		#return true
+	#else:
+		#return false
+
 func add_pickup(contain_type:Constants.ENTITY_TYPE, count:int=1)->bool:
-	"""
-	return true if has room
-	"""
+	var return_flag = false
+	
+	for i in range(count):
+		var valid_slot_idx = get_valid_slot_idx(contain_type)
+		if valid_slot_idx != null:
+			return_flag = true
+			if inven_data[valid_slot_idx] != null:
+				(inven_data[valid_slot_idx] as IvenItem).count += 1
+			else:
+				inven_data[valid_slot_idx] = IvenItem.instantiate(contain_type, 1)
+			update_ui()	
+			
+	return return_flag
+		
+
+func get_valid_slot_idx(contain_type:Constants.ENTITY_TYPE):
 	var first_null_idx = null
 	for i in range(inven_data.size()):
 		if inven_data[i] != null:
 			var data = inven_data[i] as IvenItem
-			if data.item_res.entity_type == contain_type:
-				# TODO add anim
-				data.count += count
-				update_ui()
-				return true
+			if is_stackable and data.item_res.entity_type == contain_type:
+				return i
+			else:
+				continue
 		else:
 			if first_null_idx == null:
 				first_null_idx = i
 				
 	if first_null_idx != null:
-		var new_item = IvenItem.new()
-		inven_data[first_null_idx] = IvenItem.instantiate(contain_type, count)
-		update_ui()
-		print('inven_data', inven_data)
-		return true
+		return first_null_idx
 	else:
-		return false
+		return null
+			
+
 
 func _on_signal_inventory_capacity_increase():
 	if inven_data.size() >= max_iven_capacity:
@@ -103,7 +140,6 @@ func _on_signal_inventory_capacity_increase():
 	else:
 		inven_data.append(null)
 		update_ui()
-		
 	
 
 func _on_signal_mouse_entered_slot(_slot:ItemSlot):

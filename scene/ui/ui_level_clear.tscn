@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfu5auiwvyj0c"]
+[gd_scene load_steps=4 format=3 uid="uid://dfu5auiwvyj0c"]
 
 [ext_resource type="Script" path="res://scene/ui/ui_level_clear.gd" id="1_wipfs"]
 [ext_resource type="Script" path="res://script/ui_sound.gd" id="2_ld388"]
+[ext_resource type="StyleBox" uid="uid://cy308p56ubme2" path="res://scene/ui/button_normal_light.tres" id="3_thjex"]
 
 [node name="UiVictory" type="CanvasLayer"]
 process_mode = 3
@@ -18,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.529412)
+color = Color(0.0941176, 0.101961, 0.152941, 0.784314)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 8
@@ -48,15 +49,13 @@ theme_override_constants/margin_bottom = 64
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 32
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"AlterLabel"
-theme_override_colors/font_shadow_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_colors/font_outline_color = Color(0.247059, 0.14902, 0.192157, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 32
-text = "Level Success"
+theme_override_font_sizes/font_size = 128
+text = "关卡胜利"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
@@ -67,13 +66,22 @@ text = "You Made It!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonNext" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Next Level"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 32
 
-[node name="ButtonMainMenu" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ButtonMainMenu" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(156, 48)
 layout_mode = 2
-text = "Main Menu"
+theme_override_styles/normal = ExtResource("3_thjex")
+text = "主菜单"
 
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonNext" to="." method="_on_button_next_pressed"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
+[node name="ButtonNext" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(156, 48)
+layout_mode = 2
+text = "下一关"
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonMainMenu" to="." method="_on_button_main_menu_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonNext" to="." method="_on_button_next_pressed"]

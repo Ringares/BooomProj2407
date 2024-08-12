@@ -14,4 +14,5 @@ type = 10
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
+unique_name_in_owner = true
 texture = SubResource("AtlasTexture_s3nu3")

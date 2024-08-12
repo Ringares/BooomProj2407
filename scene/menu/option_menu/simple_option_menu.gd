@@ -30,6 +30,7 @@ func _add_audio_control(bus_name, bus_value):
 		audio_control.option_section = OptionControl.OptionSections.AUDIO
 		audio_control.option_name = bus_name_lang.get(bus_name, bus_name)
 		audio_control.value = bus_value
+		audio_control.key = bus_name
 		audio_control.connect("setting_changed", _on_bus_changed.bind(bus_name))
 		
 

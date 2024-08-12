@@ -40,6 +40,8 @@ var cell_data = []
 func _ready():
 	tile_rect = base_tile.get_used_rect()
 	step_timer.timeout.connect(_on_step_timer)
+	if is_auto_run:
+		step_timer.start()
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
 	init_level()
 	call_deferred('_on_load')
@@ -51,8 +53,8 @@ func _ready():
 	var viewport_size = get_viewport().size as Vector2i
 	print(viewport_size / 2 ,tile_rect.size * 128 / 2)
 	%TileContainer.global_position = viewport_size / 2 - tile_rect.size * 128 / 2
-	
-	
+	# TODO check space
+	%TileContainer.global_position -= Vector2(0,(1080 - tile_rect.size.x * 128)/2 - 128)
 	
 
 func _on_load():
@@ -83,6 +85,7 @@ func _process(delta):
 		AutoLoadEvent.signal_level_timer_stopped.emit(step_timer.is_stopped())
 			
 	if Input.is_action_just_pressed("run_step"):
+		step_timer.stop()
 		take_step()
 
 

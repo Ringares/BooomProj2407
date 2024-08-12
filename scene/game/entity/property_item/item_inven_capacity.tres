@@ -1,16 +1,17 @@
 [gd_resource type="Resource" script_class="ItemRes" load_steps=5 format=3 uid="uid://dje3hblcxmo76"]
 
-[ext_resource type="PackedScene" uid="uid://dpg8hrddwl2ml" path="res://scene/game/entity/property_item/item_inven_capacity.tscn" id="1_afe74"]
-[ext_resource type="Script" path="res://scene/game/entity/resource/item_res.gd" id="2_ixi16"]
-[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="3_umxba"]
+[ext_resource type="PackedScene" uid="uid://dpg8hrddwl2ml" path="res://scene/game/entity/property_item/item_inven_capacity.tscn" id="1_7rx07"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/item_res.gd" id="2_1uijo"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="3_g71kc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l8mih"]
-atlas = ExtResource("3_umxba")
+atlas = ExtResource("3_g71kc")
 region = Rect2(512, 128, 128, 128)
 
 [resource]
-script = ExtResource("2_ixi16")
+script = ExtResource("2_1uijo")
 entity_type = 11
 texture = SubResource("AtlasTexture_l8mih")
-block_scene = ExtResource("1_afe74")
+block_scene = ExtResource("1_7rx07")
+energy_cost = 1
 tile_cell = Vector2i(4, 1)

@@ -28,6 +28,8 @@ func pre_move_execute(entity:Entity)->bool:
 	
 	if entity.type == Constants.ENTITY_TYPE.ENERMY_A or entity.type == Constants.ENTITY_TYPE.ENERMY_B:
 		print('Constants.ENTITY_TYPE.ENERMY...')
+		if not (entity as Enermy).is_valid:
+			return true
 		
 		# 战斗逻辑
 		var is_char_dead = health_component.take_damage((entity as Enermy).attack_component.temp_attack)
@@ -42,7 +44,7 @@ func pre_move_execute(entity:Entity)->bool:
 		if is_enermy_dead:
 			entity.dead()
 			resource_component.add_resource((entity as Enermy).loot_energy)
-			return true
+			return false
 		else:
 			return false
 		

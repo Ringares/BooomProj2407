@@ -13,6 +13,8 @@ var dead_step:int = 0
 @onready var hp_label = %HPLabel
 @onready var atk_label = %AtkLabel
 
+const HIT_FLASH_SHADER = preload("res://shader/hit_flash.gdshader")
+const TELEPORT_SHADER = preload("res://shader/teleport.gdshader")
 
 func _ready():
 	AutoLoadEvent.signal_step_update.connect(_on_signal_step_update)
@@ -28,18 +30,77 @@ func update_ui():
 
 func play_hit_anim():
 	# TODO anim
-	pass
+	start_flash()
 
 
 func dead():
 	is_valid = false
 	dead_step = curr_step
-	visual.modulate = Color.DIM_GRAY
+	#visual.hide()
+	#visual.modulate = Color.DIM_GRAY
+	start_teleport_out()
 	
 	
 func revive():
 	is_valid = true
-	visual.modulate = Color.WHITE
+	#visual.modulate = Color.WHITE
+	#visual.show()
+	start_teleport_in()
+
+
+
+func start_flash():
+	if sprite_2d.material == null:
+		sprite_2d.material = ShaderMaterial.new()
+		sprite_2d.material.resource_local_to_scene = true
+	
+	sprite_2d.material.shader = HIT_FLASH_SHADER
+	
+	if tween !=null and tween.is_valid():
+		tween.kill()
+	
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("lerp_percent", 1.0)
+	tween = create_tween()
+	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+
+
+func start_teleport_in():
+	if sprite_2d.material == null:
+		sprite_2d.material = ShaderMaterial.new()
+		sprite_2d.material.resource_local_to_scene = true
+	
+	sprite_2d.material.shader = TELEPORT_SHADER
+	
+	if tween !=null and tween.is_valid():
+		tween.kill()
+	
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("progress", 0.3)
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("color", Vector4(0.0, 1.02, 1.5, 1.0))
+	# vec4(0.0, 1.02, 1.2, 1.0)
+	tween = create_tween()
+	tween.tween_property(sprite_2d.material, "shader_parameter/progress", 0., 2)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+
+
+func start_teleport_out():
+	if sprite_2d.material == null:
+		sprite_2d.material = ShaderMaterial.new()
+		sprite_2d.material.resource_local_to_scene = true
+	
+	sprite_2d.material.shader = TELEPORT_SHADER
+	
+	if tween !=null and tween.is_valid():
+		tween.kill()
+	
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("progress", 0.)
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("color", Vector4(1.5, 0.4, 0.4, 1.0))
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("beam_size", 0.01)
+	# vec4(0.0, 1.02, 1.2, 1.0)
+	tween = create_tween()
+	tween.tween_property(sprite_2d.material, "shader_parameter/progress", 0.3, 2)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	
 
 
 func _on_signal_step_update(step:int):

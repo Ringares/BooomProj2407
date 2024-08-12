@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scene/menu/main_menu.gd" id="1_du782"]
 [ext_resource type="PackedScene" uid="uid://beaj3udobexnc" path="res://scene/menu/option_menu/simple_option_menu.tscn" id="2_wyugc"]
 [ext_resource type="Script" path="res://script/ui_sound.gd" id="3_8hidd"]
-[ext_resource type="Texture2D" uid="uid://ofqsfafg7qly" path="res://asset/image/background.png" id="4_gqfre"]
+[ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="4_xpgo8"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -16,19 +16,12 @@ script = ExtResource("1_du782")
 game_scene_path = "res://scene/game/game_ui.tscn"
 option_packed_scene = ExtResource("2_wyugc")
 
+[node name="BackgroundTextureRect" parent="." instance=ExtResource("4_xpgo8")]
+layout_mode = 0
+
 [node name="UISound" type="Node" parent="."]
 script = ExtResource("3_8hidd")
 root_path = NodePath("..")
-
-[node name="BackgroundTextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_gqfre")
-expand_mode = 2
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true

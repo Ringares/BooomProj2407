@@ -56,19 +56,25 @@ func play_walk():
 	_play("res://asset/audio/level_audio/move.ogg")
 	
 	
-func play_upgrade():
+func play_heal():
 	_play("res://asset/audio/ui_audio/confirmation_001.ogg")
 	
 
-var hit_sfx_list = WeightTable.new(
-	[
-		"res://asset/audio/level_audio/laserSmall_000.ogg",
-		"res://asset/audio/level_audio/laserSmall_001.ogg",
-		"res://asset/audio/level_audio/laserSmall_002.ogg",
-		"res://asset/audio/level_audio/laserSmall_003.ogg",
-		"res://asset/audio/level_audio/laserSmall_004.ogg",
-	]
-)
 func play_attack():
-	_play(hit_sfx_list.rand_pick())
+	_play("res://asset/audio/entity_audio/attack.wav")
 	
+
+func play_revive():
+	_play("res://asset/audio/entity_audio/popup.wav")
+	
+
+func play_turn_direction():
+	_play("res://asset/audio/entity_audio/turn_direction.wav")
+	
+
+func play_upgrade():
+	_play("res://asset/audio/entity_audio/upgrade.wav")
+	
+
+func play_open_chest():
+	_play("res://asset/audio/entity_audio/open_case.wav")

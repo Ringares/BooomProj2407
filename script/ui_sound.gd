@@ -6,7 +6,6 @@ class_name UISound
 @onready var sfxs = {
 	&"ui_hover": AudioStreamPlayer.new(),
 	&"ui_click": AudioStreamPlayer.new(),
-	&"ui_confirm": AudioStreamPlayer.new(),	
 }
 
 

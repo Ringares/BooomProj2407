@@ -125,7 +125,7 @@ func init_level():
 			#cell_scene.signal_entity_used.connect(_on_signal_entity_used)
 			
 			if item_res.entity_type == Constants.ENTITY_TYPE.CHARACTOR:
-				cell_scene = place_charactor_instance(packed_scene, cell_id)
+				cell_scene = place_charactor_instance(packed_scene, cell_id, false)
 				charactor = cell_scene
 			else:
 				cell_scene = place_entity_instance(packed_scene, cell_id)
@@ -160,16 +160,16 @@ func init_level():
 	pass
 	
 
-func place_charactor_instance(packed_scene:PackedScene, cell_id:Vector2i):
+func place_charactor_instance(packed_scene:PackedScene, cell_id:Vector2i, need_anim=false):
 	"""
 	放置角色位置
 	"""
 	if charactor == null:
 		charactor = packed_scene.instantiate() as Charactor
 		entity_container.add_child(charactor)
-	
-	charactor.position = entity_tile.map_to_local(cell_id)
+
 	charactor.cell_id = cell_id
+	charactor.move_to_pos(entity_tile.map_to_local(cell_id), need_anim)
 	return charactor
 
 
@@ -199,7 +199,7 @@ func take_step():
 		var tar_cell = cell_data[tar_cell_id.x][tar_cell_id.y]
 		var check_pass = charactor.pre_move_execute(tar_cell)
 		if check_pass:
-			place_charactor_instance(null, tar_cell_id)
+			place_charactor_instance(null, tar_cell_id, true)
 			charactor.post_move_execute(tar_cell)
 	running_step += 1
 	AutoLoadEvent.signal_step_update.emit(running_step)
@@ -274,5 +274,6 @@ func _on_signal_pickitem_drop(trans_data):
 	if item_res.entity_type == Constants.ENTITY_TYPE.TRAIL:
 		cell_scene.set_direction_by_rad(trans_data.get('rotation', 0))
 	AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
+	SfxManager.play_open_chest()
 	
 

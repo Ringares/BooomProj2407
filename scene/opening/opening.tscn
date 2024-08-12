@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://du50y1604vkab"]
+[gd_scene load_steps=2 format=3 uid="uid://du50y1604vkab"]
 
 [ext_resource type="Script" path="res://scene/opening/opening.gd" id="1_c64gw"]
-[ext_resource type="Texture2D" uid="uid://cbq0tmdlfbe1f" path="res://asset/image/logo_vertical_color_dark.png" id="2_p5rbs"]
 
 [node name="Opening" type="Control"]
 layout_mode = 3
@@ -12,7 +11,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c64gw")
 next_scene = "res://scene/menu/main_menu.tscn"
-images = Array[Texture2D]([ExtResource("2_p5rbs")])
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="."]
 

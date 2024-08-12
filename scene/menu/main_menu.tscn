@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvvbeso36s0o4"]
+[gd_scene load_steps=5 format=3 uid="uid://dvvbeso36s0o4"]
 
 [ext_resource type="Script" path="res://scene/menu/main_menu.gd" id="1_du782"]
 [ext_resource type="PackedScene" uid="uid://beaj3udobexnc" path="res://scene/menu/option_menu/simple_option_menu.tscn" id="2_wyugc"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="3_8hidd"]
+[ext_resource type="Texture2D" uid="uid://ofqsfafg7qly" path="res://asset/image/background.png" id="4_gqfre"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -14,6 +16,10 @@ script = ExtResource("1_du782")
 game_scene_path = "res://scene/game/game_ui.tscn"
 option_packed_scene = ExtResource("2_wyugc")
 
+[node name="UISound" type="Node" parent="."]
+script = ExtResource("3_8hidd")
+root_path = NodePath("..")
+
 [node name="BackgroundTextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -21,6 +27,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("4_gqfre")
+expand_mode = 2
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
@@ -30,13 +38,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="TitleMarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer"]
 layout_mode = 2
@@ -44,16 +53,20 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/TitleMarginContainer"]
 layout_mode = 2
 
+[node name="Control" type="Control" parent="MenuContainer/VBoxContainer/TitleMarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 64)
+layout_mode = 2
+
 [node name="Title" type="Label" parent="MenuContainer/VBoxContainer/TitleMarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "GAME TITLE"
+theme_override_font_sizes/font_size = 128
+text = "游戏标题"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="MenuContainer/VBoxContainer/TitleMarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Subtitle"
+theme_override_font_sizes/font_size = 64
+text = "游戏副标题"
 horizontal_alignment = 1
 
 [node name="MenuMargin" type="MarginContainer" parent="MenuContainer/VBoxContainer"]
@@ -63,32 +76,37 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuMargin"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="ContinueButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(128, 40)
+custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
-text = "Continue"
+theme_override_font_sizes/font_size = 64
+text = "继续游戏"
 
 [node name="NewGameButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 40)
+custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
-text = "New Game"
+theme_override_font_sizes/font_size = 64
+text = "新游戏"
 
 [node name="OptionButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 40)
+custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
-text = "Option"
+theme_override_font_sizes/font_size = 64
+text = "选项"
 
 [node name="ExitButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 40)
+custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
-text = "Exit"
+theme_override_font_sizes/font_size = 64
+text = "退出"
 
 [node name="OptionContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
@@ -107,22 +125,30 @@ size_flags_vertical = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="OptionContainer/OptionVbox"]
 layout_mode = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
 
 [node name="TitleLabel" type="Label" parent="OptionContainer/OptionVbox/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
-text = "Options"
+theme_override_font_sizes/font_size = 128
+text = "选项"
 
-[node name="BackButton" type="Button" parent="OptionContainer/OptionVbox"]
-custom_minimum_size = Vector2(128, 40)
+[node name="MarginContainer2" type="MarginContainer" parent="OptionContainer/OptionVbox"]
+layout_mode = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="BackButton" type="Button" parent="OptionContainer/OptionVbox/MarginContainer2"]
+custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "Back"
+theme_override_font_sizes/font_size = 64
+text = "返回"
 
 [node name="VersionLabelContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -148,4 +174,4 @@ text = "v unkonw"
 [connection signal="pressed" from="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="OptionContainer/OptionVbox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="OptionContainer/OptionVbox/MarginContainer2/BackButton" to="." method="_on_back_button_pressed"]

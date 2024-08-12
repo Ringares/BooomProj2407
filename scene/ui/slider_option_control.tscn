@@ -4,6 +4,9 @@
 
 [node name="OptionControl" instance=ExtResource("1_an6i2")]
 
+[node name="OptionLabel" parent="." index="0"]
+text = "    "
+
 [node name="HSlider" type="HSlider" parent="." index="1"]
 custom_minimum_size = Vector2(256, 2.08165e-12)
 layout_mode = 2

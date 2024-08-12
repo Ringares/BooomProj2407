@@ -1,11 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cf7eg7p534qab"]
+[gd_scene load_steps=3 format=3 uid="uid://cf7eg7p534qab"]
 
 [ext_resource type="Script" path="res://scene/ui/ui_defeated.gd" id="1_50uxd"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="2_5g0uu"]
 
 [node name="UiDefeated" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_50uxd")
 main_menu_scene = "res://scene/menu/main_menu.tscn"
+
+[node name="UISound" type="Node" parent="."]
+script = ExtResource("2_5g0uu")
+root_path = NodePath("..")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

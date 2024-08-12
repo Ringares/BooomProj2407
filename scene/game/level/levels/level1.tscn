@@ -1,12 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://vveuub1gdeuw"]
+[gd_scene load_steps=15 format=3 uid="uid://vveuub1gdeuw"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_0aac6"]
 [ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="2_86fer"]
+[ext_resource type="Texture2D" uid="uid://ofqsfafg7qly" path="res://asset/image/background.png" id="2_prxer"]
 [ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="3_lsdqq"]
+[ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_bqbkv"]
 [ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="4_lhxx1"]
 [ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="5_gkxtl"]
+[ext_resource type="Texture2D" uid="uid://dhvgb5xwqy1q0" path="res://asset/image/stage.png" id="5_ufly5"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="6_1fqve"]
 [ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_vsfj5"]
 [ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/status_ui.tscn" id="7_ns6dt"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34f5g"]
+texture = ExtResource("5_ufly5")
+texture_margin_left = 24.0
+texture_margin_top = 36.0
+texture_margin_right = 24.0
+texture_margin_bottom = 132.0
+region_rect = Rect2(561, 70, 823, 871)
 
 [sub_resource type="Resource" id="Resource_geuyl"]
 script = ExtResource("3_lsdqq")
@@ -22,6 +34,26 @@ contain_count = 1
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0aac6")
+
+[node name="LevelBG" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("2_prxer")
+expand_mode = 2
+
+[node name="StageBG" type="PanelContainer" parent="." node_paths=PackedStringArray("contain_tile")]
+offset_right = 96.0
+offset_bottom = 188.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_34f5g")
+script = ExtResource("4_bqbkv")
+contain_tile = NodePath("../TileContainer/BaseTileMap")
+
+[node name="StagePlacehold" type="Control" parent="StageBG"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
 
 [node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
 unique_name_in_owner = true
@@ -54,6 +86,10 @@ unique_name_in_owner = true
 
 [node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
 
+[node name="UISound" type="Node" parent="LevelUILayer"]
+script = ExtResource("6_1fqve")
+root_path = NodePath("..")
+
 [node name="StatusUI" parent="LevelUILayer" instance=ExtResource("7_ns6dt")]
 
 [node name="Inventory" parent="LevelUILayer" instance=ExtResource("6_vsfj5")]
@@ -61,13 +97,15 @@ anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
+offset_top = 48.0
+offset_bottom = 48.0
 grow_vertical = 0
 
 [node name="DebugContainer" type="VBoxContainer" parent="LevelUILayer"]
 offset_left = 64.0
-offset_top = 864.0
+offset_top = 760.0
 offset_right = 384.0
-offset_bottom = 1044.0
+offset_bottom = 1000.0
 
 [node name="Label" type="Label" parent="LevelUILayer/DebugContainer"]
 layout_mode = 2
@@ -96,10 +134,10 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 1528.0
-offset_top = 452.0
-offset_right = 1528.0
-offset_bottom = 452.0
+offset_left = 1520.0
+offset_top = 404.0
+offset_right = 1520.0
+offset_bottom = 404.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8

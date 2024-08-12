@@ -28,7 +28,7 @@ func _on_stream_finished(stream):
 	available.append(stream)
 
 
-func play(sound_path):
+func _play(sound_path):
 	queue.append(sound_path)
 
 
@@ -38,16 +38,37 @@ func _process(delta):
 		available[0].stream = load(queue.pop_front())
 		available[0].play()
 		available.pop_front()
+		
+	
+func reset():
+	for i in available:
+		(i as AudioStreamPlayer).stop()
 
-#
-#var hit_sfx_list = WeightTable.new(
-	#[
-		#"res://assets/audio/footstep_carpet_000.ogg",
-		#"res://assets/audio/footstep_carpet_001.ogg",
-		#"res://assets/audio/footstep_carpet_002.ogg",
-		#"res://assets/audio/footstep_carpet_003.ogg",
-		#"res://assets/audio/footstep_carpet_004.ogg"
-	#]
-#)
-#func _on_play_enemy_hit():
-	#play(hit_sfx_list.rand_pick())
+	
+func play_win():
+	_play("res://asset/audio/level_audio/up.ogg")
+	
+func play_fail():
+	_play("res://asset/audio/level_audio/down.ogg")
+	
+	
+func play_walk():
+	_play("res://asset/audio/level_audio/move.ogg")
+	
+	
+func play_upgrade():
+	_play("res://asset/audio/ui_audio/confirmation_001.ogg")
+	
+
+var hit_sfx_list = WeightTable.new(
+	[
+		"res://asset/audio/level_audio/laserSmall_000.ogg",
+		"res://asset/audio/level_audio/laserSmall_001.ogg",
+		"res://asset/audio/level_audio/laserSmall_002.ogg",
+		"res://asset/audio/level_audio/laserSmall_003.ogg",
+		"res://asset/audio/level_audio/laserSmall_004.ogg",
+	]
+)
+func play_attack():
+	_play(hit_sfx_list.rand_pick())
+	

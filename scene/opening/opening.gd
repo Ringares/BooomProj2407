@@ -9,9 +9,13 @@ extends Control
 
 
 func _ready():
-	SceneLoader.load_scene(next_scene, true)
-	_add_textures_to_container(images)
-	_animate_images()
+	
+	if images.is_empty():
+		SceneLoader.load_scene(next_scene)
+	else:
+		SceneLoader.load_scene(next_scene, true)
+		_add_textures_to_container(images)
+		_animate_images()
 
 
 func _add_textures_to_container(textures : Array[Texture2D]):

@@ -8,6 +8,7 @@ signal level_reset
 @onready var level_control = %LevelControl
 
 func _ready():
+	SfxManager.reset()
 	AutoLoadEvent.signal_level_won.connect(_on_signal_level_won)
 	#AutoLoadEvent.signal_level_fail.connect(_on_signal_level_fail)
 

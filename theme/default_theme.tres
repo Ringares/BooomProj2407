@@ -1,3 +1,64 @@
-[gd_resource type="Theme" format=3 uid="uid://dv27awldcuv0q"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dv27awldcuv0q"]
+
+[ext_resource type="FontFile" uid="uid://5nhumlafllm5" path="res://asset/font/ZCOOLKuaiLe-Regular.ttf" id="1_7j4gg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wykat"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5flwn"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fo135"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.619489, 0.619489, 0.619489, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dxt5b"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pv4ec"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dnuw5"]
 
 [resource]
+default_font = ExtResource("1_7j4gg")
+Button/font_sizes/font_size = 32
+Button/styles/focus = SubResource("StyleBoxEmpty_wykat")
+Button/styles/hover = SubResource("StyleBoxFlat_5flwn")
+Button/styles/pressed = SubResource("StyleBoxFlat_fo135")
+CheckButton/styles/hover = SubResource("StyleBoxFlat_dxt5b")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_pv4ec")
+CheckButton/styles/pressed = SubResource("StyleBoxEmpty_dnuw5")
+Fonts/fonts/large = ExtResource("1_7j4gg")
+Fonts/fonts/normal = ExtResource("1_7j4gg")
+Label/font_sizes/font_size = 32

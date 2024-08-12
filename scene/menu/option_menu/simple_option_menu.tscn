@@ -25,15 +25,15 @@ layout_mode = 2
 [node name="MuteControl" parent="ControlContainer" instance=ExtResource("2_kauh3")]
 unique_name_in_owner = true
 layout_mode = 2
-option_name = "Mute"
+option_name = "静音设置"
 option_section = 2
-key = "Mute"
+key = "静音设置"
 section = "AudioSettings"
 
 [node name="FullScreenControl" parent="ControlContainer" instance=ExtResource("2_kauh3")]
 unique_name_in_owner = true
 layout_mode = 2
-option_name = "Fullscreen"
+option_name = "全屏设置"
 option_section = 3
 key = "FullscreenEnabled"
 section = "VideoSettings"

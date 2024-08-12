@@ -52,6 +52,8 @@ func _ready():
 	print(viewport_size / 2 ,tile_rect.size * 128 / 2)
 	%TileContainer.global_position = viewport_size / 2 - tile_rect.size * 128 / 2
 	
+	
+	
 
 func _on_load():
 	charactor.attack_compoent.init_data(GameLevelLog.get_charactor_strength())

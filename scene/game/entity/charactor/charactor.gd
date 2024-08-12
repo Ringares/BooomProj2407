@@ -35,7 +35,8 @@ func pre_move_execute(entity:Entity)->bool:
 		play_hit_anim()
 		entity.play_hit_anim()
 		if is_char_dead:
-			AutoLoadEvent.signal_level_fail.emit()
+			SfxManager.play_fail()
+			get_tree().create_timer(1.0).timeout.connect(func():AutoLoadEvent.signal_level_fail.emit())
 			return false
 			
 		if is_enermy_dead:
@@ -49,6 +50,7 @@ func pre_move_execute(entity:Entity)->bool:
 	
 	
 func post_move_execute(entity:Entity):
+	SfxManager.play_walk()
 	if entity == null:
 		return
 	
@@ -63,27 +65,35 @@ func post_move_execute(entity:Entity):
 			print('ENTITY_TYPE.HEALTH_TEMP_UP')
 			health_component.heal_hp((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
+			SfxManager.play_upgrade()
 			
 		Constants.ENTITY_TYPE.HEALTH_UP:
 			print('ENTITY_TYPE.HEALTH_UP')
 			health_component.increase_max_hp((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
+			SfxManager.play_upgrade()
 			
 		Constants.ENTITY_TYPE.STRENGTH_TEMP_UP:
 			print('ENTITY_TYPE.STRENGTH_TEMP_UP')
 			attack_compoent.increase_temp_attack((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
+			SfxManager.play_upgrade()
 		
 		Constants.ENTITY_TYPE.STRENGTH_UP:
 			print('ENTITY_TYPE.STRENGTH_UP')
 			attack_compoent.increase_base_attack((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
+			SfxManager.play_upgrade()
+			
 		Constants.ENTITY_TYPE.EXIT:
 			print('ENTITY_TYPE.EXIT')
-			await get_tree().create_timer(0.5).timeout
+			SfxManager.play_win()
+			await get_tree().create_timer(1.0).timeout
 			AutoLoadEvent.signal_level_won.emit()
+			
 		Constants.ENTITY_TYPE.RECYCLING:
 			pass
+			
 		Constants.ENTITY_TYPE.ENERGY_UP:
 			print('ENTITY_TYPE.ENERGY_UP')
 			resource_component.add_resource((entity as PropertyItem).points)
@@ -106,3 +116,4 @@ func post_move_execute(entity:Entity):
 			
 		Constants.ENTITY_TYPE.SWITCHER:
 			pass
+		

@@ -4,13 +4,20 @@ extends MarginContainer
 @onready var mute_control = %MuteControl
 @onready var full_screen_control = %FullScreenControl
 
+const bus_name_lang = {
+	'Master': '整体音量',
+	'Music': '音乐音量',
+	'SFX': '音效音量'
+}
+
 func _ready():
 	# add_audio_bus_controls
 	for bus_iter in AudioServer.bus_count:
 		var bus_name : String = AudioServer.get_bus_name(bus_iter)
 		var linear : float = AppSettings.get_bus_volume_to_linear(bus_name)
 		print(bus_name, linear)
-		_add_audio_control(bus_name, linear)
+		if bus_name != 'UI':
+			_add_audio_control(bus_name, linear)
 	
 
 
@@ -21,7 +28,7 @@ func _add_audio_control(bus_name, bus_value):
 	%AudioControlContainer.call_deferred("add_child", audio_control)
 	if audio_control is OptionControl:
 		audio_control.option_section = OptionControl.OptionSections.AUDIO
-		audio_control.option_name = bus_name
+		audio_control.option_name = bus_name_lang.get(bus_name, bus_name)
 		audio_control.value = bus_value
 		audio_control.connect("setting_changed", _on_bus_changed.bind(bus_name))
 		

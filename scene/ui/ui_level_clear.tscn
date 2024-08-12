@@ -1,11 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfu5auiwvyj0c"]
+[gd_scene load_steps=3 format=3 uid="uid://dfu5auiwvyj0c"]
 
 [ext_resource type="Script" path="res://scene/ui/ui_level_clear.gd" id="1_wipfs"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="2_ld388"]
 
 [node name="UiVictory" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_wipfs")
 main_menu_scene = "res://scene/menu/main_menu.tscn"
+
+[node name="UISound" type="Node" parent="."]
+script = ExtResource("2_ld388")
+root_path = NodePath("..")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

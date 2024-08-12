@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cew1lc4b8f86w"]
+[gd_scene load_steps=5 format=3 uid="uid://cew1lc4b8f86w"]
 
 [ext_resource type="Script" path="res://scene/menu/pause_menu.gd" id="1_ip65o"]
 [ext_resource type="PackedScene" uid="uid://beaj3udobexnc" path="res://scene/menu/option_menu/simple_option_menu.tscn" id="2_4ply4"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="3_yxqtb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d4b2"]
 bg_color = Color(0.301961, 0.301961, 0.301961, 1)
@@ -10,6 +11,10 @@ bg_color = Color(0.301961, 0.301961, 0.301961, 1)
 script = ExtResource("1_ip65o")
 options_packed_scene = ExtResource("2_4ply4")
 main_menu_scene = "res://scene/menu/main_menu.tscn"
+
+[node name="UISound" type="Node" parent="."]
+script = ExtResource("3_yxqtb")
+root_path = NodePath("..")
 
 [node name="BGColorRect" type="ColorRect" parent="."]
 anchors_preset = 15

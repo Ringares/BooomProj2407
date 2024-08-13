@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_12"
+type="Resource"
+uid="uid://dmxxgotkgrlyf"
+path="res://.godot/imported/cg_dialogue.dialogue-ed19137eaa6c92017258aaa73d61ca8c.tres"
+
+[deps]
+
+source_file="res://scene/dialogue/cg_dialogue.dialogue"
+dest_files=["res://.godot/imported/cg_dialogue.dialogue-ed19137eaa6c92017258aaa73d61ca8c.tres"]
+
+[params]
+
+defaults=true

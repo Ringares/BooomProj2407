@@ -43,6 +43,9 @@ func move_to_pos(to_position:Vector2, need_anim:bool):
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.chain().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+			
+	
+	await tween.finished
 	
 
 

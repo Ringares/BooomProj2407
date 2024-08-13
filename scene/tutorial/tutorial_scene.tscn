@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ceodfvhpsuyc3"]
+
+[node name="TutorialScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2

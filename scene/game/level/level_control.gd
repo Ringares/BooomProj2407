@@ -1,4 +1,6 @@
 extends Node
+class_name LevelControl
+
 
 @export var base_tile:TileMap
 @export var entity_tile:TileMap
@@ -40,8 +42,7 @@ var cell_data = []
 func _ready():
 	tile_rect = base_tile.get_used_rect()
 	step_timer.timeout.connect(_on_step_timer)
-	if is_auto_run:
-		step_timer.start()
+	
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
 	init_level()
 	call_deferred('_on_load')
@@ -56,6 +57,10 @@ func _ready():
 	# TODO check space
 	%TileContainer.global_position -= Vector2(0,(1080 - tile_rect.size.x * 128)/2 - 128)
 	
+	await get_tree().create_timer(1).timeout
+	if is_auto_run:
+		step_timer.start()
+	AutoLoadEvent.signal_step_update.emit(0)
 
 func _on_load():
 	charactor.attack_compoent.init_data(GameLevelLog.get_charactor_strength())
@@ -78,11 +83,7 @@ func _on_save():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
-		if step_timer.is_stopped():
-			step_timer.start()
-		else:
-			step_timer.stop()
-		AutoLoadEvent.signal_level_timer_stopped.emit(step_timer.is_stopped())
+		switch_running_state()
 			
 	if Input.is_action_just_pressed("run_step"):
 		step_timer.stop()
@@ -91,6 +92,19 @@ func _process(delta):
 
 func _on_step_timer():
 	take_step()
+
+func is_running():
+	print("is_running", not step_timer.is_stopped())
+	return not step_timer.is_stopped()
+	
+func switch_running_state():
+	if step_timer.is_stopped():
+			step_timer.start()
+	else:
+		step_timer.stop()
+	AutoLoadEvent.signal_level_timer_stopped.emit(step_timer.is_stopped())
+	
+
 
 func init_level():
 	# 用 tile map 来编辑关卡
@@ -125,7 +139,7 @@ func init_level():
 			#cell_scene.signal_entity_used.connect(_on_signal_entity_used)
 			
 			if item_res.entity_type == Constants.ENTITY_TYPE.CHARACTOR:
-				cell_scene = place_charactor_instance(packed_scene, cell_id, false)
+				cell_scene = await place_charactor_instance(packed_scene, cell_id, false)
 				charactor = cell_scene
 			else:
 				cell_scene = place_entity_instance(packed_scene, cell_id)
@@ -169,7 +183,9 @@ func place_charactor_instance(packed_scene:PackedScene, cell_id:Vector2i, need_a
 		entity_container.add_child(charactor)
 
 	charactor.cell_id = cell_id
-	charactor.move_to_pos(entity_tile.map_to_local(cell_id), need_anim)
+	await charactor.move_to_pos(entity_tile.map_to_local(cell_id), need_anim)
+	AutoLoadEvent.signal_cell_arraived.emit(cell_id)
+	
 	return charactor
 
 
@@ -192,6 +208,12 @@ func place_entity_instance(packed_scene:PackedScene, cell_id:Vector2i):
 
 
 func take_step():
+	print()
+	print()
+	print()
+	print("take_step=>> ", running_step)
+	print("is_auto_run=>> ", is_auto_run)
+	print("is_running=>> ", is_running())
 	var char_direction = charactor.get_direction()
 	entity_container.move_child(charactor, -1)
 	if char_direction:

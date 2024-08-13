@@ -14,6 +14,8 @@ signal signal_pickitem_cancel
 
 
 signal signal_step_update
+signal signal_cell_arraived
+
 signal signal_hp_update
 signal signal_str_update
 signal signal_energy_update

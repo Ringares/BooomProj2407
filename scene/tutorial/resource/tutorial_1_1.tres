@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Tutorial" load_steps=2 format=3 uid="uid://bk48symmyf85j"]
+
+[ext_resource type="Script" path="res://scene/tutorial/resource/tutorial.gd" id="1_hamwb"]
+
+[resource]
+script = ExtResource("1_hamwb")
+dialog_name = "tutorial_1_1"
+portrait = "ai"
+trigger_step = 0
+trigger_cell = Vector2i(-1, -1)
+highlight_item = -1
+highlight_cell = Vector2i(2, 0)

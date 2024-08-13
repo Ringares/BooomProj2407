@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://vveuub1gdeuw"]
+[gd_scene load_steps=25 format=3 uid="uid://vveuub1gdeuw"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_0aac6"]
 [ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="2_86fer"]
@@ -10,7 +10,16 @@
 [ext_resource type="Script" path="res://script/ui_sound.gd" id="6_1fqve"]
 [ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_vsfj5"]
 [ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/status_ui.tscn" id="7_ns6dt"]
+[ext_resource type="Script" path="res://scene/tutorial/tutorial_control.gd" id="7_qus0e"]
+[ext_resource type="Resource" uid="uid://bk48symmyf85j" path="res://scene/tutorial/resource/tutorial_1_1.tres" id="8_dtj1u"]
+[ext_resource type="Resource" uid="uid://cxvju6aybmwsg" path="res://scene/tutorial/resource/tutorial_1_2.tres" id="9_dj0es"]
+[ext_resource type="PackedScene" uid="uid://xljx415pegss" path="res://scene/dialogue/tutorial_balloon.tscn" id="9_dkm5m"]
+[ext_resource type="Resource" uid="uid://tuxrjtg6bhsm" path="res://scene/dialogue/tutorial_dialogue.dialogue" id="10_8dfui"]
+[ext_resource type="Resource" uid="uid://dcmmrp6o1b38v" path="res://scene/tutorial/resource/tutorial_1_3.tres" id="10_cpyx0"]
+[ext_resource type="Resource" uid="uid://xl6pw4awlkwt" path="res://scene/tutorial/resource/tutorial_1_4.tres" id="11_lo3xy"]
 [ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="11_sbbw6"]
+[ext_resource type="Resource" uid="uid://brtmlhavx87h4" path="res://scene/tutorial/resource/tutorial_1_5.tres" id="12_txdxs"]
+[ext_resource type="Script" path="res://scene/tutorial/resource/level_tutorial.gd" id="13_4vxw0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34f5g"]
 texture = ExtResource("5_ufly5")
@@ -31,6 +40,10 @@ script = ExtResource("3_lsdqq")
 cell_idx = Vector2i(1, 3)
 contain_type = 4
 contain_count = 1
+
+[sub_resource type="Resource" id="Resource_k364x"]
+script = ExtResource("13_4vxw0")
+data = Array[Resource("res://scene/tutorial/resource/tutorial.gd")]([ExtResource("8_dtj1u"), ExtResource("9_dj0es"), ExtResource("10_cpyx0"), ExtResource("11_lo3xy"), ExtResource("12_txdxs")])
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0aac6")
@@ -63,6 +76,13 @@ level_name = "Level 1"
 is_auto_run = true
 step_duration = 0.5
 chest_contains = Array[ExtResource("3_lsdqq")]([SubResource("Resource_geuyl"), SubResource("Resource_vxa5p")])
+
+[node name="TutorialControl" type="Node" parent="." node_paths=PackedStringArray("level_control")]
+script = ExtResource("7_qus0e")
+tutorial_data = SubResource("Resource_k364x")
+level_control = NodePath("../LevelControl")
+totorial_balloon_scene = ExtResource("9_dkm5m")
+dialog_resource = ExtResource("10_8dfui")
 
 [node name="Timer" type="Timer" parent="."]
 

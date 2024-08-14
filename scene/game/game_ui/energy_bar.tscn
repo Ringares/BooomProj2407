@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2fe3lwqgp2c3"]
+
+[ext_resource type="Script" path="res://scene/game/game_ui/progress_bar.gd" id="1_vuchx"]
+[ext_resource type="Texture2D" uid="uid://b8x7t0p43ufvs" path="res://asset/image/ui/hpbar_1.png" id="2_t077i"]
+[ext_resource type="Script" path="res://scene/game/game_ui/grid_draw_node.gd" id="3_3r32v"]
+[ext_resource type="Texture2D" uid="uid://cu2ax36q70gb0" path="res://asset/image/ui/hpbar_2.png" id="4_ahttr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c1dfo"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_usxnk"]
+bg_color = Color(0.352941, 0.764706, 0.913725, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="EnergyeBar" type="Control"]
+custom_minimum_size = Vector2(360, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 64.0
+script = ExtResource("1_vuchx")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+texture = ExtResource("2_t077i")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 12
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_c1dfo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_usxnk")
+max_value = 3.0
+step = 1.0
+value = 2.0
+show_percentage = false
+
+[node name="GridDrawNode" type="Sprite2D" parent="MarginContainer"]
+unique_name_in_owner = true
+position = Vector2(10, 12)
+script = ExtResource("3_3r32v")
+slot_count = 3
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+texture = ExtResource("4_ahttr")

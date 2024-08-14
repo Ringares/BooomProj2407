@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxqw21tofdkhb"]
+
+[ext_resource type="PackedScene" uid="uid://c2fe3lwqgp2c3" path="res://scene/game/game_ui/energy_bar.tscn" id="1_xrj3t"]
+[ext_resource type="Texture2D" uid="uid://dqr6c1o62ufrd" path="res://asset/image/ui/power_icon.png" id="1_xsw83"]
+
+[node name="PowerUi" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_xsw83")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="ResourceBar" parent="HBoxContainer" instance=ExtResource("1_xrj3t")]
+layout_mode = 2

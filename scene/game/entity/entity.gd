@@ -34,7 +34,7 @@ func start_highlight():
 	
 	tween = create_tween()
 	tween.set_loops()
-	tween.tween_property(sprite_2d, "position", Vector2(0,-8), 0.25)\
+	tween.tween_property(sprite_2d, "position", Vector2(0,-16), 0.25)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	tween.tween_property(sprite_2d, "position", Vector2(0,0), 0.5)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
@@ -83,6 +83,8 @@ func start_teleport_in():
 	tween = create_tween()
 	tween.tween_property(sprite_2d.material, "shader_parameter/progress", 0., 2)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+		
+
 
 
 func start_teleport_out():

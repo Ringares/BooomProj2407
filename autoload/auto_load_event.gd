@@ -5,7 +5,8 @@ signal signal_level_advance
 signal signal_level_fail
 signal signal_level_reset
 
-signal signal_level_timer_stopped
+signal signal_change_level_run_state
+signal signal_level_run_state_changed
 
 
 signal signal_pickitem_drop

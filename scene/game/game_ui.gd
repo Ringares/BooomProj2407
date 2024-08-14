@@ -39,7 +39,7 @@ func _on_level_loader_level_loaded():
 
 func _on_level_loader_levels_finished():
 	print('game_ui _on_level_loader_levels_finished')
-
+	
 
 func _on_level_lost():
 	print('game_ui _on_level_lost')

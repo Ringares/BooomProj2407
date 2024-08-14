@@ -1,6 +1,7 @@
 extends Resource
 class_name Tutorial
 
+@export var dialog_id:int
 @export var dialog_name:String
 @export_enum("none", "boy", "cat", "ai") var portrait = "none"
 @export var trigger_step:int = -1

@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg5bka8aaypal"]
+
+[ext_resource type="Script" path="res://scene/game/game_ui.gd" id="1_wdsvf"]
+[ext_resource type="PackedScene" uid="uid://bmd3n7oiftiss" path="res://scene/game/game_ui/pause_controler.tscn" id="2_j5lmg"]
+[ext_resource type="PackedScene" uid="uid://cew1lc4b8f86w" path="res://scene/menu/pause_menu.tscn" id="3_0dlfl"]
+[ext_resource type="Script" path="res://scene/game/level/level_loader.gd" id="4_e5y8q"]
+[ext_resource type="PackedScene" uid="uid://ban7h454m12ap" path="res://scene/game/level/levels/level_temp.tscn" id="5_506mg"]
+
+[sub_resource type="Environment" id="Environment_11cwd"]
+background_mode = 3
+glow_enabled = true
+glow_strength = 1.15
+glow_blend_mode = 1
+
+[node name="TestGameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wdsvf")
+
+[node name="PauseController" parent="." instance=ExtResource("2_j5lmg")]
+pause_menu_packed = ExtResource("3_0dlfl")
+
+[node name="LevelLoader" type="Node" parent="." node_paths=PackedStringArray("level_container")]
+script = ExtResource("4_e5y8q")
+level_container = NodePath("../ViewportContainer/SubViewport")
+test_level = ExtResource("5_506mg")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_11cwd")
+
+[connection signal="level_load_started" from="LevelLoader" to="." method="_on_level_loader_level_load_started"]
+[connection signal="level_loaded" from="LevelLoader" to="." method="_on_level_loader_level_loaded"]
+[connection signal="levels_finished" from="LevelLoader" to="." method="_on_level_loader_levels_finished"]

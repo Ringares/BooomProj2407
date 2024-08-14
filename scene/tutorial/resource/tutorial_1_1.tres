@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_hamwb")
+dialog_id = 101
 dialog_name = "tutorial_1_1"
 portrait = "ai"
 trigger_step = 0

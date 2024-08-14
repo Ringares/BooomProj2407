@@ -9,10 +9,11 @@ class_name LevelControl
 
 @export_category("level setting")
 @export var level_name:String = "default level name"
-@export var is_auto_run:bool = false
+@export var is_auto_run:bool = true
 @export var step_duration:float = 0.3
 @export_enum("right", "down", "left", "up") var init_direction_str = "right"
 @export var init_energy = 0
+@export var debug_game_data:DebugGameData
 @export var chest_contains:Array[ChestData]:
 	set(value):
 		chest_contains = value
@@ -44,6 +45,7 @@ func _ready():
 	step_timer.timeout.connect(_on_step_timer)
 	
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
+	AutoLoadEvent.signal_change_level_run_state.connect(_on_signal_change_level_run_state)
 	init_level()
 	call_deferred('_on_load')
 	
@@ -63,12 +65,16 @@ func _ready():
 	AutoLoadEvent.signal_step_update.emit(0)
 
 func _on_load():
-	charactor.attack_compoent.init_data(GameLevelLog.get_charactor_strength())
-	charactor.health_component.init_data(GameLevelLog.get_charactor_maxhp())
-	charactor.resource_component.init_data(init_energy, GameLevelLog.get_player_energy_capacity())
-
-	
-	if inventory:
+	if debug_game_data:
+		charactor.attack_compoent.init_data(debug_game_data.debug_charactor_strength)
+		charactor.health_component.init_data(debug_game_data.debug_charactor_maxhp)
+		charactor.resource_component.init_data(init_energy, debug_game_data.debug_player_energy_capacity)
+		inventory.init_debug_data(debug_game_data.inven_data)
+		
+	else:
+		charactor.attack_compoent.init_data(GameLevelLog.get_charactor_strength())
+		charactor.health_component.init_data(GameLevelLog.get_charactor_maxhp())
+		charactor.resource_component.init_data(init_energy, GameLevelLog.get_player_energy_capacity())
 		inventory.init_data(GameLevelLog.get_inventory_data())
 
 func _on_save():
@@ -81,7 +87,7 @@ func _on_save():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _unhandled_input(event):
 	if Input.is_action_just_pressed("ui_accept"):
 		switch_running_state()
 			
@@ -90,21 +96,35 @@ func _process(delta):
 		take_step()
 
 
-func _on_step_timer():
-	take_step()
 
+#region gamestate
 func is_running():
 	print("is_running", not step_timer.is_stopped())
 	return not step_timer.is_stopped()
 	
 func switch_running_state():
-	if step_timer.is_stopped():
-			step_timer.start()
+	if is_running():
+		step_timer.stop()
+	else:
+		step_timer.start()
+		
+	await get_tree().process_frame
+	AutoLoadEvent.signal_level_run_state_changed.emit(is_running())
+
+func _on_step_timer():
+	take_step()
+	
+func _on_signal_change_level_run_state(is_run:bool):
+	if is_run:
+		step_timer.start()
+		await get_tree().process_frame
+		AutoLoadEvent.signal_level_run_state_changed.emit(is_running())
 	else:
 		step_timer.stop()
-	AutoLoadEvent.signal_level_timer_stopped.emit(step_timer.is_stopped())
-	
+		await get_tree().process_frame
+		AutoLoadEvent.signal_level_run_state_changed.emit(is_running())
 
+#endregion
 
 func init_level():
 	# 用 tile map 来编辑关卡
@@ -213,7 +233,7 @@ func take_step():
 	print()
 	print("take_step=>> ", running_step)
 	print("is_auto_run=>> ", is_auto_run)
-	print("is_running=>> ", is_running())
+	print("is_ruxnning=>> ", is_running())
 	var char_direction = charactor.get_direction()
 	entity_container.move_child(charactor, -1)
 	if char_direction:
@@ -221,7 +241,8 @@ func take_step():
 		var tar_cell = cell_data[tar_cell_id.x][tar_cell_id.y]
 		var check_pass = charactor.pre_move_execute(tar_cell)
 		if check_pass:
-			place_charactor_instance(null, tar_cell_id, true)
+			var need_anim = Vector2(charactor.cell_id).distance_to(Vector2(tar_cell_id)) <= 1.1
+			place_charactor_instance(null, tar_cell_id, need_anim)
 			charactor.post_move_execute(tar_cell)
 	running_step += 1
 	AutoLoadEvent.signal_step_update.emit(running_step)

@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://chqaicamvdhcb"]
+
+[ext_resource type="Script" path="res://scene/game/level/levels/status_ui.gd" id="1_dekks"]
+[ext_resource type="Texture2D" uid="uid://rrmlixiupkp3" path="res://asset/image/ui/cat_portrait.png" id="2_rfrlt"]
+[ext_resource type="Texture2D" uid="uid://b4bmdcu3l0yb6" path="res://asset/image/ui/attack_icon.png" id="3_h1j53"]
+[ext_resource type="PackedScene" uid="uid://clrwwkmf2pq2j" path="res://scene/game/game_ui/hp_icon.tscn" id="3_ssyxc"]
+[ext_resource type="Theme" uid="uid://oagauisywtfc" path="res://theme/ui_label_theme.tres" id="5_rqtgs"]
+
+[node name="StatusUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_dekks")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_right = 784.0
+offset_bottom = 160.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+texture = ExtResource("2_rfrlt")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = -8
+
+[node name="HpContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = -8
+
+[node name="HPIcon" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/HpContainer" instance=ExtResource("3_ssyxc")]
+visible = false
+layout_mode = 2
+
+[node name="TempHpContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = -8
+
+[node name="HPIcon" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/TempHpContainer" instance=ExtResource("3_ssyxc")]
+visible = false
+modulate = Color(0.352941, 0.764706, 0.913725, 1)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+modulate = Color(0.607843, 0.717647, 0.941176, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_h1j53")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="AttackLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_rqtgs")
+theme_override_colors/font_color = Color(0.607843, 0.717647, 0.941176, 1)
+theme_override_font_sizes/font_size = 48
+text = "15 "

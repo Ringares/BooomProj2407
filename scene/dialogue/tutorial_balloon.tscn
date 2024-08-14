@@ -12,6 +12,7 @@ size = Vector2(64, 64)
 [node name="TutorialBalloon" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_owd3e")
+need_character_label = false
 
 [node name="Balloon" type="Control" parent="."]
 unique_name_in_owner = true
@@ -23,27 +24,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_gi4gq")
 
-[node name="Panel" type="Panel" parent="Balloon"]
+[node name="Panel" type="PanelContainer" parent="Balloon"]
 clip_children = 2
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 1408.0
-offset_top = -1080.0
-offset_bottom = -936.0
-grow_horizontal = 2
-grow_vertical = 0
+offset_top = 128.0
+offset_right = 1920.0
+offset_bottom = 240.0
 mouse_filter = 1
 
 [node name="Dialogue" type="MarginContainer" parent="Balloon/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -51,21 +43,23 @@ theme_override_constants/margin_bottom = 16
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Balloon/Panel/Dialogue"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 16
 
 [node name="Portrait" type="TextureRect" parent="Balloon/Panel/Dialogue/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 0
 texture = SubResource("PlaceholderTexture2D_vt01g")
-stretch_mode = 2
+expand_mode = 2
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Balloon/Panel/Dialogue/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 16
 
 [node name="CharacterLabel" type="RichTextLabel" parent="Balloon/Panel/Dialogue/HBoxContainer/VBoxContainer"]
@@ -87,14 +81,15 @@ scroll_active = false
 [node name="DialogueLabel" parent="Balloon/Panel/Dialogue/HBoxContainer/VBoxContainer" instance=ExtResource("3_ykasn")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/line_separation = 8
+size_flags_vertical = 0
+theme_override_constants/line_separation = 4
 theme_override_font_sizes/normal_font_size = 24
 theme_override_font_sizes/bold_font_size = 24
 theme_override_font_sizes/italics_font_size = 24
 theme_override_font_sizes/bold_italics_font_size = 24
 theme_override_font_sizes/mono_font_size = 24
-text = "我们也可以利用手中的轨道改变猫咪的行动路线，点击道具栏中的轨道，再把它放置到想放的地块试试吧。"
+text = "我们也可以利用手中的轨道改变猫咪的行动路
+"
 seconds_per_step = 0.04
 
 [node name="Responses" type="MarginContainer" parent="Balloon"]

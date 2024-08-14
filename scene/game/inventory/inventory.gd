@@ -52,6 +52,15 @@ func init_data(_init_data:Array):
 	update_ui()
 	print('inven_data', inven_data)
 	
+func init_debug_data(_init_data:Array[Constants.ENTITY_TYPE]):
+	for entity_type in _init_data:
+		if entity_type == Constants.ENTITY_TYPE.EMPTY:
+			inven_data.append(null)
+		else:
+			inven_data.append(IvenItem.instantiate(entity_type, 1))
+	update_ui()
+	print('inven_data', inven_data)
+	
 
 func update_ui():
 	var slots = get_tree().get_nodes_in_group("item_slot") as Array[ItemSlot]

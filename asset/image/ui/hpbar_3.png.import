@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0i1b24w4fpf5"
-path="res://.godot/imported/Background_stage.png-082e1c458cdac1eaf0725f950ad7300f.ctex"
+uid="uid://b5kes4mwil6cl"
+path="res://.godot/imported/hpbar_3.png-45015f7dc9fd3c14565227958223d951.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/image/Background_stage.png"
-dest_files=["res://.godot/imported/Background_stage.png-082e1c458cdac1eaf0725f950ad7300f.ctex"]
+source_file="res://asset/image/ui/hpbar_3.png"
+dest_files=["res://.godot/imported/hpbar_3.png-45015f7dc9fd3c14565227958223d951.ctex"]
 
 [params]
 

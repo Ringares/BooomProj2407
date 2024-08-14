@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_8385q")
+dialog_id = 104
 dialog_name = "tutorial_1_4"
 portrait = "ai"
 trigger_step = -1

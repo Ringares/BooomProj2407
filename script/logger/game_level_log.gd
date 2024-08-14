@@ -30,7 +30,10 @@ static func reset_game_data() -> void:
 	Config.set_config(GAME_LOG_SECTION, PLAYER_ENERGY_CAPACITY, INIT_PLAYER_ENERGY_CAPACITY)
 	
 	#
-	Config.set_config(GAME_LOG_SECTION, INVENTORY_DATA, [null,null,null,null,null,null])
+	Config.set_config(GAME_LOG_SECTION, INVENTORY_DATA, [null,null,null,null,null])
+	
+	#
+	Config.set_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, 0)
 	
 
 
@@ -70,5 +73,14 @@ static func set_inventory_data(data:Variant):
 	Config.set_config(GAME_LOG_SECTION, INVENTORY_DATA, data)
 	
 static func get_inventory_data():
-	return Config.get_config(GAME_LOG_SECTION, INVENTORY_DATA, [null,null,null,null,null,null])
+	return Config.get_config(GAME_LOG_SECTION, INVENTORY_DATA, [null,null,null,null,null])
 	
+
+
+### tutorial data
+const TUTORIAL_FINISHED = "TutorialFinished"
+static func set_finished_tutorial_id(data:Variant):
+	Config.set_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, data)
+
+static func get_finished_tutorial_id():
+	return Config.get_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, 0)

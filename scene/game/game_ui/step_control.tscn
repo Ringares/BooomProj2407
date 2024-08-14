@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://deiwl7gpwkhmk"]
+
+[ext_resource type="Script" path="res://scene/game/game_ui/step_control.gd" id="1_qsp0w"]
+[ext_resource type="Texture2D" uid="uid://c0on0apmidvml" path="res://asset/image/icons8-pause-100.png" id="1_yvhwr"]
+[ext_resource type="Texture2D" uid="uid://bog28h08egpuf" path="res://asset/image/icons8-play-100.png" id="2_cjfi0"]
+
+[node name="StepControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 8
+script = ExtResource("1_qsp0w")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+offset_right = 288.0
+offset_bottom = 132.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PauseButton" type="Button" parent="PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(288, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "暂停 
+[SPACE]"
+icon = ExtResource("1_yvhwr")
+
+[node name="RunButton" type="Button" parent="PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(288, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "前进
+[SPACE]"
+icon = ExtResource("2_cjfi0")
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/RunButton" to="." method="_on_run_button_pressed"]

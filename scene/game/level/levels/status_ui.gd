@@ -1,41 +1,49 @@
 extends Control
 
-@onready var hp_label = %HPLabel
-@onready var str_label = %STRLabel
-@onready var energy_label = %EnergyLabel
-@onready var step_label = %StepLabel
-@onready var status_label = %StatusLabel
 
+@onready var attack_label = %AttackLabel
+@onready var hp_container = %HpContainer
+@onready var temp_hp_container = %TempHpContainer
 
+const HP_ICON = preload("res://scene/game/game_ui/hp_icon.tscn")
+const HEART_COLOR = Color("#ff9b9b")
+const SHIELD_COLOR = Color("#5ac3e9")
+
+var hp_icons = []
+var temp_hp_icons = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	AutoLoadEvent.signal_step_update.connect(_on_signal_step_update)
 	AutoLoadEvent.signal_hp_update.connect(_on_signal_hp_update)
 	AutoLoadEvent.signal_str_update.connect(_on_signal_str_update)
-	AutoLoadEvent.signal_energy_update.connect(_on_signal_energy_update)
-	AutoLoadEvent.signal_inventory_capacity_increase.connect(_on_signal_inventory_capacity_temp_update)
+
+
+func _on_signal_hp_update(curr_hp, curr_temp, max_hp):
+	print('_on_signal_hp_update', curr_hp, curr_temp, max_hp)
+	#hp_label.text = "%d / %d" % [data1, data2]
+	if hp_icons.size() < curr_hp:
+		for i in curr_hp - hp_icons.size():
+			var hp_icon = HP_ICON.instantiate()
+			hp_icon.modulate = HEART_COLOR
+			hp_container.add_child(hp_icon)
+			hp_icons.append(hp_icon)
+	elif hp_icons.size() > curr_hp:
+		for i in hp_icons.size() - curr_hp:
+			hp_icons.pop_front().queue_free()
 	
-	AutoLoadEvent.signal_level_timer_stopped.connect(_on_signal_level_timer_stopped)
+	if temp_hp_icons.size() < curr_temp:
+		for i in curr_temp - temp_hp_icons.size():
+			var temp_hp_icon = HP_ICON.instantiate()
+			temp_hp_icon.modulate = SHIELD_COLOR
+			temp_hp_container.add_child(temp_hp_icon)
+			temp_hp_icons.append(temp_hp_icon)
+	elif temp_hp_icons.size() > curr_temp:
+		for i in temp_hp_icons.size() - curr_temp:
+			temp_hp_icons.pop_front().queue_free()
 
 
-func _on_signal_step_update(data):
-	step_label.text = str(data)
-
-func _on_signal_hp_update(data1, data2):
-	hp_label.text = "%d / %d" % [data1, data2]
-
-func _on_signal_str_update(data1, data2):
-	str_label.text = "%d / %d" % [data1, data2]
-
-func _on_signal_energy_update(data1, data2):
-	energy_label.text = "%d / %d" % [data1, data2]
-
-func _on_signal_inventory_capacity_temp_update(data1, data2):
-	pass
-
-func _on_signal_level_timer_stopped(is_stoped:bool):
-	if is_stoped:
-		status_label.text = 'PAUSED'
+func _on_signal_str_update(temp_attack, base_attack):
+	if temp_attack > 0:
+		attack_label.text = "%d + %d" % [base_attack, temp_attack]
 	else:
-		status_label.text = 'RUNNING'
+		attack_label.text = "%d" % [base_attack]

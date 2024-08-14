@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwfnmf2im67hs"]
+[gd_scene load_steps=7 format=3 uid="uid://cwfnmf2im67hs"]
 
 [ext_resource type="Script" path="res://scene/game/entity/enermy/enermy.gd" id="1_etinw"]
 [ext_resource type="Script" path="res://component/attack_component.gd" id="2_lcop8"]
 [ext_resource type="Script" path="res://component/health_component.gd" id="3_x3p7m"]
 [ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="4_ravsl"]
+[ext_resource type="Theme" uid="uid://oagauisywtfc" path="res://theme/ui_label_theme.tres" id="5_1ddy7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivpil"]
 atlas = ExtResource("4_ravsl")
@@ -16,7 +17,6 @@ type = 21
 
 [node name="AttackComponent" type="Node" parent="."]
 script = ExtResource("2_lcop8")
-temp_attack = 3
 base_attack = 3
 
 [node name="HealthComponent" type="Node" parent="."]
@@ -28,9 +28,12 @@ max_hp = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
 unique_name_in_owner = true
+scale = Vector2(1.05, 1.05)
 texture = SubResource("AtlasTexture_ivpil")
+offset = Vector2(4, -8)
 
-[node name="Control" type="Control" parent="."]
+[node name="StatusLabel" type="Control" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 3
 anchors_preset = 8
@@ -45,19 +48,22 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HPLabel" type="Label" parent="Control"]
+[node name="HPLabel" type="Label" parent="StatusLabel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -23.0
-offset_right = 48.0
+offset_left = 4.0
+offset_top = -39.0
+offset_right = 17.0
+offset_bottom = -2.0
 grow_vertical = 0
-text = "HP:"
+theme = ExtResource("5_1ddy7")
+theme_override_font_sizes/font_size = 36
+text = "1"
 
-[node name="AtkLabel" type="Label" parent="Control"]
+[node name="AtkLabel" type="Label" parent="StatusLabel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
@@ -65,9 +71,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -23.0
-offset_right = -8.0
+offset_left = -17.0
+offset_top = -39.0
+offset_right = -4.0
+offset_bottom = -2.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "ATK:"
+theme = ExtResource("5_1ddy7")
+theme_override_colors/font_color = Color(0.607843, 0.717647, 0.941176, 1)
+theme_override_font_sizes/font_size = 36
+text = "1"

@@ -1,30 +1,31 @@
 [gd_scene load_steps=4 format=3 uid="uid://bknm3xrst1afj"]
 
-[ext_resource type="Texture2D" uid="uid://m8qpyxdmwtpy" path="res://asset/image/tile128.png" id="1_7xyul"]
 [ext_resource type="Script" path="res://scene/game/inventory/item_container.gd" id="1_jwopd"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_owcfb"]
-atlas = ExtResource("1_7xyul")
-region = Rect2(0, 0, 128, 128)
+[ext_resource type="Texture2D" uid="uid://f5025s04u64l" path="res://asset/image/ui/inven_slot.png" id="2_akrcm"]
+[ext_resource type="Theme" uid="uid://oagauisywtfc" path="res://theme/ui_label_theme.tres" id="3_avd4k"]
 
 [node name="ItemContainer" type="MarginContainer" groups=["item_slot"]]
 script = ExtResource("1_jwopd")
 
 [node name="TextureRectBG" type="TextureRect" parent="."]
-modulate = Color(0.485703, 0.485704, 0.485703, 1)
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = SubResource("AtlasTexture_owcfb")
+texture = ExtResource("2_akrcm")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 expand_mode = 1
+stretch_mode = 5
 
 [node name="CountLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_vertical = 8
+theme = ExtResource("3_avd4k")
+text = "1"
 horizontal_alignment = 2
 vertical_alignment = 2
 

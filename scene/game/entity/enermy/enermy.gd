@@ -12,6 +12,7 @@ var curr_step:int = 0
 var dead_step:int = 0
 @onready var hp_label = %HPLabel
 @onready var atk_label = %AtkLabel
+@onready var status_label = %StatusLabel
 
 
 
@@ -22,14 +23,15 @@ func _ready():
 
 func update_ui():
 	if hp_label:
-		hp_label.text = "HP: %d" % health_component.curr_hp
+		hp_label.text = "%d" % health_component.curr_hp
 	if atk_label:
-		atk_label.text = "ATK: %d" % attack_component.get_attack_damage()
+		atk_label.text = "%d" % attack_component.get_attack_damage()
 
 
 func play_hit_anim():
 	# TODO anim
 	start_flash()
+	update_ui()
 
 
 func dead():
@@ -37,6 +39,7 @@ func dead():
 	dead_step = curr_step
 	#visual.hide()
 	#visual.modulate = Color.DIM_GRAY
+	status_label.hide()
 	start_teleport_out()
 	
 	
@@ -44,8 +47,11 @@ func revive():
 	is_valid = true
 	#visual.modulate = Color.WHITE
 	#visual.show()
-	start_teleport_in()
 	SfxManager.play_revive()
+	start_teleport_in()
+	health_component.reset_hp()
+	update_ui()
+	get_tree().create_timer(0.3).timeout.connect(func():status_label.show())
 	
 
 func _on_signal_step_update(step:int):

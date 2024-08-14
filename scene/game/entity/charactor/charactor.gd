@@ -78,8 +78,8 @@ func pre_move_execute(entity:Entity)->bool:
 			return true
 		
 		# 战斗逻辑
-		var is_char_dead = health_component.take_damage((entity as Enermy).attack_component.temp_attack)
-		var is_enermy_dead = (entity as Enermy).health_component.take_damage(attack_compoent.temp_attack)
+		var is_char_dead = health_component.take_damage((entity as Enermy).attack_component.get_attack_damage())
+		var is_enermy_dead = (entity as Enermy).health_component.take_damage(attack_compoent.get_attack_damage())
 		play_hit_anim()
 		entity.play_hit_anim()
 		SfxManager.play_attack()

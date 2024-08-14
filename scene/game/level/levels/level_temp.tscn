@@ -1,0 +1,254 @@
+[gd_scene load_steps=28 format=3 uid="uid://ban7h454m12ap"]
+
+[ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_5stro"]
+[ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_fi4ye"]
+[ext_resource type="Texture2D" uid="uid://dhvgb5xwqy1q0" path="res://asset/image/stage.png" id="3_y1mpu"]
+[ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_37hfq"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="5_sn1jt"]
+[ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_v63aq"]
+[ext_resource type="PackedScene" uid="uid://deiwl7gpwkhmk" path="res://scene/game/game_ui/step_control.tscn" id="7_h1tq2"]
+[ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/game_ui/status_ui.tscn" id="8_0q65n"]
+[ext_resource type="PackedScene" uid="uid://bxqw21tofdkhb" path="res://scene/game/game_ui/power_ui.tscn" id="9_31lip"]
+[ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="10_1n8vr"]
+[ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="11_oeyry"]
+[ext_resource type="Script" path="res://scene/tutorial/tutorial_control.gd" id="12_xy7nr"]
+[ext_resource type="PackedScene" uid="uid://xljx415pegss" path="res://scene/dialogue/tutorial_balloon.tscn" id="13_ot2sg"]
+[ext_resource type="Resource" uid="uid://tuxrjtg6bhsm" path="res://scene/dialogue/tutorial_dialogue.dialogue" id="14_ino1l"]
+[ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="15_j0i4b"]
+[ext_resource type="Script" path="res://util/debug_game_data.gd" id="16_1etrr"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="16_j3hab"]
+[ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="17_p47yy"]
+[ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="18_p6h41"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34f5g"]
+texture = ExtResource("3_y1mpu")
+texture_margin_left = 24.0
+texture_margin_top = 36.0
+texture_margin_right = 24.0
+texture_margin_bottom = 132.0
+region_rect = Rect2(561, 70, 823, 871)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xhj"]
+shader = ExtResource("10_1n8vr")
+shader_parameter/progress = 1.0
+shader_parameter/multiplier = 3.0
+shader_parameter/angle = 0.0
+shader_parameter/anchor = Vector2(0.5, 0.5)
+shader_parameter/anchorOffset = 1.0
+shader_parameter/diamondPixelSize = 80.0
+
+[sub_resource type="Animation" id="Animation_puw1d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_gredy"]
+resource_name = "scene_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/progress")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc1st"]
+_data = {
+"RESET": SubResource("Animation_puw1d"),
+"scene_open": SubResource("Animation_gredy")
+}
+
+[sub_resource type="Resource" id="Resource_ulq7h"]
+script = ExtResource("16_1etrr")
+debug_charactor_maxhp = 5
+debug_charactor_strength = 1
+debug_player_energy_capacity = 6
+inven_data = Array[int]([2, 2, -2, -2, -2])
+
+[sub_resource type="Resource" id="Resource_geuyl"]
+script = ExtResource("16_j3hab")
+cell_idx = Vector2i(3, 0)
+contain_type = 2
+contain_count = 1
+
+[sub_resource type="Resource" id="Resource_l37wy"]
+script = ExtResource("16_j3hab")
+cell_idx = Vector2i(5, 5)
+contain_type = 20
+contain_count = 1
+
+[node name="LevelTemp" type="Node2D"]
+script = ExtResource("1_5stro")
+
+[node name="LevelBGLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundTextureRect" parent="LevelBGLayer" instance=ExtResource("2_fi4ye")]
+
+[node name="StageBG" type="PanelContainer" parent="LevelBGLayer" node_paths=PackedStringArray("contain_tile")]
+offset_left = 600.0
+offset_top = 96.0
+offset_right = 1304.0
+offset_bottom = 896.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_34f5g")
+script = ExtResource("4_37hfq")
+contain_tile = NodePath("../../TileContainer/BaseTileMap")
+
+[node name="StagePlacehold" type="Control" parent="LevelBGLayer/StageBG"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
+
+[node name="UISound" type="Node" parent="LevelUILayer"]
+script = ExtResource("5_sn1jt")
+root_path = NodePath("..")
+
+[node name="Inventory" parent="LevelUILayer" instance=ExtResource("6_v63aq")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 904.0
+offset_right = 16.0
+offset_bottom = 904.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="DebugContainer" type="VBoxContainer" parent="LevelUILayer"]
+offset_left = 64.0
+offset_top = 768.0
+offset_right = 384.0
+offset_bottom = 1008.0
+
+[node name="Label" type="Label" parent="LevelUILayer/DebugContainer"]
+layout_mode = 2
+text = "
+Test Info
+Test Level 1"
+
+[node name="WinButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Win"
+
+[node name="LoseButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Lose"
+
+[node name="ResetButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Reset"
+
+[node name="StepControl" parent="LevelUILayer" instance=ExtResource("7_h1tq2")]
+offset_left = 1600.0
+offset_right = 1600.0
+
+[node name="StatusUI" parent="LevelUILayer" instance=ExtResource("8_0q65n")]
+
+[node name="PowerUi" parent="LevelUILayer" instance=ExtResource("9_31lip")]
+offset_left = 1464.0
+offset_top = 832.0
+offset_right = 1464.0
+offset_bottom = 832.0
+
+[node name="TextureRect" type="TextureRect" parent="LevelUILayer"]
+material = SubResource("ShaderMaterial_k2xhj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_oeyry")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelUILayer"]
+libraries = {
+"": SubResource("AnimationLibrary_wc1st")
+}
+autoplay = "scene_open"
+
+[node name="TutorialControl" type="Node" parent="." node_paths=PackedStringArray("level_control")]
+script = ExtResource("12_xy7nr")
+level_control = NodePath("../LevelControl")
+totorial_balloon_scene = ExtResource("13_ot2sg")
+dialog_resource = ExtResource("14_ino1l")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
+unique_name_in_owner = true
+script = ExtResource("15_j0i4b")
+base_tile = NodePath("../TileContainer/BaseTileMap")
+entity_tile = NodePath("../TileContainer/EntityTileMap")
+inventory = NodePath("../LevelUILayer/Inventory")
+step_timer = NodePath("../Timer")
+debug_game_data = SubResource("Resource_ulq7h")
+chest_contains = Array[ExtResource("16_j3hab")]([SubResource("Resource_geuyl"), SubResource("Resource_l37wy")])
+
+[node name="TileContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 128)
+
+[node name="BaseTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("17_p47yy")
+format = 2
+layer_0/tile_data = PackedInt32Array(196608, 65536, 0, 262144, 65536, 0, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 0, 196609, 65536, 1, 262145, 65536, 0, 2, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 1, 262146, 65536, 0, 3, 65536, 1, 65539, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 262147, 65536, 0, 4, 65536, 0, 65540, 65536, 0, 131076, 65536, 0, 196612, 65536, 1, 262148, 65536, 1, 0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 327680, 65536, 0, 327681, 65536, 0, 327682, 65536, 1, 327683, 65536, 0, 327684, 65536, 0, 327685, 65536, 1, 5, 65536, 1, 65541, 65536, 0, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 1)
+
+[node name="EntityTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("18_p6h41")
+format = 2
+layer_0/tile_data = PackedInt32Array(327685, 262144, 0, 0, 0, 0, 65537, 65536, 1, 196609, 131072, 1, 262148, 65536, 1, 5, 65536, 1342177280, 65539, 196608, 0, 3, 262144, 0, 196611, 327680, 0, 131077, 196608, 0, 131075, 65536, 1, 196610, 65536, 1, 196612, 65536, 1, 196613, 65536, 1, 327682, 65536, 1)
+
+[node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="LevelUILayer/DebugContainer/WinButton" to="." method="_on_win_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/DebugContainer/LoseButton" to="." method="_on_lose_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/DebugContainer/ResetButton" to="." method="_on_reset_button_pressed"]

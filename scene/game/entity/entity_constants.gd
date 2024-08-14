@@ -1,6 +1,7 @@
 class_name Constants
 
 enum ENTITY_TYPE {
+	EMPTY = -2,
 	UNKNOW = -1,
 	CHARACTOR = 0,
 	

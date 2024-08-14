@@ -32,7 +32,8 @@ func is_empty():
 	return iven_item == null
 
 func _on_mouse_entered():
-	modulate = Color(1.5,1.5,1.5)
+	#modulate = Color(1.5,1.5,1.5)
+	modulate = Color('#6378a1')
 	signal_mouse_entered.emit(self)
 	
 	if get_tree().get_first_node_in_group("item_preview") == null:

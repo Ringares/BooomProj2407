@@ -14,7 +14,6 @@ var cg_sequence = [
 
 
 @onready var texture_rect = $TextureRect
-@onready var camera_2d:ShakeCamera = $Camera2D
 
 
 # Called when the node enters the scene tree for the first time.

@@ -74,9 +74,10 @@ func load_scene(scene_path : String, in_background : bool = false) -> void:
 	if scene_path == null or scene_path.is_empty():
 		push_error("no path given to load")
 		return
-	if ResourceLoader.has_cached(scene_path):
-		call_deferred("emit_signal", "scene_loaded")
-		return
+	# TODO FIX ME
+	#if ResourceLoader.has_cached(scene_path):
+		#call_deferred("emit_signal", "scene_loaded")
+		#return
 	_scene_path = scene_path
 	_background_loading = in_background
 	ResourceLoader.load_threaded_request(_scene_path)

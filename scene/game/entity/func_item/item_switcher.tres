@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemRes" load_steps=5 format=3 uid="uid://cd66p71uqit2u"]
+
+[ext_resource type="PackedScene" uid="uid://cyrqgw1kh6btt" path="res://scene/game/entity/func_item/item_switcher.tscn" id="1_rwmb0"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/item_res.gd" id="2_62i1d"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="3_l53qw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hddmi"]
+atlas = ExtResource("3_l53qw")
+region = Rect2(928, 128, 128, 128)
+
+[resource]
+script = ExtResource("2_62i1d")
+entity_type = 13
+texture = SubResource("AtlasTexture_hddmi")
+block_scene = ExtResource("1_rwmb0")
+energy_cost = 1
+tile_cell = Vector2i(7, 1)

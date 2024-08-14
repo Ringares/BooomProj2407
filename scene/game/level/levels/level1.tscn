@@ -82,7 +82,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_gredy"]
@@ -146,7 +146,6 @@ entity_tile = NodePath("../TileContainer/EntityTileMap")
 inventory = NodePath("../LevelUILayer/Inventory")
 step_timer = NodePath("../Timer")
 level_name = "Level 1"
-is_auto_run = true
 chest_contains = Array[ExtResource("3_lsdqq")]([SubResource("Resource_geuyl"), SubResource("Resource_vxa5p")])
 
 [node name="TutorialControl" type="Node" parent="." node_paths=PackedStringArray("level_control")]
@@ -234,6 +233,7 @@ offset_right = 1464.0
 offset_bottom = 832.0
 
 [node name="TextureRect" type="TextureRect" parent="LevelUILayer"]
+visible = false
 material = SubResource("ShaderMaterial_k2xhj")
 anchors_preset = 15
 anchor_right = 1.0

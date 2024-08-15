@@ -111,7 +111,7 @@ func _unhandled_input(event):
 		step_timer.stop()
 		take_step()
 		
-	if Input.is_action_just_pressed("quicl_reset"):
+	if Input.is_action_just_pressed("quick_reset"):
 		AutoLoadEvent.signal_level_reset.emit()
 		take_step()
 
@@ -123,6 +123,9 @@ func is_running():
 	return not step_timer.is_stopped()
 	
 func switch_running_state():
+	if not is_instance_valid(get_tree()):
+		return
+		
 	if is_running():
 		step_timer.stop()
 	else:
@@ -135,6 +138,8 @@ func _on_step_timer():
 	take_step()
 	
 func _on_signal_change_level_run_state(is_run:bool):
+	if not is_instance_valid(get_tree()):
+		return
 	if is_run:
 		step_timer.start()
 		await get_tree().process_frame

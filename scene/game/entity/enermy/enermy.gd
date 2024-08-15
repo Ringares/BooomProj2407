@@ -13,12 +13,13 @@ var dead_step:int = 0
 @onready var hp_label = %HPLabel
 @onready var atk_label = %AtkLabel
 @onready var status_label = %StatusLabel
-@onready var dead_body = %DeadBody
+@onready var dead_body
 
 
 
 func _ready():
 	AutoLoadEvent.signal_step_update.connect(_on_signal_step_update)
+	dead_body = find_child("DeadBody")
 	call_deferred("update_ui")
 
 

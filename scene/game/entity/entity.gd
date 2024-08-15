@@ -53,7 +53,7 @@ func stop_highlight():
 	
 	if tween !=null and tween.is_valid():
 		tween.kill()
-		
+	sprite_2d.position = Vector2(0,0)
 	remove_from_group('highlight_entity')
 	
 

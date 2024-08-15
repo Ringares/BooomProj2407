@@ -6,6 +6,9 @@ extends CanvasLayer
 ## The action to use to skip typing the dialogue
 @export var skip_action: StringName = &"ui_cancel"
 
+## The action to use to skip typing the dialogue
+@export var skip_all_action: StringName = &""
+
 @onready var balloon: Control = %Balloon
 @onready var character_label: RichTextLabel = %CharacterLabel
 @onready var dialogue_label: DialogueLabel = %DialogueLabel
@@ -157,6 +160,9 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 		next(dialogue_line.next_id)
 	elif event.is_action_pressed(next_action) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
+	elif event.is_action_pressed(skip_all_action) and get_viewport().gui_get_focus_owner() == balloon:
+		queue_free()
+		AutoLoadEvent.signal_level_advance.emit()
 
 
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:

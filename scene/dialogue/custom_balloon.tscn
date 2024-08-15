@@ -9,6 +9,7 @@
 [node name="CustomBalloon" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_rs6gs")
+skip_all_action = &"quick_reset"
 
 [node name="Balloon" type="Control" parent="."]
 unique_name_in_owner = true

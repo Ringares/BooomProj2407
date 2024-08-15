@@ -53,6 +53,7 @@ func init_data(_init_data:Array):
 	print('inven_data', inven_data)
 	
 func init_debug_data(_init_data:Array[Constants.ENTITY_TYPE]):
+	inven_data = []
 	for entity_type in _init_data:
 		if entity_type == Constants.ENTITY_TYPE.EMPTY:
 			inven_data.append(null)

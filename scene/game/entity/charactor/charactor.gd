@@ -143,7 +143,7 @@ func post_move_execute(entity:Entity):
 			await get_tree().create_timer(1.0).timeout
 			AutoLoadEvent.signal_level_won.emit()
 			
-		Constants.ENTITY_TYPE.RECYCLING:
+		Constants.ENTITY_TYPE.RECYCLER:
 			pass
 			
 		Constants.ENTITY_TYPE.ENERGY_UP:

@@ -166,7 +166,6 @@ func post_move_execute(entity:Entity):
 			
 		Constants.ENTITY_TYPE.CHEST:
 			print('ENTITY_TYPE.CHEST')
-			SfxManager.play_open_chest()
 			if entity.has_signal('signal_chest_pickup'):
 				entity.signal_chest_pickup.emit(entity)
 			

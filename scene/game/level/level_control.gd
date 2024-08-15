@@ -326,6 +326,7 @@ func _on_signal_chest_pickup(entity:FuncChestItem):
 	print(entity, entity.cell_id)
 	var picked = inventory.add_pickup(entity.contain_type, entity.contain_count)
 	if picked:
+		SfxManager.play_open_chest()
 		entity.signal_entity_used.emit(entity)
 	
 
@@ -439,6 +440,7 @@ func drop_recycler_item(item_res, trans_data):
 	
 	var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
 	var on_cell_energy = (ResourceLoader.load(Constants.EntityMap[on_cell_entity.type]) as ItemRes).energy_cost
+	charactor.resource_component.consume_resource(item_res.energy_cost)
 	charactor.resource_component.add_resource(on_cell_energy)
 	_on_signal_entity_recycled(on_cell_entity)
 	inventory.add_pickup(on_cell_entity.type)

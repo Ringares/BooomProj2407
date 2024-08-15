@@ -113,8 +113,6 @@ func _unhandled_input(event):
 		
 	if Input.is_action_just_pressed("quick_reset"):
 		AutoLoadEvent.signal_level_reset.emit()
-		take_step()
-
 
 
 #region gamestate

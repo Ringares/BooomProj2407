@@ -41,5 +41,5 @@ void fragment() {
 	vec2 newUV = UV + offset_vec / 500.0;
     COLOR = texture(TEXTURE, UV + offset_vec / 500.0);
 	
-    COLOR = blur_size(TEXTURE,newUV,TEXTURE_PIXEL_SIZE);
+    //COLOR = blur_size(TEXTURE,newUV,TEXTURE_PIXEL_SIZE);
 }

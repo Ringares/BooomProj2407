@@ -147,8 +147,7 @@ func _on_error_message_confirmed():
 func reset():
 	show()
 	_reset_loading_stage()
-	_reset
-	_scene_loading_progress()
+	_reset_scene_loading_progress()
 	_reset_loading_start_time()
 	%ErrorMessage.hide()
 	set_process(true)

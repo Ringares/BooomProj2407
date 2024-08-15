@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_668i2"]
 atlas = ExtResource("2_hb2nn")
-region = Rect2(512, 0, 128, 128)
+region = Rect2(512, 0, 128, 110)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w1x2l"]
 size = Vector2(128, 128)
@@ -22,13 +22,14 @@ unique_name_in_owner = true
 texture = SubResource("AtlasTexture_668i2")
 
 [node name="ContainItem" type="Sprite2D" parent="Visual"]
-position = Vector2(32, 32)
+position = Vector2(32, 27)
 scale = Vector2(0.4, 0.4)
 texture = SubResource("PlaceholderTexture2D_w1x2l")
 
 [node name="Label" type="Label" parent="Visual/ContainItem"]
+offset_top = -7.5
 offset_right = 127.0
-offset_bottom = 129.0
+offset_bottom = 121.5
 theme = ExtResource("3_oow6n")
 theme_override_font_sizes/font_size = 72
 text = "12"

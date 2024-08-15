@@ -4,7 +4,7 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8es66"]
 texture = ExtResource("1_jax4b")
-texture_region_size = Vector2i(128, 128)
+texture_region_size = Vector2i(128, 110)
 0:0/0 = 0
 1:0/0 = 0
 1:0/0/custom_data_0 = true
@@ -12,7 +12,7 @@ texture_region_size = Vector2i(128, 128)
 1:1/0 = 0
 
 [resource]
-tile_size = Vector2i(128, 128)
+tile_size = Vector2i(128, 110)
 custom_data_layer_0/name = "editable"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_8es66")

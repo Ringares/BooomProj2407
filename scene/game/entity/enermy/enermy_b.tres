@@ -6,11 +6,12 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hddmi"]
 atlas = ExtResource("3_mgead")
-region = Rect2(128, 128, 128, 128)
+region = Rect2(128, 110, 128, 110)
 
 [resource]
 script = ExtResource("2_7yhex")
 entity_type = 21
 texture = SubResource("AtlasTexture_hddmi")
 block_scene = ExtResource("1_j8hoj")
+energy_cost = 1
 tile_cell = Vector2i(1, 1)

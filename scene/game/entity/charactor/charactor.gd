@@ -7,6 +7,7 @@ class_name Charactor
 @export var resource_component:ResourceComponent
 
 @onready var anim = %Anim
+@onready var animation_player = %AnimationPlayer
 
 
 func set_direction(dir:Vector2):
@@ -18,6 +19,11 @@ func get_direction():
 		return move_component.direction
 	else:
 		return null
+
+
+func play_level_enter_anim():
+	await ready
+	animation_player.play("enter_level")
 
 
 func move_to_pos(to_position:Vector2, need_anim:bool):
@@ -32,21 +38,59 @@ func move_to_pos(to_position:Vector2, need_anim:bool):
 	if self.position.x == to_position.x:
 		tween.tween_property(self, "position", to_position, move_component.move_dutation)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.2), move_component.move_dutation/2)\
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.1), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.chain().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	else:
 		tween.tween_property(self, "position", to_position, move_component.move_dutation)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(anim, 'scale', Vector2(1.2,1.0), move_component.move_dutation/2)\
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.1,1.0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.chain().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-			
 	
 	await tween.finished
 	
+
+func move_to_pos_through_edge(to_position:Vector2, need_anim:bool):
+	if not need_anim:
+		self.position = to_position
+		return
+	
+	if tween !=null and tween.is_valid():
+		tween.kill()
+	
+	tween = create_tween()
+	var anim_direction = - (self.position as Vector2).direction_to(to_position)
+	
+	
+	if self.position.x == to_position.x:
+		tween.tween_property(self, "position", self.position + anim_direction * 64, move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,0), move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+			
+		tween.chain().tween_property(self, 'position', to_position - anim_direction * 64, 0.0)
+			
+		tween.chain().tween_property(self, "position", to_position, move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	else:
+		tween.tween_property(self, "position", self.position + anim_direction * 64, move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(anim, 'scale', Vector2(0.0,1.0), move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+			
+		tween.chain().tween_property(self, 'position', to_position - anim_direction * 64, 0.0)
+			
+		tween.chain().tween_property(self, "position", to_position, move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	
+	await tween.finished
 
 
 func play_hit_anim():
@@ -67,6 +111,7 @@ func start_flash():
 	tween = create_tween()
 	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+
 
 func pre_move_execute(entity:Entity)->bool:
 	if entity == null:

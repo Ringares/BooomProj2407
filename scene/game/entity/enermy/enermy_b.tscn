@@ -8,7 +8,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivpil"]
 atlas = ExtResource("4_ravsl")
-region = Rect2(128, 128, 128, 128)
+region = Rect2(128, 110, 128, 110)
 
 [node name="EnermyB" type="Node2D"]
 script = ExtResource("1_etinw")
@@ -56,9 +56,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
-offset_top = -39.0
+offset_top = -48.0
 offset_right = 17.0
-offset_bottom = -2.0
+offset_bottom = -11.0
 grow_vertical = 0
 theme = ExtResource("5_1ddy7")
 theme_override_font_sizes/font_size = 36
@@ -73,9 +73,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -17.0
-offset_top = -39.0
+offset_top = -48.0
 offset_right = -4.0
-offset_bottom = -2.0
+offset_bottom = -11.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("5_1ddy7")

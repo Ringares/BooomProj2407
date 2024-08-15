@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cun27cauiwvm6"]
+[gd_scene load_steps=11 format=3 uid="uid://cun27cauiwvm6"]
 
 [ext_resource type="Script" path="res://scene/game/entity/charactor/charactor.gd" id="1_2b06r"]
 [ext_resource type="Script" path="res://component/grid_move_component.gd" id="1_f523x"]
@@ -9,7 +9,68 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcb61"]
 atlas = ExtResource("4_ot6l0")
-region = Rect2(0, 0, 128, 128)
+region = Rect2(0, 0, 128, 110)
+
+[sub_resource type="Animation" id="Animation_kpdm4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/Anim:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/Anim:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6u7xg"]
+resource_name = "enter_level"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual/Anim:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.1, 1.4, 1.7, 2.1, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-240, 2.08165e-12), Vector2(-240, 2.08165e-12), Vector2(-217.5, -30), Vector2(-180, 2.08165e-12), Vector2(-150.357, -30), Vector2(-120, 2.08165e-12), Vector2(-48.55, -30), Vector2(2.08165e-12, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual/Anim:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.1, 1.4, 1.7, 2.1, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(1, 1), Vector2(0.85, 0.85), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3jq8f"]
+_data = {
+"RESET": SubResource("Animation_kpdm4"),
+"enter_level": SubResource("Animation_6u7xg")
+}
 
 [node name="Chatactor" type="Node2D" node_paths=PackedStringArray("move_component", "attack_compoent", "health_component", "resource_component")]
 script = ExtResource("1_2b06r")
@@ -34,11 +95,17 @@ script = ExtResource("5_pmxjp")
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Anim" type="Sprite2D" parent="Visual"]
+[node name="Anim" type="Node2D" parent="Visual"]
 unique_name_in_owner = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual/Anim"]
 unique_name_in_owner = true
 scale = Vector2(1.1, 1.1)
 texture = SubResource("AtlasTexture_vcb61")
-offset = Vector2(3, -11.34)
+offset = Vector2(2.08165e-12, -8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_3jq8f")
+}

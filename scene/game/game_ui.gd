@@ -3,6 +3,7 @@ extends Control
 
 const UI_DEFEATED = preload("res://scene/ui/ui_defeated.tscn")
 const UI_LEVEL_CLEAR = preload("res://scene/ui/ui_level_clear.tscn")
+@export_file("*.tscn") var main_menu_scene : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,6 +40,7 @@ func _on_level_loader_level_loaded():
 
 func _on_level_loader_levels_finished():
 	print('game_ui _on_level_loader_levels_finished')
+	SceneLoader.load_scene(main_menu_scene)
 	
 
 func _on_level_lost():

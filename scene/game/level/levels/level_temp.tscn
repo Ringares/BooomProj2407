@@ -1,8 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://kybmcu3e47f0"]
+[gd_scene load_steps=29 format=3 uid="uid://kybmcu3e47f0"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_1ej03"]
 [ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_37ikr"]
-[ext_resource type="Texture2D" uid="uid://dhvgb5xwqy1q0" path="res://asset/image/stage.png" id="3_x5xhb"]
+[ext_resource type="StyleBox" uid="uid://dj0l4olgpjqf6" path="res://theme/board.tres" id="3_urnal"]
 [ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_mvhwp"]
 [ext_resource type="Script" path="res://script/ui_sound.gd" id="5_a574c"]
 [ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_jckr7"]
@@ -20,14 +20,6 @@
 [ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="18_n7glq"]
 [ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="19_t74io"]
 [ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="20_rihjx"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34f5g"]
-texture = ExtResource("3_x5xhb")
-texture_margin_left = 24.0
-texture_margin_top = 36.0
-texture_margin_right = 24.0
-texture_margin_bottom = 132.0
-region_rect = Rect2(561, 70, 823, 871)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xhj"]
 shader = ExtResource("10_aoi3k")
@@ -137,7 +129,7 @@ offset_top = 96.0
 offset_right = 1304.0
 offset_bottom = 896.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_34f5g")
+theme_override_styles/panel = ExtResource("3_urnal")
 script = ExtResource("4_mvhwp")
 contain_tile = NodePath("../../TileContainer/BaseTileMap")
 

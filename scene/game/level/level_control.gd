@@ -56,15 +56,16 @@ func _ready():
 	
 	# 计算 tile 居中位置
 	print(%TileContainer.global_position)
-	print(tile_rect.size * 128)
 	print(get_viewport().size)
 	var viewport_size = get_viewport().size as Vector2i
-	print(viewport_size / 2 ,tile_rect.size * 128 / 2)
-	%TileContainer.global_position = viewport_size / 2 - tile_rect.size * 128 / 2
+	%TileContainer.global_position = viewport_size / 2 - tile_rect.size * base_tile.tile_set.tile_size / 2
 	# TODO check space
-	%TileContainer.global_position -= Vector2(0,(1080 - tile_rect.size.x * 128)/2 - 128)
+	%TileContainer.global_position.y = clamp(%TileContainer.global_position.y,210,1080)
+	%TileContainer.global_position -= Vector2(0,96)
 	
-	await get_tree().create_timer(1).timeout
+		
+	
+	await get_tree().create_timer(2.5).timeout
 	if is_auto_run:
 		step_timer.start()
 	AutoLoadEvent.signal_step_update.emit(0)
@@ -223,9 +224,16 @@ func place_charactor_instance(packed_scene:PackedScene, cell_id:Vector2i, need_a
 	if charactor == null:
 		charactor = packed_scene.instantiate() as Charactor
 		entity_container.add_child(charactor)
-
+		
+		# init charactor
+		#charactor.hide()
+		charactor.play_level_enter_anim()
+	var is_neighbour = Vector2(charactor.cell_id).distance_to(Vector2(cell_id)) <= 1.1
 	charactor.cell_id = cell_id
-	await charactor.move_to_pos(entity_tile.map_to_local(cell_id), need_anim)
+	if is_neighbour:
+		await charactor.move_to_pos(entity_tile.map_to_local(cell_id), need_anim)
+	else:
+		await charactor.move_to_pos_through_edge(entity_tile.map_to_local(cell_id), need_anim)
 	AutoLoadEvent.signal_cell_arraived.emit(cell_id)
 	
 	return charactor
@@ -272,10 +280,9 @@ func switch_entity_instance(entity1:Entity, entity2:Entity):
 func take_step():
 	print()
 	print()
-	print()
 	print("take_step=>> ", running_step)
 	print("is_auto_run=>> ", is_auto_run)
-	print("is_ruxnning=>> ", is_running())
+	print("is_running=>> ", is_running())
 	var char_direction = charactor.get_direction()
 	entity_container.move_child(charactor, -1)
 	if char_direction:
@@ -283,8 +290,7 @@ func take_step():
 		var tar_cell = cell_data[tar_cell_id.x][tar_cell_id.y]
 		var check_pass = charactor.pre_move_execute(tar_cell)
 		if check_pass:
-			var need_anim = Vector2(charactor.cell_id).distance_to(Vector2(tar_cell_id)) <= 1.1
-			place_charactor_instance(null, tar_cell_id, need_anim)
+			place_charactor_instance(null, tar_cell_id, true)
 			charactor.post_move_execute(tar_cell)
 	running_step += 1
 	AutoLoadEvent.signal_step_update.emit(running_step)
@@ -352,8 +358,10 @@ func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE):
 					indicate_cells.append(i)
 	
 	AutoLoadEvent.signal_gird_indicaotr_show.emit(indicate_cells, valid_flag)
-	
-	
+
+
+#region useitem
+
 func _on_signal_pickitem_drop(trans_data):
 	var item_res = trans_data['item_res'] as ItemRes
 	match item_res.entity_type:
@@ -413,7 +421,6 @@ func drop_general_item(item_res, trans_data):
 	var cell_scene = place_entity_instance(item_res.block_scene, release_cell_id)
 	if item_res.entity_type == Constants.ENTITY_TYPE.TRAIL:
 		cell_scene.set_direction_by_rad(trans_data.get('rotation', 0))
-		
 
 
 func drop_recycler_item(item_res, trans_data):
@@ -480,10 +487,10 @@ func drop_switcher_item(item_res, trans_data):
 		else:
 			return
 		
-		
 		SfxManager.play_open_chest()
 		AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
 		charactor.resource_component.consume_resource(item_res.energy_cost)
 	
 		switch_entity_instance(on_cell_entity1, on_cell_entity2)
-	
+
+#endregion

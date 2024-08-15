@@ -14,5 +14,4 @@ class_name ItemRes
 
 
 func get_tile_cell():
-	var size = texture.region.size.x
-	tile_cell = Vector2i(texture.region.position / size)
+	tile_cell = Vector2i(texture.region.position.x / texture.region.size.x, texture.region.position.y / texture.region.size.y)

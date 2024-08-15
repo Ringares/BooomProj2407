@@ -19,6 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_haa44")
+main_menu_scene = "res://scene/menu/main_menu.tscn"
 
 [node name="PauseController" parent="." instance=ExtResource("1_fcv4u")]
 pause_menu_packed = ExtResource("2_31bm0")

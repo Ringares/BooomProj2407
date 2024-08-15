@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j823o"]
 atlas = ExtResource("2_l512q")
-region = Rect2(384, 128, 128, 128)
+region = Rect2(384, 110, 128, 110)
 
 [node name="ItemStrUp" type="Node2D"]
 script = ExtResource("1_op78d")
@@ -15,4 +15,5 @@ type = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
 unique_name_in_owner = true
+scale = Vector2(0.9, 0.9)
 texture = SubResource("AtlasTexture_j823o")

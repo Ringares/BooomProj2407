@@ -126,14 +126,14 @@ func move_to_pos(to_position:Vector2, need_anim:bool):
 	if self.position.x == to_position.x:
 		tween.tween_property(self, "position", to_position, duration)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(sprite_2d, 'scale', Vector2(1.0,1.2), duration/2)\
+		tween.parallel().tween_property(sprite_2d, 'scale', Vector2(1.0,1.1), duration/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.chain().tween_property(sprite_2d, 'scale', Vector2(1.0,1.0), duration/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	else:
 		tween.tween_property(self, "position", to_position, duration)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(sprite_2d, 'scale', Vector2(1.2,1.0), duration/2)\
+		tween.parallel().tween_property(sprite_2d, 'scale', Vector2(1.1,1.0), duration/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.chain().tween_property(sprite_2d, 'scale', Vector2(1.0,1.0), duration/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)

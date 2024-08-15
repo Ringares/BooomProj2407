@@ -8,7 +8,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivpil"]
 atlas = ExtResource("3_a2fix")
-region = Rect2(0, 128, 128, 128)
+region = Rect2(0, 110, 128, 110)
 
 [node name="EnermyA" type="Node2D"]
 script = ExtResource("1_6nc2l")
@@ -28,9 +28,8 @@ script = ExtResource("4_g2lb2")
 [node name="DeadBody" type="Sprite2D" parent="Visual"]
 unique_name_in_owner = true
 visible = false
-modulate = Color(0.301961, 0.301961, 0.301961, 1)
-position = Vector2(0, 30.8)
-scale = Vector2(0.8, 0.23125)
+modulate = Color(0, 0, 0, 0.486275)
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_ivpil")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
@@ -62,9 +61,9 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
-offset_top = -39.0
+offset_top = -49.0
 offset_right = 17.0
-offset_bottom = -2.0
+offset_bottom = -12.0
 grow_vertical = 0
 theme = ExtResource("5_ui6t5")
 theme_override_font_sizes/font_size = 36
@@ -79,9 +78,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -27.0
-offset_top = -39.0
+offset_top = -49.0
 offset_right = -4.0
-offset_bottom = -2.0
+offset_bottom = -12.0
 grow_horizontal = 0
 grow_vertical = 0
 theme = ExtResource("5_ui6t5")

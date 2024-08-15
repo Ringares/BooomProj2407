@@ -6,8 +6,7 @@ extends Control
 @onready var temp_hp_container = %TempHpContainer
 
 const HP_ICON = preload("res://scene/game/game_ui/hp_icon.tscn")
-const HEART_COLOR = Color("#ff9b9b")
-const SHIELD_COLOR = Color("#5ac3e9")
+const HP_TEMP_ICON = preload("res://scene/game/game_ui/hp_temp_icon.tscn")
 
 var hp_icons = []
 var temp_hp_icons = []
@@ -24,7 +23,6 @@ func _on_signal_hp_update(curr_hp, curr_temp, max_hp):
 	if hp_icons.size() < curr_hp:
 		for i in curr_hp - hp_icons.size():
 			var hp_icon = HP_ICON.instantiate()
-			hp_icon.modulate = HEART_COLOR
 			hp_container.add_child(hp_icon)
 			hp_icons.append(hp_icon)
 	elif hp_icons.size() > curr_hp:
@@ -33,8 +31,7 @@ func _on_signal_hp_update(curr_hp, curr_temp, max_hp):
 	
 	if temp_hp_icons.size() < curr_temp:
 		for i in curr_temp - temp_hp_icons.size():
-			var temp_hp_icon = HP_ICON.instantiate()
-			temp_hp_icon.modulate = SHIELD_COLOR
+			var temp_hp_icon = HP_TEMP_ICON.instantiate()
 			temp_hp_container.add_child(temp_hp_icon)
 			temp_hp_icons.append(temp_hp_icon)
 	elif temp_hp_icons.size() > curr_temp:

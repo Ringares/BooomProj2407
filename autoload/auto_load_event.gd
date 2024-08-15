@@ -9,6 +9,7 @@ signal signal_change_level_run_state
 signal signal_level_run_state_changed
 
 
+signal signal_pickitem_pickup
 signal signal_pickitem_drop
 signal signal_pickitem_drop_update_inventory
 signal signal_pickitem_cancel

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://chqaicamvdhcb"]
+[gd_scene load_steps=7 format=3 uid="uid://chqaicamvdhcb"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/status_ui.gd" id="1_dekks"]
 [ext_resource type="Texture2D" uid="uid://rrmlixiupkp3" path="res://asset/image/ui/cat_portrait.png" id="2_rfrlt"]
 [ext_resource type="Texture2D" uid="uid://b4bmdcu3l0yb6" path="res://asset/image/ui/attack_icon.png" id="3_h1j53"]
 [ext_resource type="PackedScene" uid="uid://clrwwkmf2pq2j" path="res://scene/game/game_ui/hp_icon.tscn" id="3_ssyxc"]
+[ext_resource type="PackedScene" uid="uid://dt0rp422ir7hq" path="res://scene/game/game_ui/hp_temp_icon.tscn" id="4_4kmxu"]
 [ext_resource type="Theme" uid="uid://oagauisywtfc" path="res://theme/ui_label_theme.tres" id="5_rqtgs"]
 
 [node name="StatusUI" type="Control"]
@@ -42,7 +43,6 @@ custom_minimum_size = Vector2(2.08165e-12, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/separation = -8
 
 [node name="HpContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -64,9 +64,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_constants/separation = -8
 
-[node name="HPIcon" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/TempHpContainer" instance=ExtResource("3_ssyxc")]
+[node name="HPTempIcon" parent="MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/TempHpContainer" instance=ExtResource("4_4kmxu")]
 visible = false
-modulate = Color(0.352941, 0.764706, 0.913725, 1)
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
@@ -87,4 +86,4 @@ layout_mode = 2
 theme = ExtResource("5_rqtgs")
 theme_override_colors/font_color = Color(0.607843, 0.717647, 0.941176, 1)
 theme_override_font_sizes/font_size = 48
-text = "15 "
+text = "999"

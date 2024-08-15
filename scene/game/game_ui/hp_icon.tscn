@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://bt7s8yxorqoq5" path="res://asset/image/ui/hp_icon.png" id="1_1ahhs"]
 
 [node name="HPIcon" type="TextureRect"]
-modulate = Color(1, 0.607843, 0.607843, 1)
 custom_minimum_size = Vector2(64, 64)
 texture = ExtResource("1_1ahhs")
 expand_mode = 2

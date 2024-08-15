@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt0rp422ir7hq"]
+
+[ext_resource type="Texture2D" uid="uid://batvued7jult8" path="res://asset/image/ui/temp_hp.png" id="1_fyink"]
+
+[node name="HPTempIcon" type="TextureRect"]
+custom_minimum_size = Vector2(64, 64)
+texture = ExtResource("1_fyink")
+expand_mode = 2
+stretch_mode = 5

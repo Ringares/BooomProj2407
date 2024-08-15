@@ -39,8 +39,8 @@ func heal_hp(points:int):
 
 func take_damage(points:int)->bool:
 	if points > curr_temp:
-		curr_temp = 0
 		points -= curr_temp
+		curr_temp = 0
 	else:
 		curr_temp -= points
 		points = 0

@@ -46,7 +46,6 @@ func _ready():
 	# 获取可放置地块
 	editable_cells = base_tile.get_used_cells_by_id(0,0,Vector2(1,0))
 	
-	
 	step_timer.timeout.connect(_on_step_timer)
 	
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
@@ -475,7 +474,7 @@ func drop_switcher_item(item_res, trans_data):
 		if check_basic_valid_drop(item_res, cell_idx2):
 			# 检查交换终点放置，是否存在物品
 			on_cell_entity2 = cell_data[cell_idx2.x][cell_idx2.y] as Entity
-			if on_cell_entity2 == null or charactor.cell_id == cell_idx2:
+			if on_cell_entity2 == null or charactor.cell_id == cell_idx2 or cell_idx1 ==cell_idx2:
 				print('drop_switch_failed as no on_cell_entity')
 				return
 		else:

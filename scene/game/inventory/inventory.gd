@@ -32,6 +32,7 @@ func _physics_process(delta):
 			
 			curr_preview.set_data(hover_slot.iven_item, hover_slot.idx)
 			get_tree().get_first_node_in_group('group_inventory').add_child(curr_preview)
+			AutoLoadEvent.signal_pickitem_pickup.emit(hover_slot.iven_item.item_res.entity_type)
 			return
 		
 		if hover_slot != null and curr_preview != null:
@@ -158,7 +159,8 @@ func _on_signal_mouse_entered_slot(_slot:ItemSlot):
 func _on_signal_mouse_exited_slot(_slot:ItemSlot):
 	hover_slot = null
 	
-func _on_signal_pickitem_cancel():
+func _on_signal_pickitem_cancel(trans_data:Dictionary):
+	curr_preview.queue_free()
 	curr_preview = null
 
 func _on_signal_pickitem_drop_update_inventory(slot_id):

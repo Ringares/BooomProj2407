@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://vveuub1gdeuw"]
+[gd_scene load_steps=34 format=3 uid="uid://vveuub1gdeuw"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_0aac6"]
 [ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="2_86fer"]
@@ -24,6 +24,7 @@
 [ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="22_d4vt4"]
 [ext_resource type="PackedScene" uid="uid://bxqw21tofdkhb" path="res://scene/game/game_ui/power_ui.tscn" id="22_yw42o"]
 [ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="23_8wag3"]
+[ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="24_0ddib"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34f5g"]
 texture = ExtResource("5_ufly5")
@@ -32,22 +33,6 @@ texture_margin_top = 36.0
 texture_margin_right = 24.0
 texture_margin_bottom = 132.0
 region_rect = Rect2(561, 70, 823, 871)
-
-[sub_resource type="Resource" id="Resource_geuyl"]
-script = ExtResource("3_lsdqq")
-cell_idx = Vector2i(3, 0)
-contain_type = 2
-contain_count = 3
-
-[sub_resource type="Resource" id="Resource_vxa5p"]
-script = ExtResource("3_lsdqq")
-cell_idx = Vector2i(1, 3)
-contain_type = 4
-contain_count = 1
-
-[sub_resource type="Resource" id="Resource_k364x"]
-script = ExtResource("13_4vxw0")
-data = Array[Resource("res://scene/tutorial/resource/tutorial.gd")]([ExtResource("8_dtj1u"), ExtResource("9_dj0es"), ExtResource("10_cpyx0"), ExtResource("11_lo3xy"), ExtResource("12_txdxs")])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xhj"]
 shader = ExtResource("22_d4vt4")
@@ -118,12 +103,31 @@ _data = {
 "scene_open": SubResource("Animation_gredy")
 }
 
+[sub_resource type="Resource" id="Resource_k364x"]
+script = ExtResource("13_4vxw0")
+data = Array[Resource("res://scene/tutorial/resource/tutorial.gd")]([ExtResource("8_dtj1u"), ExtResource("9_dj0es"), ExtResource("10_cpyx0"), ExtResource("11_lo3xy"), ExtResource("12_txdxs")])
+
+[sub_resource type="Resource" id="Resource_geuyl"]
+script = ExtResource("3_lsdqq")
+cell_idx = Vector2i(3, 0)
+contain_type = 2
+contain_count = 3
+
+[sub_resource type="Resource" id="Resource_vxa5p"]
+script = ExtResource("3_lsdqq")
+cell_idx = Vector2i(1, 3)
+contain_type = 4
+contain_count = 1
+
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0aac6")
 
-[node name="BackgroundTextureRect" parent="." instance=ExtResource("11_sbbw6")]
+[node name="LeveBGLayer" type="CanvasLayer" parent="."]
+layer = -1
 
-[node name="StageBG" type="PanelContainer" parent="." node_paths=PackedStringArray("contain_tile")]
+[node name="BackgroundTextureRect" parent="LeveBGLayer" instance=ExtResource("11_sbbw6")]
+
+[node name="StageBG" type="PanelContainer" parent="LeveBGLayer" node_paths=PackedStringArray("contain_tile")]
 offset_left = 600.0
 offset_top = 96.0
 offset_right = 1304.0
@@ -131,48 +135,12 @@ offset_bottom = 896.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_34f5g")
 script = ExtResource("4_bqbkv")
-contain_tile = NodePath("../TileContainer/BaseTileMap")
+contain_tile = NodePath("../../TileContainer/BaseTileMap")
 
-[node name="StagePlacehold" type="Control" parent="StageBG"]
+[node name="StagePlacehold" type="Control" parent="LeveBGLayer/StageBG"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
-
-[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
-unique_name_in_owner = true
-script = ExtResource("2_86fer")
-base_tile = NodePath("../TileContainer/BaseTileMap")
-entity_tile = NodePath("../TileContainer/EntityTileMap")
-inventory = NodePath("../LevelUILayer/Inventory")
-step_timer = NodePath("../Timer")
-level_name = "Level 1"
-chest_contains = Array[ExtResource("3_lsdqq")]([SubResource("Resource_geuyl"), SubResource("Resource_vxa5p")])
-
-[node name="TutorialControl" type="Node" parent="." node_paths=PackedStringArray("level_control")]
-script = ExtResource("7_qus0e")
-tutorial_data = SubResource("Resource_k364x")
-level_control = NodePath("../LevelControl")
-totorial_balloon_scene = ExtResource("9_dkm5m")
-dialog_resource = ExtResource("10_8dfui")
-
-[node name="Timer" type="Timer" parent="."]
-
-[node name="TileContainer" type="Node2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(640, 128)
-
-[node name="BaseTileMap" type="TileMap" parent="TileContainer"]
-tile_set = ExtResource("4_lhxx1")
-format = 2
-layer_0/tile_data = PackedInt32Array(196608, 65536, 0, 262144, 65536, 0, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 1, 196609, 65536, 1, 262145, 65536, 1, 2, 65536, 1, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 65536, 0, 3, 65536, 1, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 65536, 1, 4, 65536, 1, 65540, 65536, 0, 131076, 65536, 0, 196612, 65536, 1, 262148, 65536, 1, 0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0)
-
-[node name="EntityTileMap" type="TileMap" parent="TileContainer"]
-tile_set = ExtResource("5_gkxtl")
-format = 2
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 262145, 65536, 0, 4, 65536, 805306368, 2, 0, 1, 131073, 0, 1, 196609, 262144, 0, 3, 262144, 0, 196612, 65536, 1, 262148, 327680, 0, 65537, 131072, 0, 262147, 65536, 1)
-
-[node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
-unique_name_in_owner = true
 
 [node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
 
@@ -249,6 +217,45 @@ libraries = {
 "": SubResource("AnimationLibrary_wc1st")
 }
 autoplay = "scene_open"
+
+[node name="TutorialControl" type="Node" parent="." node_paths=PackedStringArray("level_control")]
+script = ExtResource("7_qus0e")
+tutorial_data = SubResource("Resource_k364x")
+level_control = NodePath("../LevelControl")
+totorial_balloon_scene = ExtResource("9_dkm5m")
+dialog_resource = ExtResource("10_8dfui")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
+unique_name_in_owner = true
+script = ExtResource("2_86fer")
+base_tile = NodePath("../TileContainer/BaseTileMap")
+entity_tile = NodePath("../TileContainer/EntityTileMap")
+inventory = NodePath("../LevelUILayer/Inventory")
+step_timer = NodePath("../Timer")
+level_name = "Level 1"
+chest_contains = Array[ExtResource("3_lsdqq")]([SubResource("Resource_geuyl"), SubResource("Resource_vxa5p")])
+
+[node name="TileContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 128)
+
+[node name="BaseTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("4_lhxx1")
+format = 2
+layer_0/tile_data = PackedInt32Array(196608, 65536, 0, 262144, 65536, 0, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 1, 196609, 65536, 1, 262145, 65536, 1, 2, 65536, 1, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 0, 262146, 65536, 0, 3, 65536, 1, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 0, 262147, 65536, 1, 4, 65536, 1, 65540, 65536, 0, 131076, 65536, 0, 196612, 65536, 1, 262148, 65536, 1, 0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0)
+
+[node name="GridIndicatorComponent" parent="TileContainer" node_paths=PackedStringArray("tile") instance=ExtResource("24_0ddib")]
+tile = NodePath("../BaseTileMap")
+
+[node name="EntityTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("5_gkxtl")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 262145, 65536, 0, 4, 65536, 805306368, 2, 0, 1, 131073, 0, 1, 196609, 262144, 0, 3, 262144, 0, 196612, 65536, 1, 262148, 327680, 0, 65537, 131072, 0, 262147, 65536, 1)
+
+[node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
+unique_name_in_owner = true
 
 [connection signal="pressed" from="LevelUILayer/DebugContainer/WinButton" to="." method="_on_win_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/DebugContainer/LoseButton" to="." method="_on_lose_button_pressed"]

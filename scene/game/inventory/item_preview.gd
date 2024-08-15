@@ -26,13 +26,14 @@ func _ready():
 
 
 func _enter_tree():
-	Engine.time_scale = 0.5
+	Engine.time_scale = 0.3
 	Input.set_custom_mouse_cursor(HAND_CLOSED)
 
 
 func _exit_tree():
 	Engine.time_scale = 1.0
 	Input.set_custom_mouse_cursor(POINTER_TOON)
+	AutoLoadEvent.signal_gird_indicaotr_dismiss.emit()
 
 
 func _process(delta):
@@ -44,7 +45,6 @@ func _unhandled_input(event):
 		#trans_data['release_global_postion'] = global_position
 		AutoLoadEvent.signal_pickitem_cancel.emit(trans_data)
 		print('signal emit: signal_pickitem_cancel')
-		queue_free()
 	
 	if event.is_action_pressed("left_clk"):
 		trans_data['release_global_postion'] = global_position

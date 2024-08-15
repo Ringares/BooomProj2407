@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ban7h454m12ap"]
+[gd_scene load_steps=29 format=3 uid="uid://ban7h454m12ap"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_5stro"]
 [ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_fi4ye"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="16_j3hab"]
 [ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="17_p47yy"]
 [ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="18_p6h41"]
+[ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="19_7gmqe"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_34f5g"]
 texture = ExtResource("3_y1mpu")
@@ -102,7 +103,7 @@ script = ExtResource("16_1etrr")
 debug_charactor_maxhp = 5
 debug_charactor_strength = 1
 debug_player_energy_capacity = 6
-inven_data = Array[int]([2, 2, -2, -2, -2])
+inven_data = Array[int]([2, 2, 0, 0, 0])
 
 [sub_resource type="Resource" id="Resource_geuyl"]
 script = ExtResource("16_j3hab")
@@ -214,6 +215,9 @@ position = Vector2(640, 128)
 tile_set = ExtResource("17_p47yy")
 format = 2
 layer_0/tile_data = PackedInt32Array(196608, 65536, 0, 262144, 65536, 0, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 0, 196609, 65536, 1, 262145, 65536, 0, 2, 65536, 0, 65538, 65536, 0, 131074, 65536, 0, 196610, 65536, 1, 262146, 65536, 0, 3, 65536, 1, 65539, 65536, 1, 131075, 65536, 1, 196611, 65536, 1, 262147, 65536, 0, 4, 65536, 0, 65540, 65536, 0, 131076, 65536, 0, 196612, 65536, 1, 262148, 65536, 1, 0, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 327680, 65536, 0, 327681, 65536, 0, 327682, 65536, 1, 327683, 65536, 0, 327684, 65536, 0, 327685, 65536, 1, 5, 65536, 1, 65541, 65536, 0, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 1)
+
+[node name="GridIndicatorComponent" parent="TileContainer" node_paths=PackedStringArray("tile") instance=ExtResource("19_7gmqe")]
+tile = NodePath("../BaseTileMap")
 
 [node name="EntityTileMap" type="TileMap" parent="TileContainer"]
 tile_set = ExtResource("18_p6h41")

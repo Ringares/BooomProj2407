@@ -37,15 +37,21 @@ var charactor:Charactor
 var running_step:int = 0
 var tile_rect:Rect2i
 var cell_data = []
+var editable_cells:Array[Vector2i]
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	tile_rect = base_tile.get_used_rect()
+	# 获取可放置地块
+	editable_cells = base_tile.get_used_cells_by_id(0,0,Vector2(1,0))
+	
+	
 	step_timer.timeout.connect(_on_step_timer)
 	
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
 	AutoLoadEvent.signal_change_level_run_state.connect(_on_signal_change_level_run_state)
+	AutoLoadEvent.signal_pickitem_pickup.connect(_on_signal_pickitem_pickup)
 	init_level()
 	call_deferred('_on_load')
 	
@@ -276,12 +282,40 @@ func _on_signal_chest_pickup(entity:FuncChestItem):
 	if picked:
 		entity.signal_entity_used.emit(entity)
 	
+
+func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE):
+	var indicate_cells = []
+	var cost = (ResourceLoader.load(Constants.EntityMap[type]) as ItemRes).energy_cost
+	var valid_flag = 1
+	if charactor.resource_component.has_enough(cost):
+		valid_flag = 1
+	else:
+		valid_flag = 3
+
+	match type:
+		Constants.ENTITY_TYPE.SWITCHER:
+			for i in editable_cells:
+				if cell_data[i.x][i.y] != null:
+					indicate_cells.append(i)
+			
+		Constants.ENTITY_TYPE.RECYCLER:
+			for i in editable_cells:
+				if cell_data[i.x][i.y] != null:
+					indicate_cells.append(i)
+		_:
+			for i in editable_cells:
+				if cell_data[i.x][i.y] == null:
+					indicate_cells.append(i)
+	
+	AutoLoadEvent.signal_gird_indicaotr_show.emit(indicate_cells, valid_flag)
+	
 	
 func _on_signal_pickitem_drop(trans_data):
 	var item_res = trans_data['item_res'] as ItemRes
 	var origin_slot_idx = trans_data['origin_slot_idx'] 
 	var release_global_postion = trans_data['release_global_postion']
 	var item_preview = trans_data['item_preview']
+	
 	
 	# 检查是否是可用的位置
 	# 1是否在格子范围
@@ -296,7 +330,7 @@ func _on_signal_pickitem_drop(trans_data):
 	
 	var editable = TileUtils.get_custom_data(base_tile, 0, release_cell_id, "editable", false)
 	if not editable:
-		print('drop_failed as not 	if not editable:')
+		print('drop_failed as not if not editable:')
 		return
 	
 	var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y]

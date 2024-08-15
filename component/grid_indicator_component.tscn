@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3m3aie8hlsr"]
+
+[ext_resource type="Script" path="res://component/grid_indicator_component.gd" id="1_6nlpt"]
+[ext_resource type="PackedScene" uid="uid://djhnyysnauxbn" path="res://component/grid_indicator_scene.tscn" id="2_kjk5g"]
+
+[node name="GridIndicatorComponent" type="Node2D"]
+script = ExtResource("1_6nlpt")
+indicator_scene = ExtResource("2_kjk5g")

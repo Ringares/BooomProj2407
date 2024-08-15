@@ -26,6 +26,7 @@ enum ENTITY_TYPE {
 
 static var EntityMap = {
 	ENTITY_TYPE.UNKNOW: null,
+	ENTITY_TYPE.EMPTY: null,
 	ENTITY_TYPE.CHARACTOR: "res://scene/game/entity/charactor/charactor.tres",
 	
 	ENTITY_TYPE.TRAIL: "res://scene/game/entity/func_item/item_trail.tres",

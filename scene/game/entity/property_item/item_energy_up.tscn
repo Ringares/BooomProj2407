@@ -15,4 +15,5 @@ type = 9
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
 unique_name_in_owner = true
+scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_s3nu3")

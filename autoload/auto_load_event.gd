@@ -14,6 +14,9 @@ signal signal_pickitem_drop
 signal signal_pickitem_drop_update_inventory
 signal signal_pickitem_cancel
 
+signal signal_gird_indicaotr_show
+signal signal_gird_indicaotr_dismiss
+
 
 signal signal_step_update
 signal signal_cell_arraived

@@ -17,7 +17,7 @@ move_component = NodePath("GridMoveComponent")
 attack_compoent = NodePath("AttackComponent")
 health_component = NodePath("HealthComponent")
 resource_component = NodePath("ResourceComponent")
-type = 0
+type = 1
 
 [node name="AttackComponent" type="Node" parent="."]
 script = ExtResource("2_0s6rm")

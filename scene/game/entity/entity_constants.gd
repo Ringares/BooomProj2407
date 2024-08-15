@@ -1,10 +1,10 @@
 class_name Constants
 
 enum ENTITY_TYPE {
-	EMPTY = -2,
-	UNKNOW = -1,
-	CHARACTOR = 0,
 	
+	UNKNOW = -1,
+	EMPTY = 0,
+	CHARACTOR = 1,
 	TRAIL = 2,
 	HEALTH_TEMP_UP = 3,
 	STRENGTH_TEMP_UP = 4,

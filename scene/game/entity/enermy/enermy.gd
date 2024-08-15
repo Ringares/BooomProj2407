@@ -13,6 +13,7 @@ var dead_step:int = 0
 @onready var hp_label = %HPLabel
 @onready var atk_label = %AtkLabel
 @onready var status_label = %StatusLabel
+@onready var dead_body = %DeadBody
 
 
 
@@ -40,6 +41,7 @@ func dead():
 	#visual.hide()
 	#visual.modulate = Color.DIM_GRAY
 	status_label.hide()
+	if is_instance_valid(dead_body): dead_body.show()
 	start_teleport_out()
 	
 	
@@ -51,6 +53,7 @@ func revive():
 	start_teleport_in()
 	health_component.reset_hp()
 	update_ui()
+	if is_instance_valid(dead_body): dead_body.hide()
 	get_tree().create_timer(0.3).timeout.connect(func():status_label.show())
 	
 

@@ -17,7 +17,13 @@ const TELEPORT_SHADER = preload("res://shader/teleport.gdshader")
 
 func on_used():
 	queue_free()
+	
 
+func on_recycled():
+	start_teleport_out()
+	get_tree().create_timer(0.3).timeout.connect(func():queue_free())
+	
+	
 
 func start_highlight():
 	if sprite_2d.material == null:
@@ -79,6 +85,7 @@ func start_teleport_in():
 	
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("progress", 0.3)
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("color", Vector4(0.0, 1.02, 1.5, 1.0))
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("beam_size", 0.1)
 	# vec4(0.0, 1.02, 1.2, 1.0)
 	tween = create_tween()
 	tween.tween_property(sprite_2d.material, "shader_parameter/progress", 0., 2)\
@@ -99,8 +106,37 @@ func start_teleport_out():
 	
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("progress", 0.)
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("color", Vector4(1.5, 0.4, 0.4, 1.0))
-	(sprite_2d.material as ShaderMaterial).set_shader_parameter("beam_size", 0.01)
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("beam_size", 0.1)
 	# vec4(0.0, 1.02, 1.2, 1.0)
 	tween = create_tween()
 	tween.tween_property(sprite_2d.material, "shader_parameter/progress", 0.3, 2)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+
+
+func move_to_pos(to_position:Vector2, need_anim:bool):
+	if not need_anim:
+		self.position = to_position
+		return
+	
+	if tween !=null and tween.is_valid():
+		tween.kill()
+	
+	tween = create_tween()
+	var duration = 0.3
+	if self.position.x == to_position.x:
+		tween.tween_property(self, "position", to_position, duration)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(sprite_2d, 'scale', Vector2(1.0,1.2), duration/2)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.chain().tween_property(sprite_2d, 'scale', Vector2(1.0,1.0), duration/2)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	else:
+		tween.tween_property(self, "position", to_position, duration)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.parallel().tween_property(sprite_2d, 'scale', Vector2(1.2,1.0), duration/2)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tween.chain().tween_property(sprite_2d, 'scale', Vector2(1.0,1.0), duration/2)\
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+			
+	
+	await tween.finished

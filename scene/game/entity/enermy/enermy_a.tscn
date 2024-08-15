@@ -25,6 +25,14 @@ script = ExtResource("4_g2lb2")
 
 [node name="Visual" type="Node2D" parent="."]
 
+[node name="DeadBody" type="Sprite2D" parent="Visual"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.301961, 0.301961, 0.301961, 1)
+position = Vector2(0, 30.8)
+scale = Vector2(0.8, 0.23125)
+texture = SubResource("AtlasTexture_ivpil")
+
 [node name="Sprite2D" type="Sprite2D" parent="Visual"]
 unique_name_in_owner = true
 scale = Vector2(0.8, 0.8)
@@ -45,6 +53,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="HPLabel" type="Label" parent="StatusLabel"]
 unique_name_in_owner = true

@@ -77,6 +77,16 @@ func _on_load():
 		charactor.resource_component.init_data(init_energy, debug_game_data.debug_player_energy_capacity)
 		inventory.init_debug_data(debug_game_data.inven_data)
 		
+		AutoLoadEvent.signal_level_fail.connect(func(): 
+			await get_tree().process_frame
+			get_tree().reload_current_scene())
+		AutoLoadEvent.signal_level_won.connect(func(): 
+			await get_tree().process_frame
+			get_tree().reload_current_scene())
+		AutoLoadEvent.signal_level_reset.connect(func(): 
+			await get_tree().process_frame
+			get_tree().reload_current_scene())
+		
 	else:
 		charactor.attack_compoent.init_data(GameLevelLog.get_charactor_strength())
 		charactor.health_component.init_data(GameLevelLog.get_charactor_maxhp())
@@ -99,6 +109,10 @@ func _unhandled_input(event):
 			
 	if Input.is_action_just_pressed("run_step"):
 		step_timer.stop()
+		take_step()
+		
+	if Input.is_action_just_pressed("quicl_reset"):
+		AutoLoadEvent.signal_level_reset.emit()
 		take_step()
 
 
@@ -231,6 +245,26 @@ func place_entity_instance(packed_scene:PackedScene, cell_id:Vector2i):
 		cell_data[cell_id.x][cell_id.y] = cell_scene
 		cell_scene.cell_id = cell_id
 	return cell_scene
+	
+
+func switch_entity_instance(entity1:Entity, entity2:Entity):
+	print('switch_entity_instance')
+	
+	var cell_id1 = entity1.cell_id
+	var cell_id2 = entity2.cell_id
+	
+	var pos1 = entity1.position
+	var pos2 = entity2.position
+	
+	entity1.move_to_pos(pos2, true)
+	entity2.move_to_pos(pos1, true)
+	
+	entity1.cell_id = cell_id2
+	entity2.cell_id = cell_id1
+	
+	cell_data[cell_id1.x][cell_id1.y] = entity2
+	cell_data[cell_id2.x][cell_id2.y] = entity1
+	
 
 
 func take_step():
@@ -273,6 +307,13 @@ func _on_signal_entity_used(entity:Entity):
 	print(entity, entity.cell_id)
 	entity.on_used()
 	cell_data[entity.cell_id.x][entity.cell_id.y] = null
+	
+
+func _on_signal_entity_recycled(entity:Entity):
+	print('_on_signal_entity_recycled')
+	print(entity, entity.cell_id)
+	entity.on_recycled()
+	cell_data[entity.cell_id.x][entity.cell_id.y] = null
 
 
 func _on_signal_chest_pickup(entity:FuncChestItem):
@@ -312,45 +353,133 @@ func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE):
 	
 func _on_signal_pickitem_drop(trans_data):
 	var item_res = trans_data['item_res'] as ItemRes
-	var origin_slot_idx = trans_data['origin_slot_idx'] 
-	var release_global_postion = trans_data['release_global_postion']
-	var item_preview = trans_data['item_preview']
-	
-	
+	match item_res.entity_type:
+		Constants.ENTITY_TYPE.RECYCLER:
+			drop_recycler_item(item_res, trans_data)
+		Constants.ENTITY_TYPE.SWITCHER:
+			drop_switcher_item(item_res, trans_data)
+		_:
+			drop_general_item(item_res, trans_data)
+
+
+func check_basic_valid_drop(item_res, release_cell_id):
 	# 检查是否是可用的位置
+	# 0是否在有能量
 	# 1是否在格子范围
 	# 2是否可放置
 	# 3是否有其它entity
-	
-	var release_cell_id = entity_tile.local_to_map(entity_container.to_local(release_global_postion))
-	print('_on_signal_pickitem_drop ', release_cell_id)
+	if not charactor.resource_component.has_enough(item_res.energy_cost):
+		print('drop_failed as no energy')
+		AutoLoadEvent.signal_energy_ui_notify.emit()
+		return false
+		
 	if not tile_rect.has_point(release_cell_id):
 		print('drop_failed as not in tile_rect')
-		return
+		return false
 	
 	var editable = TileUtils.get_custom_data(base_tile, 0, release_cell_id, "editable", false)
 	if not editable:
 		print('drop_failed as not if not editable:')
+		return false
+
+	return true
+
+
+func drop_general_item(item_res, trans_data):
+	var origin_slot_idx = trans_data['origin_slot_idx'] 
+	var release_global_postion = trans_data['release_global_postion']
+	var item_preview = trans_data['item_preview']
+	
+	var release_cell_id = entity_tile.local_to_map(entity_container.to_local(release_global_postion))
+	print('_on_signal_pickitem_drop ', release_cell_id)
+	if check_basic_valid_drop(item_res, release_cell_id):
+		# 检查普通放置，是否重叠
+		var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
+		if on_cell_entity != null or charactor.cell_id == release_cell_id:
+			print('drop_failed as cell ocuppied')
+			return
+	else:
 		return
 	
-	var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y]
-	if on_cell_entity != null or charactor.cell_id == release_cell_id:
-		print('drop_failed as cell ocuppied')
-		return
-		
-	if charactor.resource_component.curr_count < item_res.energy_cost:
-		print('drop_failed as no energy')
-		return
-	else:
-		charactor.resource_component.consume_resource(item_res.energy_cost)
+	SfxManager.play_open_chest()
+	AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
+	charactor.resource_component.consume_resource(item_res.energy_cost)
 	
 	# 处理放置
 	# 通知 Inventory 更新数据
 	var cell_scene = place_entity_instance(item_res.block_scene, release_cell_id)
-	
 	if item_res.entity_type == Constants.ENTITY_TYPE.TRAIL:
 		cell_scene.set_direction_by_rad(trans_data.get('rotation', 0))
-	AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
-	SfxManager.play_open_chest()
-	
+		
 
+
+func drop_recycler_item(item_res, trans_data):
+	var origin_slot_idx = trans_data['origin_slot_idx'] 
+	var release_global_postion = trans_data['release_global_postion']
+	var item_preview = trans_data['item_preview']
+	
+	var release_cell_id = entity_tile.local_to_map(entity_container.to_local(release_global_postion))
+	print('_on_signal_pickitem_drop ', release_cell_id)
+	if check_basic_valid_drop(item_res, release_cell_id):
+		# 检查回收放置，是否存在物品
+		var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
+		if on_cell_entity == null or charactor.cell_id == release_cell_id:
+			print('drop_recycler_failed as no on_cell_entity')
+			return
+	else:
+		return
+		
+	SfxManager.play_open_chest()
+	AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
+	
+	var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
+	var on_cell_energy = (ResourceLoader.load(Constants.EntityMap[on_cell_entity.type]) as ItemRes).energy_cost
+	charactor.resource_component.add_resource(on_cell_energy)
+	_on_signal_entity_recycled(on_cell_entity)
+	inventory.add_pickup(on_cell_entity.type)
+
+
+func drop_switcher_item(item_res, trans_data):
+	var origin_slot_idx = trans_data['origin_slot_idx'] 
+	var release_global_postion = trans_data['release_global_postion']
+	var click_count = trans_data['click_count']
+	var previrew_node = trans_data['item_preview'] as ItemSwitchPreview
+	
+	if click_count == 1:
+		var release_cell_id = entity_tile.local_to_map(entity_container.to_local(release_global_postion))
+		print('_on_signal_pickitem_drop ', release_cell_id)
+		if check_basic_valid_drop(item_res, release_cell_id):
+			# 检查回收放置，是否存在物品
+			var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
+			if on_cell_entity == null or charactor.cell_id == release_cell_id:
+				print('drop_switch_failed as no on_cell_entity')
+				return
+		else:
+			return
+		previrew_node.stat_point_accept(release_global_postion)
+			
+	if click_count == 2:
+		var switch_start_global_postion = trans_data['switch_start_global_postion']
+		var switch_end_global_postion = trans_data['switch_end_global_postion']
+		
+		var cell_idx1 = entity_tile.local_to_map(entity_tile.to_local(switch_start_global_postion))
+		var on_cell_entity1 = cell_data[cell_idx1.x][cell_idx1.y] as Entity
+		
+		var cell_idx2 = entity_tile.local_to_map(entity_tile.to_local(switch_end_global_postion))
+		var on_cell_entity2 = null
+		if check_basic_valid_drop(item_res, cell_idx2):
+			# 检查交换终点放置，是否存在物品
+			on_cell_entity2 = cell_data[cell_idx2.x][cell_idx2.y] as Entity
+			if on_cell_entity2 == null or charactor.cell_id == cell_idx2:
+				print('drop_switch_failed as no on_cell_entity')
+				return
+		else:
+			return
+		
+		
+		SfxManager.play_open_chest()
+		AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
+		charactor.resource_component.consume_resource(item_res.energy_cost)
+	
+		switch_entity_instance(on_cell_entity1, on_cell_entity2)
+	

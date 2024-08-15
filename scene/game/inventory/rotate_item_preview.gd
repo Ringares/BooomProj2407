@@ -11,3 +11,4 @@ func _input(event):
 		(sprite_2d as Sprite2D).rotation_degrees += 90
 		trans_data['rotation'] = sprite_2d.rotation
 		
+

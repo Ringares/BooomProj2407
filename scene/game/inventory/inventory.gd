@@ -8,7 +8,7 @@ var inven_data = [null] # [IvenItem]
 const ITEM_CONTAINER = preload("res://scene/game/inventory/item_container.tscn")
 const ITEM_PREVIEW = preload("res://scene/game/inventory/item_preview.tscn")
 const ROTATE_ITEM_PREVIEW = preload("res://scene/game/inventory/rotate_item_preview.tscn")
-
+const ITEM_SWITCH_PREVIEW = preload("res://scene/game/inventory/item_switch_preview.tscn")
 var hover_slot:ItemSlot = null
 var curr_preview:ItemPreview = null
 var is_stackable = false
@@ -27,6 +27,8 @@ func _physics_process(delta):
 			
 			if hover_slot.iven_item.item_res.entity_type == Constants.ENTITY_TYPE.TRAIL:
 				curr_preview = ROTATE_ITEM_PREVIEW.instantiate()
+			elif hover_slot.iven_item.item_res.entity_type == Constants.ENTITY_TYPE.SWITCHER:
+				curr_preview = ITEM_SWITCH_PREVIEW.instantiate()
 			else:
 				curr_preview = ITEM_PREVIEW.instantiate()
 			
@@ -120,7 +122,7 @@ func add_pickup(contain_type:Constants.ENTITY_TYPE, count:int=1)->bool:
 				(inven_data[valid_slot_idx] as IvenItem).count += 1
 			else:
 				inven_data[valid_slot_idx] = IvenItem.instantiate(contain_type, 1)
-			update_ui()	
+			update_ui()
 			
 	return return_flag
 		

@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://cl8hf5c4ntj5s"]
+
+[ext_resource type="Script" path="res://scene/game/inventory/item_switch_preview.gd" id="1_vi4tp"]
+[ext_resource type="Shader" uid="uid://d4bjs505sxv24" path="res://shader/line_2d_tilemode_shader.tres" id="2_ab8o1"]
+[ext_resource type="Texture2D" uid="uid://cax0544pgy1y" path="res://asset/image/ui/line_arrow.png" id="3_fm2v6"]
+[ext_resource type="Texture2D" uid="uid://dya44jn2ifkv4" path="res://asset/image/ui/progress_full.png" id="4_fowin"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2fy7l"]
+size = Vector2(128, 128)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pxwpe"]
+shader = ExtResource("2_ab8o1")
+shader_parameter/Speed = -1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wucec"]
+atlas = ExtResource("3_fm2v6")
+region = Rect2(0, 8, 64, 48)
+
+[node name="ItemSwitchPreview" type="Node2D"]
+modulate = Color(1, 1, 1, 0.658824)
+script = ExtResource("1_vi4tp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_2fy7l")
+
+[node name="SwitchLine" type="Line2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_pxwpe")
+width = 32.0
+default_color = Color(0.388235, 0.470588, 0.631373, 1)
+texture = SubResource("AtlasTexture_wucec")
+texture_mode = 1
+
+[node name="StartPoint" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("4_fowin")
+
+[node name="EndPoint" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("4_fowin")

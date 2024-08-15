@@ -5,8 +5,8 @@ signal signal_level_advance
 signal signal_level_fail
 signal signal_level_reset
 
-signal signal_change_level_run_state
-signal signal_level_run_state_changed
+signal signal_change_level_run_state  # _on_signal_change_level_run_state(is_run:bool)
+signal signal_level_run_state_changed # _on_signal_level_run_state_changed(is_running:bool
 
 
 signal signal_pickitem_pickup
@@ -24,5 +24,6 @@ signal signal_cell_arraived
 signal signal_hp_update
 signal signal_str_update
 signal signal_energy_update
+signal signal_energy_ui_notify
 
 signal signal_inventory_capacity_increase

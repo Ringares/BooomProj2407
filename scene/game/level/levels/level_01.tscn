@@ -200,7 +200,7 @@ tile = NodePath("../BaseTileMap")
 [node name="EntityTileMap" type="TileMap" parent="TileContainer"]
 tile_set = ExtResource("20_w2okf")
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 65539, 327680, 0, 2, 0, 1, 4, 131072, 0)
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 65539, 327680, 0, 2, 0, 1, 4, 131072, 0, 3, 196608, 0)
 
 [node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
 unique_name_in_owner = true

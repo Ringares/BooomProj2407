@@ -99,20 +99,12 @@ func play_hit_anim():
 	play_hit_flash()
 
 
-func play_hit_flash():
-	if sprite_2d.material == null:
-		sprite_2d.material = ShaderMaterial.new()
-		sprite_2d.material.resource_local_to_scene = true
-	
-	sprite_2d.material.shader = HIT_FLASH_SHADER
-	
-	if tween !=null and tween.is_valid():
-		tween.kill()
-	
-	(sprite_2d.material as ShaderMaterial).set_shader_parameter("lerp_percent", 1.0)
-	tween = create_tween()
-	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
-		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+func play_heal_anim():
+	play_hit_flash(Vector3(1.0, 0.8, 0.8))
+
+
+func play_str_up_anim():
+	play_hit_flash(Vector3(0.8, 0.8, 1.0))
 
 
 func pre_move_execute(entity:Entity)->bool:
@@ -164,12 +156,14 @@ func post_move_execute(entity:Entity):
 		Constants.ENTITY_TYPE.HEALTH_TEMP_UP:
 			print('ENTITY_TYPE.HEALTH_TEMP_UP')
 			SfxManager.play_heal()
+			play_heal_anim()
 			health_component.heal_hp((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
 			
 		Constants.ENTITY_TYPE.HEALTH_UP:
 			print('ENTITY_TYPE.HEALTH_UP')
 			SfxManager.play_upgrade()
+			play_heal_anim()
 			health_component.increase_max_hp((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
 			
@@ -177,12 +171,14 @@ func post_move_execute(entity:Entity):
 		Constants.ENTITY_TYPE.STRENGTH_TEMP_UP:
 			print('ENTITY_TYPE.STRENGTH_TEMP_UP')
 			SfxManager.play_heal()
+			play_str_up_anim()
 			attack_compoent.increase_temp_attack((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
 		
 		Constants.ENTITY_TYPE.STRENGTH_UP:
 			print('ENTITY_TYPE.STRENGTH_UP')
 			SfxManager.play_upgrade()
+			play_str_up_anim()
 			attack_compoent.increase_base_attack((entity as PropertyItem).points)
 			entity.signal_entity_used.emit(entity)
 			

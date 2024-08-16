@@ -63,7 +63,6 @@ func _ready():
 	%TileContainer.global_position.y = clamp(%TileContainer.global_position.y,210,1080)
 	%TileContainer.global_position -= Vector2(0,96)
 	
-		
 	
 	await get_tree().create_timer(2.5).timeout
 	if is_auto_run:
@@ -274,7 +273,6 @@ func switch_entity_instance(entity1:Entity, entity2:Entity):
 	
 	cell_data[cell_id1.x][cell_id1.y] = entity2
 	cell_data[cell_id2.x][cell_id2.y] = entity1
-	
 
 
 func take_step():
@@ -290,7 +288,7 @@ func take_step():
 		var tar_cell = cell_data[tar_cell_id.x][tar_cell_id.y]
 		var check_pass = charactor.pre_move_execute(tar_cell)
 		if check_pass:
-			place_charactor_instance(null, tar_cell_id, true)
+			await place_charactor_instance(null, tar_cell_id, true)
 			charactor.post_move_execute(tar_cell)
 	running_step += 1
 	AutoLoadEvent.signal_step_update.emit(running_step)

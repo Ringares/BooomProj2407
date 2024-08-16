@@ -57,7 +57,7 @@ func stop_highlight():
 	remove_from_group('highlight_entity')
 	
 
-func play_hit_flash():
+func play_hit_flash(falsh_color = Vector3(1.0, 1.0, 1.0)):
 	if sprite_2d.material == null:
 		sprite_2d.material = ShaderMaterial.new()
 		sprite_2d.material.resource_local_to_scene = true
@@ -68,6 +68,8 @@ func play_hit_flash():
 		tween.kill()
 	
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("lerp_percent", 1.0)
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("flash_color", falsh_color)
+	
 	tween = create_tween()
 	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)

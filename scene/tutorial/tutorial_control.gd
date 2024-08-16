@@ -15,6 +15,12 @@ func _ready():
 		local_tutorial_data = tutorial_data.duplicate()
 	AutoLoadEvent.signal_step_update.connect(_on_signal_step_update)
 	AutoLoadEvent.signal_cell_arraived.connect(_on_signal_cell_arraived)
+	
+	AutoLoadEvent.signal_level_won.connect(on_signal_level_end)
+	AutoLoadEvent.signal_level_fail.connect(on_signal_level_end)
+	AutoLoadEvent.signal_level_reset.connect(on_signal_level_end)
+	
+	AutoLoadEvent.signal_cell_arraived.connect(_on_signal_cell_arraived)
 	DialogueManager.dialogue_ended.connect(_on_dialog_ended)
 
 
@@ -62,4 +68,6 @@ func _on_dialog_ended(_resource: DialogueResource):
 	AutoLoadEvent.signal_change_level_run_state.emit(is_running_before_tutoial)
 	get_tree().call_group("highlight_entity", "stop_highlight")
 	
-	
+
+func on_signal_level_end():
+	queue_free()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://xljx415pegss"]
 
-[ext_resource type="Script" path="res://scene/dialogue/custom_balloon.gd" id="1_owd3e"]
+[ext_resource type="Script" path="res://scene/dialogue/tutorial_balloon.gd" id="1_iu132"]
 [ext_resource type="Theme" uid="uid://cit323xaompge" path="res://theme/dialog_default_theme.tres" id="2_gi4gq"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="3_ykasn"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="4_hecyq"]
@@ -11,7 +11,7 @@ size = Vector2(64, 64)
 
 [node name="TutorialBalloon" type="CanvasLayer"]
 layer = 100
-script = ExtResource("1_owd3e")
+script = ExtResource("1_iu132")
 need_character_label = false
 
 [node name="Balloon" type="Control" parent="."]

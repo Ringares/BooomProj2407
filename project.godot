@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BaseProject"
-config/version="0.8.15.17"
+config/version="0.8.16.22"
 run/main_scene="res://scene/opening/opening.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false

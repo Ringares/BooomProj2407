@@ -4,8 +4,5 @@
 
 [node name="OptionControl" instance=ExtResource("1_q0cto")]
 
-[node name="OptionLabel" parent="." index="0"]
-text = "    "
-
 [node name="CheckButton" type="CheckButton" parent="." index="1"]
 layout_mode = 2

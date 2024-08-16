@@ -55,8 +55,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cu81x"]
-bg_color = Color(0.388235, 0.470588, 0.631373, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_712i5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dnuw5"]
 
@@ -83,7 +82,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_q0u3s")
 Button/styles/pressed = SubResource("StyleBoxFlat_fo135")
 CheckButton/styles/hover = SubResource("StyleBoxFlat_dxt5b")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_pv4ec")
-CheckButton/styles/normal = SubResource("StyleBoxFlat_cu81x")
+CheckButton/styles/normal = SubResource("StyleBoxEmpty_712i5")
 CheckButton/styles/pressed = SubResource("StyleBoxEmpty_dnuw5")
 Fonts/fonts/large = ExtResource("1_7j4gg")
 Fonts/fonts/normal = ExtResource("1_7j4gg")

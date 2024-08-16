@@ -35,24 +35,27 @@ theme_override_constants/margin_bottom = 16
 [node name="PauseButton" type="Button" parent="PanelContainer/MarginContainer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(380, 2.08165e-12)
+custom_minimum_size = Vector2(400, 2.08165e-12)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vm0xw")
 text = "自动前进
-Press [ T ] 切换"
+切换模式 [ T ]  "
 icon = ExtResource("2_cjfi0")
+alignment = 0
 
 [node name="RunButton" type="Button" parent="PanelContainer/MarginContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(380, 2.08165e-12)
+custom_minimum_size = Vector2(400, 2.08165e-12)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxEmpty_qj3q8")
-text = "手动前进
-Press [ SPACE ]"
+text = "手动前进 [ SPACE ]
+切换模式 [ T ]
+"
 icon = ExtResource("1_yvhwr")
+alignment = 0
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/RunButton" to="." method="_on_run_button_pressed"]

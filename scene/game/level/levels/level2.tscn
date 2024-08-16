@@ -171,8 +171,8 @@ layout_mode = 2
 text = "Reset"
 
 [node name="StepControl" parent="LevelUILayer" instance=ExtResource("12_7ekrx")]
-offset_left = 1600.0
-offset_right = 1600.0
+offset_left = 1484.0
+offset_right = 1484.0
 
 [node name="StatusUI" parent="LevelUILayer" instance=ExtResource("10_gdp7x")]
 

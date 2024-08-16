@@ -25,7 +25,8 @@ func on_recycled():
 	
 	
 
-func start_highlight():
+func start_highlight(last_sec:float=-1):
+	await ready
 	if sprite_2d.material == null:
 		sprite_2d.material = ShaderMaterial.new()
 		sprite_2d.material.resource_local_to_scene = true
@@ -46,6 +47,9 @@ func start_highlight():
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	
 	add_to_group('highlight_entity')
+	
+	if last_sec > 0:
+		get_tree().create_timer(last_sec).timeout.connect(stop_highlight)
 
 
 func stop_highlight():

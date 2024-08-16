@@ -26,6 +26,7 @@ func get_direction():
 func play_level_enter_anim():
 	await ready
 	animation_player.play("enter_level")
+	await get_tree().create_timer(2).timeout
 
 
 func move_to_pos(to_position:Vector2, need_anim:bool):

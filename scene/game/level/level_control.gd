@@ -38,6 +38,7 @@ var running_step:int = 0
 var tile_rect:Rect2i
 var cell_data = []
 var editable_cells:Array[Vector2i]
+var is_level_ready = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -62,9 +63,11 @@ func _ready():
 	%TileContainer.global_position -= Vector2(0,96)
 	
 	
+	# wait for enter level anim
 	await get_tree().create_timer(2.5).timeout
 	if is_auto_run:
 		step_timer.start()
+	is_level_ready = true
 	AutoLoadEvent.signal_step_update.emit(0)
 
 func _on_load():
@@ -101,15 +104,16 @@ func _on_save():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _unhandled_input(event):
-	if Input.is_action_just_pressed("ui_accept"):
-		switch_running_state()
+	if is_level_ready:
+		if Input.is_action_just_pressed("ui_accept"):
+			switch_running_state()
+				
+		if Input.is_action_just_pressed("run_step"):
+			step_timer.stop()
+			take_step()
 			
-	if Input.is_action_just_pressed("run_step"):
-		step_timer.stop()
-		take_step()
-		
-	if Input.is_action_just_pressed("quick_reset"):
-		AutoLoadEvent.signal_level_reset.emit()
+		if Input.is_action_just_pressed("quick_reset"):
+			AutoLoadEvent.signal_level_reset.emit()
 
 
 #region gamestate
@@ -195,15 +199,13 @@ func init_level():
 				
 			if item_res.entity_type == Constants.ENTITY_TYPE.CHEST:
 				cell_scene.signal_chest_pickup.connect(_on_signal_chest_pickup)
-				#print(cell_id)
-				#print(Vector2i(cell_id))
-				#print(chest_contains_dict[cell_id])
-				#print(cell_id in chest_contains_dict)
 				if cell_id in chest_contains_dict:
 					(cell_scene as FuncChestItem).set_contained(chest_contains_dict[cell_id])
 				else:
 					push_error("unfound chest data for %v" % cell_id)
-					
+			
+			if item_res.entity_type == Constants.ENTITY_TYPE.EXIT:
+				(cell_scene as Entity).start_highlight(0.75*4)
 				
 				
 			entity_tile.set_cell(0, cell_id)
@@ -225,12 +227,19 @@ func place_charactor_instance(packed_scene:PackedScene, cell_id:Vector2i, need_a
 		# init charactor
 		#charactor.hide()
 		charactor.play_level_enter_anim()
-	var is_neighbour = Vector2(charactor.cell_id).distance_to(Vector2(cell_id)) <= 1.1
-	charactor.cell_id = cell_id
-	if is_neighbour:
-		await charactor.move_to_pos(entity_tile.map_to_local(cell_id), need_anim)
-	else:
+
+		
+	print('move direction')
+	print(Vector2(charactor.cell_id).direction_to(Vector2(cell_id)))
+	print(charactor.get_direction())
+	print(Vector2(charactor.cell_id).direction_to(Vector2(cell_id)).angle_to(charactor.get_direction()))
+	var is_cross_edge = absf(Vector2(charactor.cell_id).direction_to(Vector2(cell_id)).angle_to(charactor.get_direction())) > PI/4
+	
+	if is_cross_edge:
 		await charactor.move_to_pos_through_edge(entity_tile.map_to_local(cell_id), need_anim)
+	else:
+		await charactor.move_to_pos(entity_tile.map_to_local(cell_id), need_anim)
+	charactor.cell_id = cell_id
 	AutoLoadEvent.signal_cell_arraived.emit(cell_id)
 	
 	return charactor

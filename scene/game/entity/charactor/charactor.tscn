@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cun27cauiwvm6"]
+[gd_scene load_steps=13 format=3 uid="uid://cun27cauiwvm6"]
 
 [ext_resource type="Script" path="res://scene/game/entity/charactor/charactor.gd" id="1_2b06r"]
 [ext_resource type="Script" path="res://component/grid_move_component.gd" id="1_f523x"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://component/health_component.gd" id="3_dbg71"]
 [ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="4_ot6l0"]
 [ext_resource type="Script" path="res://component/resource_component.gd" id="5_pmxjp"]
+[ext_resource type="PackedScene" uid="uid://bxoypqhdxv15l" path="res://component/number_indicator_comoonent.tscn" id="6_b5a5v"]
+[ext_resource type="PackedScene" uid="uid://cw775bmqdmvr8" path="res://scene/game/game_ui/floating_text.tscn" id="7_u5m1h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcb61"]
 atlas = ExtResource("4_ot6l0")
@@ -72,12 +74,13 @@ _data = {
 "enter_level": SubResource("Animation_6u7xg")
 }
 
-[node name="Chatactor" type="Node2D" node_paths=PackedStringArray("move_component", "attack_compoent", "health_component", "resource_component")]
+[node name="Chatactor" type="Node2D" node_paths=PackedStringArray("move_component", "attack_compoent", "health_component", "resource_component", "number_indicator_component")]
 script = ExtResource("1_2b06r")
 move_component = NodePath("GridMoveComponent")
 attack_compoent = NodePath("AttackComponent")
 health_component = NodePath("HealthComponent")
 resource_component = NodePath("ResourceComponent")
+number_indicator_component = NodePath("DamageIndicatorComponent")
 type = 1
 
 [node name="AttackComponent" type="Node" parent="."]
@@ -92,6 +95,9 @@ need_signal = true
 
 [node name="ResourceComponent" type="Node" parent="."]
 script = ExtResource("5_pmxjp")
+
+[node name="DamageIndicatorComponent" parent="." instance=ExtResource("6_b5a5v")]
+float_text_scene = ExtResource("7_u5m1h")
 
 [node name="Visual" type="Node2D" parent="."]
 

@@ -57,7 +57,7 @@ func stop_highlight():
 	remove_from_group('highlight_entity')
 	
 
-func start_flash():
+func play_hit_flash():
 	if sprite_2d.material == null:
 		sprite_2d.material = ShaderMaterial.new()
 		sprite_2d.material.resource_local_to_scene = true

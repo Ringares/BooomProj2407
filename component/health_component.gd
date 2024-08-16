@@ -6,7 +6,6 @@ class_name HealthComponent
 @export var max_hp:int = 1
 @export var need_signal:bool = false
 
-signal signal_curr_hp_changed
 
 func init_data(data:int):
 	curr_hp = data
@@ -47,7 +46,6 @@ func take_damage(points:int)->bool:
 	
 	curr_hp = clampi(curr_hp - points, 0, curr_hp)
 	var is_dead = curr_hp == 0
-	signal_curr_hp_changed.emit(curr_hp)
 	if need_signal: AutoLoadEvent.signal_hp_update.emit(curr_hp, curr_temp, max_hp)
 	print(get_parent(), 'take_damage: urr_hp=%d, curr_temp=%d, max_hp=%d' % [curr_hp, curr_temp, max_hp])
 	return is_dead

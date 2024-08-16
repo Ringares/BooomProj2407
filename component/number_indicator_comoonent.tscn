@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxoypqhdxv15l"]
+
+[ext_resource type="Script" path="res://component/number_indicator_comoonent.gd" id="1_ub4gy"]
+
+[node name="NumberIndicatorComponent" type="Node"]
+script = ExtResource("1_ub4gy")

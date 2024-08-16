@@ -5,7 +5,6 @@ class_name ResourceComponent
 @export var curr_count:int = 1
 @export var max_count:int = 1
 
-signal signal_curr_hp_changed
 
 func init_data(_curr_count:int, _max_count:int):
 	curr_count = _curr_count

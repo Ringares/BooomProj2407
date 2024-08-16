@@ -32,7 +32,7 @@ func update_ui():
 
 func play_hit_anim():
 	# TODO anim
-	start_flash()
+	play_hit_flash()
 	update_ui()
 
 

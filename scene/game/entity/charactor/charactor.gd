@@ -5,6 +5,7 @@ class_name Charactor
 @export var attack_compoent:AttackComponent
 @export var health_component:HealthComponent
 @export var resource_component:ResourceComponent
+@export var number_indicator_component:NumberIndicatorComponent
 
 @onready var anim = %Anim
 @onready var animation_player = %AnimationPlayer
@@ -13,6 +14,7 @@ class_name Charactor
 func set_direction(dir:Vector2):
 	if move_component:
 		move_component.direction = dir
+
 
 func get_direction():
 	if move_component:
@@ -94,10 +96,10 @@ func move_to_pos_through_edge(to_position:Vector2, need_anim:bool):
 
 
 func play_hit_anim():
-	start_flash()
+	play_hit_flash()
 
 
-func start_flash():
+func play_hit_flash():
 	if sprite_2d.material == null:
 		sprite_2d.material = ShaderMaterial.new()
 		sprite_2d.material.resource_local_to_scene = true
@@ -123,7 +125,10 @@ func pre_move_execute(entity:Entity)->bool:
 			return true
 		
 		# 战斗逻辑
-		var is_char_dead = health_component.take_damage((entity as Enermy).attack_component.get_attack_damage())
+		var enermy_damage = (entity as Enermy).attack_component.get_attack_damage()
+		number_indicator_component.display("-%d" % enermy_damage)
+		
+		var is_char_dead = health_component.take_damage(enermy_damage)
 		var is_enermy_dead = (entity as Enermy).health_component.take_damage(attack_compoent.get_attack_damage())
 		play_hit_anim()
 		entity.play_hit_anim()

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4ilfvclkgwpo"]
+
+[ext_resource type="Shader" path="res://shader/screen_spot_circle.gdshader" id="1_6vhci"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1t743"]
+shader = ExtResource("1_6vhci")
+shader_parameter/modulate_recovery = 3.33
+
+[sub_resource type="Gradient" id="Gradient_xga2a"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xgjgl"]
+gradient = SubResource("Gradient_xga2a")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.2)
+metadata/_snap_enabled = true
+
+[node name="SpotlightLayer" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -78.0
+offset_right = 4.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1t743")
+position = Vector2(672, 398)
+scale = Vector2(1.1, 1.1)
+texture = SubResource("GradientTexture2D_xgjgl")

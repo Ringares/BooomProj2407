@@ -46,3 +46,4 @@ func _unhandled_input(event):
 
 func stat_point_accept(pos):
 	line_point_start = pos
+	AutoLoadEvent.signal_pickitem_pickup.emit(inven_item.item_res.entity_type, true)

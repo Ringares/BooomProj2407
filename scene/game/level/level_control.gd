@@ -71,12 +71,16 @@ func _ready():
 	AutoLoadEvent.signal_step_update.emit(0)
 
 func _on_load():
-	if debug_game_data:
+
+	if get_tree().get_first_node_in_group('game_ui') == null and debug_game_data:
 		charactor.attack_compoent.init_data(debug_game_data.debug_charactor_strength)
 		charactor.health_component.init_data(debug_game_data.debug_charactor_maxhp)
 		charactor.resource_component.init_data(init_energy, debug_game_data.debug_player_energy_capacity)
-		inventory.init_debug_data(debug_game_data.inven_data)
-		
+		if debug_game_data.inven_data:
+			inventory.init_debug_data(debug_game_data.inven_data)
+		else:
+			inventory.init_debug_data(GameLevelLog.INIT_INVENTORY_DATA.duplicate())
+			
 		AutoLoadEvent.signal_level_fail.connect(func(): 
 			await get_tree().process_frame
 			get_tree().reload_current_scene())
@@ -280,6 +284,13 @@ func switch_entity_instance(entity1:Entity, entity2:Entity):
 	
 	cell_data[cell_id1.x][cell_id1.y] = entity2
 	cell_data[cell_id2.x][cell_id2.y] = entity1
+	
+
+func entity_mov_to_cell(entity1:Entity, tar_cell_id:Vector2i):
+	var tar_pos = entity_tile.map_to_local(tar_cell_id)
+	entity1.move_to_pos(tar_pos, true)
+	entity1.cell_id = tar_cell_id
+	cell_data[tar_cell_id.x][tar_cell_id.y] = entity1
 
 
 func take_step():
@@ -338,7 +349,7 @@ func _on_signal_chest_pickup(entity:FuncChestItem):
 		entity.signal_entity_used.emit(entity)
 	
 
-func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE):
+func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE, is_switch_second:bool):
 	var indicate_cells = []
 	var cost = (ResourceLoader.load(Constants.EntityMap[type]) as ItemRes).energy_cost
 	var valid_flag = 1
@@ -349,17 +360,23 @@ func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE):
 
 	match type:
 		Constants.ENTITY_TYPE.SWITCHER:
-			for i in editable_cells:
-				if cell_data[i.x][i.y] != null:
-					indicate_cells.append(i)
+			if not is_switch_second:
+				for i in editable_cells:
+					if cell_data[i.x][i.y] != null and i != charactor.cell_id:
+						indicate_cells.append(i)
+			else:
+				for i in editable_cells:
+					if i != charactor.cell_id:
+						indicate_cells.append(i)
+				
 			
 		Constants.ENTITY_TYPE.RECYCLER:
 			for i in editable_cells:
-				if cell_data[i.x][i.y] != null:
+				if cell_data[i.x][i.y] != null and i != charactor.cell_id:
 					indicate_cells.append(i)
 		_:
 			for i in editable_cells:
-				if cell_data[i.x][i.y] == null:
+				if cell_data[i.x][i.y] == null and i != charactor.cell_id:
 					indicate_cells.append(i)
 	
 	AutoLoadEvent.signal_gird_indicaotr_show.emit(indicate_cells, valid_flag)
@@ -486,16 +503,25 @@ func drop_switcher_item(item_res, trans_data):
 		if check_basic_valid_drop(item_res, cell_idx2):
 			# 检查交换终点放置，是否存在物品
 			on_cell_entity2 = cell_data[cell_idx2.x][cell_idx2.y] as Entity
-			if on_cell_entity2 == null or charactor.cell_id == cell_idx2 or cell_idx1 ==cell_idx2:
+			
+			if cell_idx2 not in editable_cells:
+				print('drop_switch_failed as not in editable_cells')
+				return
+			
+			if charactor.cell_id == cell_idx2 or cell_idx1 == cell_idx2:
 				print('drop_switch_failed as no on_cell_entity')
 				return
+			
 		else:
 			return
 		
 		SfxManager.play_open_chest()
 		AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
 		charactor.resource_component.consume_resource(item_res.energy_cost)
-	
-		switch_entity_instance(on_cell_entity1, on_cell_entity2)
+		
+		if on_cell_entity2 == null:
+			entity_mov_to_cell(on_cell_entity1, cell_idx2)
+		else:
+			switch_entity_instance(on_cell_entity1, on_cell_entity2)
 
 #endregion

@@ -30,7 +30,7 @@ static func reset_game_data() -> void:
 	Config.set_config(GAME_LOG_SECTION, PLAYER_ENERGY_CAPACITY, INIT_PLAYER_ENERGY_CAPACITY)
 	
 	#
-	Config.set_config(GAME_LOG_SECTION, INVENTORY_DATA, [null,null,null,null,null])
+	Config.set_config(GAME_LOG_SECTION, INVENTORY_DATA, INIT_INVENTORY_DATA.duplicate())
 	
 	#
 	Config.set_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, 0)
@@ -47,6 +47,7 @@ const CHARACTOR_MAXHP = "CharactorMAXHP"
 const CHARACTOR_STRENGTH = "CharactorSTR"
 const PLAYER_ENERGY_CAPACITY = "PlayerEnergyCapacity"
 
+const INIT_INVENTORY_DATA = [null,null,null,null,null]
 const INVENTORY_DATA = "InventoryData"
 
 
@@ -73,7 +74,7 @@ static func set_inventory_data(data:Variant):
 	Config.set_config(GAME_LOG_SECTION, INVENTORY_DATA, data)
 	
 static func get_inventory_data():
-	return Config.get_config(GAME_LOG_SECTION, INVENTORY_DATA, [null,null,null,null,null])
+	return Config.get_config(GAME_LOG_SECTION, INVENTORY_DATA, INIT_INVENTORY_DATA.duplicate())
 	
 
 

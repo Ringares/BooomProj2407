@@ -34,7 +34,7 @@ func _physics_process(delta):
 			
 			curr_preview.set_data(hover_slot.iven_item, hover_slot.idx)
 			get_tree().get_first_node_in_group('group_inventory').add_child(curr_preview)
-			AutoLoadEvent.signal_pickitem_pickup.emit(hover_slot.iven_item.item_res.entity_type)
+			AutoLoadEvent.signal_pickitem_pickup.emit(hover_slot.iven_item.item_res.entity_type, false)
 			return
 		
 		if hover_slot != null and curr_preview != null:
@@ -55,10 +55,10 @@ func init_data(_init_data:Array):
 	update_ui()
 	print('inven_data', inven_data)
 	
-func init_debug_data(_init_data:Array[Constants.ENTITY_TYPE]):
+func init_debug_data(_init_data:Array):
 	inven_data = []
 	for entity_type in _init_data:
-		if entity_type == Constants.ENTITY_TYPE.EMPTY:
+		if entity_type == null or entity_type == Constants.ENTITY_TYPE.EMPTY:
 			inven_data.append(null)
 		else:
 			inven_data.append(IvenItem.instantiate(entity_type, 1))

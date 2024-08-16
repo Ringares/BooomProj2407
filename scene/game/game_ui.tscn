@@ -11,7 +11,7 @@ glow_enabled = true
 glow_strength = 1.15
 glow_blend_mode = 1
 
-[node name="GameUI" type="Control"]
+[node name="GameUI" type="Control" groups=["game_ui"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

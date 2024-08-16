@@ -56,9 +56,7 @@ func _ready():
 	
 	# 计算 tile 居中位置
 	print(%TileContainer.global_position)
-	print(get_viewport().size)
-	var viewport_size = get_viewport().size as Vector2i
-	%TileContainer.global_position = viewport_size / 2 - tile_rect.size * base_tile.tile_set.tile_size / 2
+	%TileContainer.global_position = Vector2i(1920,1080) / 2 - tile_rect.size * base_tile.tile_set.tile_size / 2
 	# TODO check space
 	%TileContainer.global_position.y = clamp(%TileContainer.global_position.y,210,1080)
 	%TileContainer.global_position -= Vector2(0,96)

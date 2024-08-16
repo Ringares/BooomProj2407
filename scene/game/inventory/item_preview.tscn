@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scene/game/inventory/item_preview.gd" id="1_ojhrj"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2fy7l"]
-size = Vector2(128, 128)
+size = Vector2(128, 110)
 
 [node name="ItemPreview" type="Node2D"]
 modulate = Color(1, 1, 1, 0.658824)

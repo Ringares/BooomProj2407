@@ -158,8 +158,8 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="StepControl" parent="LevelUILayer" instance=ExtResource("7_y1oo3")]
-offset_left = 1600.0
-offset_right = 1600.0
+offset_left = 1504.0
+offset_right = 1504.0
 
 [node name="StatusUI" parent="LevelUILayer" instance=ExtResource("8_a8m2r")]
 

@@ -8,7 +8,7 @@ enum STATE{
 	RUN
 }
 
-@export var curr_state:STATE = STATE.RUN:
+@export var curr_state:STATE = STATE.PAUSE:
 	set(value):
 		if value!=curr_state:
 			curr_state = value
@@ -32,7 +32,9 @@ func _on_signal_level_run_state_changed(is_running:bool):
 
 func _on_pause_button_pressed():
 	AutoLoadEvent.signal_change_level_run_state.emit(false)
+	GameLevelLog.set_player_autorun_enable(false)
 
 
 func _on_run_button_pressed():
 	AutoLoadEvent.signal_change_level_run_state.emit(true)
+	GameLevelLog.set_player_autorun_enable(true)

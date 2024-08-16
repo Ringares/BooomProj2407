@@ -128,7 +128,7 @@ func pre_move_execute(entity:Entity)->bool:
 		SfxManager.play_attack()
 		if is_char_dead:
 			SfxManager.play_fail()
-			get_tree().create_timer(1.0).timeout.connect(func():AutoLoadEvent.signal_level_fail.emit())
+			get_tree().create_timer(0.5).timeout.connect(func():AutoLoadEvent.signal_level_fail.emit())
 			return false
 			
 		if is_enermy_dead:
@@ -187,8 +187,7 @@ func post_move_execute(entity:Entity):
 		Constants.ENTITY_TYPE.EXIT:
 			print('ENTITY_TYPE.EXIT')
 			SfxManager.play_win()
-			await get_tree().create_timer(1.0).timeout
-			AutoLoadEvent.signal_level_won.emit()
+			get_tree().create_timer(0.5).timeout.connect(func():AutoLoadEvent.signal_level_won.emit())
 			
 		Constants.ENTITY_TYPE.RECYCLER:
 			pass

@@ -85,3 +85,13 @@ static func set_finished_tutorial_id(data:Variant):
 
 static func get_finished_tutorial_id():
 	return Config.get_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, 0)
+
+
+### default autorun mode
+const AUTORUN_ENABLED = 'AutorunEnabled'
+static func set_player_autorun_enable(data:bool):
+	Config.set_config(GAME_LOG_SECTION, AUTORUN_ENABLED, data)
+	
+
+static func get_player_autorun_enable():
+	return Config.get_config(GAME_LOG_SECTION, AUTORUN_ENABLED, false)

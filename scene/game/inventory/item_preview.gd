@@ -27,13 +27,11 @@ func _ready():
 
 func _enter_tree():
 	#Engine.time_scale = 0.3
-	AutoLoadEvent.signal_change_level_run_state.emit(false)
 	Input.set_custom_mouse_cursor(HAND_CLOSED)
 
 
 func _exit_tree():
 	#Engine.time_scale = 1.0
-	AutoLoadEvent.signal_change_level_run_state.emit(true)
 	Input.set_custom_mouse_cursor(POINTER_TOON)
 	AutoLoadEvent.signal_gird_indicaotr_dismiss.emit()
 

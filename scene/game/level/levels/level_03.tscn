@@ -1,0 +1,205 @@
+[gd_scene load_steps=25 format=3 uid="uid://dfojneb56m265"]
+
+[ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_lmrec"]
+[ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_4vpav"]
+[ext_resource type="StyleBox" uid="uid://dj0l4olgpjqf6" path="res://theme/board.tres" id="3_28k4u"]
+[ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_7gaqg"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="5_2setj"]
+[ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_r1pg3"]
+[ext_resource type="PackedScene" uid="uid://deiwl7gpwkhmk" path="res://scene/game/game_ui/step_control.tscn" id="7_rwpnv"]
+[ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/game_ui/status_ui.tscn" id="8_hwegv"]
+[ext_resource type="PackedScene" uid="uid://bxqw21tofdkhb" path="res://scene/game/game_ui/power_ui.tscn" id="9_1fcjr"]
+[ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="10_w1ngx"]
+[ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="11_ijn13"]
+[ext_resource type="Script" path="res://scene/tutorial/tutorial_control.gd" id="12_8671s"]
+[ext_resource type="PackedScene" uid="uid://xljx415pegss" path="res://scene/dialogue/tutorial_balloon.tscn" id="13_a2jjn"]
+[ext_resource type="Resource" uid="uid://tuxrjtg6bhsm" path="res://scene/dialogue/tutorial_dialogue.dialogue" id="14_7c27d"]
+[ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="15_wekqf"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="16_c5cwg"]
+[ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="17_mncqg"]
+[ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="18_33ro8"]
+[ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="19_jojxe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xhj"]
+shader = ExtResource("10_w1ngx")
+shader_parameter/progress = 1.0
+shader_parameter/multiplier = 3.0
+shader_parameter/angle = 0.0
+shader_parameter/anchor = Vector2(0.5, 0.5)
+shader_parameter/anchorOffset = 1.0
+shader_parameter/diamondPixelSize = 80.0
+
+[sub_resource type="Animation" id="Animation_puw1d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_gredy"]
+resource_name = "scene_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/progress")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc1st"]
+_data = {
+"RESET": SubResource("Animation_puw1d"),
+"scene_open": SubResource("Animation_gredy")
+}
+
+[sub_resource type="Resource" id="Resource_yik4g"]
+script = ExtResource("16_c5cwg")
+cell_idx = Vector2i(2, 0)
+contain_type = 8
+contain_count = 1
+
+[node name="LevelTemp" type="Node2D"]
+script = ExtResource("1_lmrec")
+
+[node name="LevelBGLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundTextureRect" parent="LevelBGLayer" instance=ExtResource("2_4vpav")]
+
+[node name="StageBG" type="PanelContainer" parent="LevelBGLayer" node_paths=PackedStringArray("contain_tile")]
+offset_left = 600.0
+offset_top = 96.0
+offset_right = 968.0
+offset_bottom = 392.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("3_28k4u")
+script = ExtResource("4_7gaqg")
+contain_tile = NodePath("../../TileContainer/BaseTileMap")
+
+[node name="StagePlacehold" type="Control" parent="LevelBGLayer/StageBG"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
+
+[node name="UISound" type="Node" parent="LevelUILayer"]
+script = ExtResource("5_2setj")
+root_path = NodePath("..")
+
+[node name="Inventory" parent="LevelUILayer" instance=ExtResource("6_r1pg3")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 904.0
+offset_right = 16.0
+offset_bottom = 904.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="StepControl" parent="LevelUILayer" instance=ExtResource("7_rwpnv")]
+offset_left = 1600.0
+offset_right = 1600.0
+
+[node name="StatusUI" parent="LevelUILayer" instance=ExtResource("8_hwegv")]
+
+[node name="PowerUi" parent="LevelUILayer" instance=ExtResource("9_1fcjr")]
+offset_left = 1464.0
+offset_top = 832.0
+offset_right = 1464.0
+offset_bottom = 832.0
+
+[node name="TextureRect" type="TextureRect" parent="LevelUILayer"]
+visible = false
+material = SubResource("ShaderMaterial_k2xhj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_ijn13")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelUILayer"]
+libraries = {
+"": SubResource("AnimationLibrary_wc1st")
+}
+autoplay = "scene_open"
+
+[node name="TutorialControl" type="Node" parent="." node_paths=PackedStringArray("level_control")]
+script = ExtResource("12_8671s")
+level_control = NodePath("../LevelControl")
+totorial_balloon_scene = ExtResource("13_a2jjn")
+dialog_resource = ExtResource("14_7c27d")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
+unique_name_in_owner = true
+script = ExtResource("15_wekqf")
+base_tile = NodePath("../TileContainer/BaseTileMap")
+entity_tile = NodePath("../TileContainer/EntityTileMap")
+inventory = NodePath("../LevelUILayer/Inventory")
+step_timer = NodePath("../Timer")
+chest_contains = Array[ExtResource("16_c5cwg")]([SubResource("Resource_yik4g")])
+
+[node name="TileContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 128)
+
+[node name="BaseTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("17_mncqg")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 0, 65537, 65536, 0, 2, 65536, 0, 65538, 65536, 0, 65539, 65536, 0, 3, 65536, 0, 262144, 65536, 1, 131072, 65536, 0, 131074, 65536, 0, 131075, 65536, 0, 131076, 65536, 1, 65540, 65536, 0, 4, 65536, 1, 196612, 65536, 0, 262148, 65536, 0, 262147, 65536, 1, 262146, 65536, 1, 262145, 65536, 1, 196610, 65536, 0, 196611, 65536, 0, 196608, 65536, 0, 131073, 65536, 0, 1, 65536, 0, 196609, 65536, 1, 327680, 65536, 1, 327681, 65536, 1, 327682, 65536, 0, 327683, 65536, 0, 327684, 65536, 0, 327685, 65536, 1, 262149, 65536, 0, 196613, 65536, 0, 131077, 65536, 1, 65541, 65536, 0, 5, 65536, 1)
+
+[node name="GridIndicatorComponent" parent="TileContainer" node_paths=PackedStringArray("tile") instance=ExtResource("18_33ro8")]
+tile = NodePath("../BaseTileMap")
+
+[node name="EntityTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("19_jojxe")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 2, 262144, 0, 4, 65536, 1610612736, 196609, 65536, 1, 262145, 327680, 0, 262144, 65536, 1, 327681, 65536, 1, 262146, 65536, 1, 131076, 65536, 0, 131077, 0, 1, 196612, 131072, 0, 65540, 196608, 0, 262147, 65536, 0)
+
+[node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
+unique_name_in_owner = true

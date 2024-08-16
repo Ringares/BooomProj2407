@@ -181,8 +181,8 @@ layout_mode = 2
 text = "Reset"
 
 [node name="StepControl" parent="LevelUILayer" instance=ExtResource("21_gjwli")]
-offset_left = 1600.0
-offset_right = 1600.0
+offset_left = 1504.0
+offset_right = 1504.0
 
 [node name="StatusUI" parent="LevelUILayer" instance=ExtResource("7_ns6dt")]
 
@@ -227,6 +227,7 @@ entity_tile = NodePath("../TileContainer/EntityTileMap")
 inventory = NodePath("../LevelUILayer/Inventory")
 step_timer = NodePath("../Timer")
 level_name = "Level 1"
+is_auto_run = false
 chest_contains = Array[ExtResource("3_lsdqq")]([SubResource("Resource_geuyl"), SubResource("Resource_vxa5p")])
 
 [node name="TileContainer" type="Node2D" parent="."]

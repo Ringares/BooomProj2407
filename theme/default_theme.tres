@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dv27awldcuv0q"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dv27awldcuv0q"]
 
 [ext_resource type="FontFile" uid="uid://5nhumlafllm5" path="res://asset/font/ZCOOLKuaiLe-Regular.ttf" id="1_7j4gg"]
 
@@ -55,6 +55,9 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cu81x"]
+bg_color = Color(0.388235, 0.470588, 0.631373, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dnuw5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_di5u7"]
@@ -80,6 +83,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_q0u3s")
 Button/styles/pressed = SubResource("StyleBoxFlat_fo135")
 CheckButton/styles/hover = SubResource("StyleBoxFlat_dxt5b")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_pv4ec")
+CheckButton/styles/normal = SubResource("StyleBoxFlat_cu81x")
 CheckButton/styles/pressed = SubResource("StyleBoxEmpty_dnuw5")
 Fonts/fonts/large = ExtResource("1_7j4gg")
 Fonts/fonts/normal = ExtResource("1_7j4gg")

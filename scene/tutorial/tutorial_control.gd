@@ -8,6 +8,7 @@ class_name TutorialControl
 
 var local_tutorial_data
 var curr_tutorial_id:int = 0
+var is_running_before_tutoial
 
 func _ready():
 	if tutorial_data != null:
@@ -36,6 +37,8 @@ func show_tutorial(trigger_step, trigger_cell):
 			
 			curr_tutorial_id = data.dialog_id
 			local_tutorial_data.data.pop_front()
+			
+			is_running_before_tutoial = level_control.is_running()
 			AutoLoadEvent.signal_change_level_run_state.emit(false)
 			DialogueManager.show_dialogue_balloon_scene(totorial_balloon_scene, dialog_resource, data.dialog_name)
 			
@@ -56,7 +59,7 @@ func _on_signal_cell_arraived(cell:Vector2i):
 		
 		
 func _on_dialog_ended(_resource: DialogueResource):
-	AutoLoadEvent.signal_change_level_run_state.emit(true)
+	AutoLoadEvent.signal_change_level_run_state.emit(is_running_before_tutoial)
 	get_tree().call_group("highlight_entity", "stop_highlight")
 	
 	

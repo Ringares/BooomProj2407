@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dya44jn2ifkv4" path="res://asset/image/ui/progress_full.png" id="4_fowin"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2fy7l"]
-size = Vector2(128, 128)
+size = Vector2(128, 110)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pxwpe"]
 shader = ExtResource("2_ab8o1")

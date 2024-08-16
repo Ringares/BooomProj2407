@@ -7,8 +7,12 @@ func set_data(_inven_item:IvenItem, _origin_slot_idx:int):
 	trans_data['rotation'] = 0
 
 func _input(event):
-	if event.is_action_pressed("rotate_preview"):
+	if event.is_action_pressed("clockwise_rotate"):
 		(sprite_2d as Sprite2D).rotation_degrees += 90
+		trans_data['rotation'] = sprite_2d.rotation
+	
+	if event.is_action_pressed("anticlockwise_rotate"):
+		(sprite_2d as Sprite2D).rotation_degrees -= 90
 		trans_data['rotation'] = sprite_2d.rotation
 		
 

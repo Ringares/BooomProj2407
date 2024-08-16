@@ -1,26 +1,26 @@
-[gd_scene load_steps=23 format=3 uid="uid://b57u0nvx3oq4x"]
+[gd_scene load_steps=23 format=3 uid="uid://ihsg3gjop6jq"]
 
-[ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_xsbin"]
-[ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_hgh1j"]
-[ext_resource type="StyleBox" uid="uid://dj0l4olgpjqf6" path="res://theme/board.tres" id="3_glgse"]
-[ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_5ukyj"]
-[ext_resource type="Script" path="res://script/ui_sound.gd" id="5_f32ht"]
-[ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_3k4w6"]
-[ext_resource type="PackedScene" uid="uid://deiwl7gpwkhmk" path="res://scene/game/game_ui/step_control.tscn" id="7_wfk6h"]
-[ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/game_ui/status_ui.tscn" id="8_vvjsk"]
-[ext_resource type="PackedScene" uid="uid://bxqw21tofdkhb" path="res://scene/game/game_ui/power_ui.tscn" id="9_u0m20"]
-[ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="10_vq28u"]
-[ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="11_dodcd"]
-[ext_resource type="Script" path="res://scene/tutorial/tutorial_control.gd" id="12_so63c"]
-[ext_resource type="PackedScene" uid="uid://xljx415pegss" path="res://scene/dialogue/tutorial_balloon.tscn" id="13_75oba"]
-[ext_resource type="Resource" uid="uid://tuxrjtg6bhsm" path="res://scene/dialogue/tutorial_dialogue.dialogue" id="14_binmu"]
-[ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="15_rwkfq"]
-[ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="18_4ltbe"]
-[ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="19_hg80h"]
-[ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="20_w2okf"]
+[ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_r2jyh"]
+[ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_a0gxa"]
+[ext_resource type="StyleBox" uid="uid://dj0l4olgpjqf6" path="res://theme/board.tres" id="3_5m3vt"]
+[ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_7q238"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="5_1kthp"]
+[ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_i57mi"]
+[ext_resource type="PackedScene" uid="uid://deiwl7gpwkhmk" path="res://scene/game/game_ui/step_control.tscn" id="7_wly61"]
+[ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/game_ui/status_ui.tscn" id="8_075kr"]
+[ext_resource type="PackedScene" uid="uid://bxqw21tofdkhb" path="res://scene/game/game_ui/power_ui.tscn" id="9_dauib"]
+[ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="10_it63f"]
+[ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="11_4qlda"]
+[ext_resource type="Script" path="res://scene/tutorial/tutorial_control.gd" id="12_qnu1h"]
+[ext_resource type="PackedScene" uid="uid://xljx415pegss" path="res://scene/dialogue/tutorial_balloon.tscn" id="13_prctw"]
+[ext_resource type="Resource" uid="uid://tuxrjtg6bhsm" path="res://scene/dialogue/tutorial_dialogue.dialogue" id="14_86swn"]
+[ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="15_f1m0i"]
+[ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="17_siiul"]
+[ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="18_wqoi4"]
+[ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="19_r4puu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xhj"]
-shader = ExtResource("10_vq28u")
+shader = ExtResource("10_it63f")
 shader_parameter/progress = 1.0
 shader_parameter/multiplier = 3.0
 shader_parameter/angle = 0.0
@@ -89,12 +89,12 @@ _data = {
 }
 
 [node name="LevelTemp" type="Node2D"]
-script = ExtResource("1_xsbin")
+script = ExtResource("1_r2jyh")
 
 [node name="LevelBGLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="BackgroundTextureRect" parent="LevelBGLayer" instance=ExtResource("2_hgh1j")]
+[node name="BackgroundTextureRect" parent="LevelBGLayer" instance=ExtResource("2_a0gxa")]
 
 [node name="StageBG" type="PanelContainer" parent="LevelBGLayer" node_paths=PackedStringArray("contain_tile")]
 offset_left = 600.0
@@ -102,8 +102,8 @@ offset_top = 96.0
 offset_right = 968.0
 offset_bottom = 392.0
 mouse_filter = 2
-theme_override_styles/panel = ExtResource("3_glgse")
-script = ExtResource("4_5ukyj")
+theme_override_styles/panel = ExtResource("3_5m3vt")
+script = ExtResource("4_7q238")
 contain_tile = NodePath("../../TileContainer/BaseTileMap")
 
 [node name="StagePlacehold" type="Control" parent="LevelBGLayer/StageBG"]
@@ -114,10 +114,10 @@ mouse_filter = 2
 [node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
 
 [node name="UISound" type="Node" parent="LevelUILayer"]
-script = ExtResource("5_f32ht")
+script = ExtResource("5_1kthp")
 root_path = NodePath("..")
 
-[node name="Inventory" parent="LevelUILayer" instance=ExtResource("6_3k4w6")]
+[node name="Inventory" parent="LevelUILayer" instance=ExtResource("6_i57mi")]
 anchors_preset = 0
 anchor_left = 0.0
 anchor_top = 0.0
@@ -130,13 +130,13 @@ offset_bottom = 904.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="StepControl" parent="LevelUILayer" instance=ExtResource("7_wfk6h")]
-offset_left = 1504.0
-offset_right = 1504.0
+[node name="StepControl" parent="LevelUILayer" instance=ExtResource("7_wly61")]
+offset_left = 1600.0
+offset_right = 1600.0
 
-[node name="StatusUI" parent="LevelUILayer" instance=ExtResource("8_vvjsk")]
+[node name="StatusUI" parent="LevelUILayer" instance=ExtResource("8_075kr")]
 
-[node name="PowerUi" parent="LevelUILayer" instance=ExtResource("9_u0m20")]
+[node name="PowerUi" parent="LevelUILayer" instance=ExtResource("9_dauib")]
 offset_left = 1464.0
 offset_top = 832.0
 offset_right = 1464.0
@@ -150,7 +150,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("11_dodcd")
+texture = ExtResource("11_4qlda")
 expand_mode = 2
 stretch_mode = 5
 
@@ -161,16 +161,16 @@ libraries = {
 autoplay = "scene_open"
 
 [node name="TutorialControl" type="Node" parent="." node_paths=PackedStringArray("level_control")]
-script = ExtResource("12_so63c")
+script = ExtResource("12_qnu1h")
 level_control = NodePath("../LevelControl")
-totorial_balloon_scene = ExtResource("13_75oba")
-dialog_resource = ExtResource("14_binmu")
+totorial_balloon_scene = ExtResource("13_prctw")
+dialog_resource = ExtResource("14_86swn")
 
 [node name="Timer" type="Timer" parent="."]
 
 [node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
 unique_name_in_owner = true
-script = ExtResource("15_rwkfq")
+script = ExtResource("15_f1m0i")
 base_tile = NodePath("../TileContainer/BaseTileMap")
 entity_tile = NodePath("../TileContainer/EntityTileMap")
 inventory = NodePath("../LevelUILayer/Inventory")
@@ -181,17 +181,17 @@ unique_name_in_owner = true
 position = Vector2(640, 128)
 
 [node name="BaseTileMap" type="TileMap" parent="TileContainer"]
-tile_set = ExtResource("18_4ltbe")
+tile_set = ExtResource("17_siiul")
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 65536, 0, 1, 65536, 0, 65536, 65536, 0, 65537, 65536, 0, 2, 65536, 0, 65538, 65536, 0, 65539, 65536, 0, 3, 65536, 0, 65540, 65536, 0, 4, 65536, 0)
+layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 0, 65537, 65536, 0, 2, 65536, 0, 65538, 65536, 0, 65539, 65536, 0, 3, 65536, 0, 262144, 65536, 0, 131072, 65536, 0, 131074, 65536, 0, 131075, 65536, 0, 131076, 65536, 0, 65540, 65536, 0, 4, 65536, 0, 196612, 65536, 0, 262148, 65536, 0, 262147, 65536, 0, 262146, 65536, 0, 262145, 65536, 0, 196610, 65536, 0, 196611, 65536, 0, 196608, 65536, 0, 131073, 65536, 0, 1, 65536, 0, 196609, 65536, 0)
 
-[node name="GridIndicatorComponent" parent="TileContainer" node_paths=PackedStringArray("tile") instance=ExtResource("19_hg80h")]
+[node name="GridIndicatorComponent" parent="TileContainer" node_paths=PackedStringArray("tile") instance=ExtResource("18_wqoi4")]
 tile = NodePath("../BaseTileMap")
 
 [node name="EntityTileMap" type="TileMap" parent="TileContainer"]
-tile_set = ExtResource("20_w2okf")
+tile_set = ExtResource("19_r4puu")
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 65540, 327680, 0, 2, 0, 1, 65537, 65536, 0)
+layer_0/tile_data = PackedInt32Array(0, 0, 0)
 
 [node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
 unique_name_in_owner = true

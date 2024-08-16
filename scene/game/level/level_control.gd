@@ -39,19 +39,24 @@ var tile_rect:Rect2i
 var cell_data = []
 var editable_cells:Array[Vector2i]
 var is_level_ready = false
+var is_running_before_pickup = false
+var manual_interval_passed = true
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("level_control")
 	tile_rect = base_tile.get_used_rect()
 	# 获取可放置地块
 	editable_cells = base_tile.get_used_cells_by_id(0,0,Vector2(1,0))
 	
 	step_timer.timeout.connect(_on_step_timer)
 	
+	AutoLoadEvent.signal_pickitem_cancel.connect(_on_signal_pickitem_cancel)
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
 	AutoLoadEvent.signal_change_level_run_state.connect(_on_signal_change_level_run_state)
 	AutoLoadEvent.signal_pickitem_pickup.connect(_on_signal_pickitem_pickup)
+	
 	init_level()
 	call_deferred('_on_load')
 	
@@ -65,8 +70,13 @@ func _ready():
 	
 	# wait for enter level anim
 	await get_tree().create_timer(2.5).timeout
-	if is_auto_run:
+	
+	# if is_auto_run:
+	# 从关卡设定改为用户操作记录
+	if GameLevelLog.get_player_autorun_enable():
 		step_timer.start()
+	AutoLoadEvent.signal_level_run_state_changed.emit(is_running())
+		
 	is_level_ready = true
 	AutoLoadEvent.signal_step_update.emit(0)
 
@@ -106,26 +116,30 @@ func _on_save():
 	
 	if inventory:
 		GameLevelLog.set_inventory_data(inventory.inven_data)
-
+ 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _unhandled_input(event):
 	if is_level_ready:
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_pressed("switch_run_mode"):
 			switch_running_state()
-				
-		if Input.is_action_just_pressed("run_step"):
-			step_timer.stop()
-			take_step()
-			
+		
 		if Input.is_action_just_pressed("quick_reset"):
 			AutoLoadEvent.signal_level_reset.emit()
 
+func _physics_process(delta):
+	if is_level_ready and Input.is_action_pressed("take_step"):
+		print('action press take_step', manual_interval_passed, is_running())
+		if manual_interval_passed and not is_running():
+			manual_interval_passed = false
+			get_tree().create_timer(0.8).timeout.connect(func():manual_interval_passed=true)
+			take_step()
+			print('take_step')
 
 #region gamestate
 func is_running():
-	print("is_running", not step_timer.is_stopped())
 	return not step_timer.is_stopped()
+	
 	
 func switch_running_state():
 	if not is_instance_valid(get_tree()):
@@ -133,14 +147,18 @@ func switch_running_state():
 		
 	if is_running():
 		step_timer.stop()
+		GameLevelLog.set_player_autorun_enable(false)
 	else:
 		step_timer.start()
+		GameLevelLog.set_player_autorun_enable(true)
 		
 	await get_tree().process_frame
 	AutoLoadEvent.signal_level_run_state_changed.emit(is_running())
+	
 
 func _on_step_timer():
-	take_step()
+	if is_level_ready:
+		take_step()
 	
 func _on_signal_change_level_run_state(is_run:bool):
 	if not is_instance_valid(get_tree()):
@@ -299,7 +317,6 @@ func take_step():
 	print()
 	print()
 	print("take_step=>> ", running_step)
-	print("is_auto_run=>> ", is_auto_run)
 	print("is_running=>> ", is_running())
 	var char_direction = charactor.get_direction()
 	entity_container.move_child(charactor, -1)
@@ -351,7 +368,26 @@ func _on_signal_chest_pickup(entity:FuncChestItem):
 		entity.signal_entity_used.emit(entity)
 	
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#region useitem
+
 func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE, is_switch_second:bool):
+	is_running_before_pickup = is_running()
 	var indicate_cells = []
 	var cost = (ResourceLoader.load(Constants.EntityMap[type]) as ItemRes).energy_cost
 	var valid_flag = 1
@@ -382,19 +418,25 @@ func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE, is_switch_second:boo
 					indicate_cells.append(i)
 	
 	AutoLoadEvent.signal_gird_indicaotr_show.emit(indicate_cells, valid_flag)
+	
+	
+func _on_signal_pickitem_cancel(trans_data):
+	_on_signal_change_level_run_state(is_running_before_pickup)
 
-
-#region useitem
 
 func _on_signal_pickitem_drop(trans_data):
 	var item_res = trans_data['item_res'] as ItemRes
+	var is_done = false
 	match item_res.entity_type:
 		Constants.ENTITY_TYPE.RECYCLER:
-			drop_recycler_item(item_res, trans_data)
+			is_done = drop_recycler_item(item_res, trans_data)
 		Constants.ENTITY_TYPE.SWITCHER:
-			drop_switcher_item(item_res, trans_data)
+			is_done = drop_switcher_item(item_res, trans_data)
 		_:
-			drop_general_item(item_res, trans_data)
+			is_done = drop_general_item(item_res, trans_data)
+	
+	if is_done:
+		_on_signal_change_level_run_state(is_running_before_pickup)
 
 
 func check_basic_valid_drop(item_res, release_cell_id):
@@ -420,7 +462,7 @@ func check_basic_valid_drop(item_res, release_cell_id):
 	return true
 
 
-func drop_general_item(item_res, trans_data):
+func drop_general_item(item_res, trans_data)->bool:
 	var origin_slot_idx = trans_data['origin_slot_idx'] 
 	var release_global_postion = trans_data['release_global_postion']
 	var item_preview = trans_data['item_preview']
@@ -432,9 +474,9 @@ func drop_general_item(item_res, trans_data):
 		var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
 		if on_cell_entity != null or charactor.cell_id == release_cell_id:
 			print('drop_failed as cell ocuppied')
-			return
+			return false
 	else:
-		return
+		return false
 	
 	SfxManager.play_open_chest()
 	AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
@@ -445,36 +487,37 @@ func drop_general_item(item_res, trans_data):
 	var cell_scene = place_entity_instance(item_res.block_scene, release_cell_id)
 	if item_res.entity_type == Constants.ENTITY_TYPE.TRAIL:
 		cell_scene.set_direction_by_rad(trans_data.get('rotation', 0))
+	return true
 
 
-func drop_recycler_item(item_res, trans_data):
+func drop_recycler_item(item_res, trans_data)->bool:
 	var origin_slot_idx = trans_data['origin_slot_idx'] 
 	var release_global_postion = trans_data['release_global_postion']
 	var item_preview = trans_data['item_preview']
 	
 	var release_cell_id = entity_tile.local_to_map(entity_container.to_local(release_global_postion))
+	var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
 	print('_on_signal_pickitem_drop ', release_cell_id)
 	if check_basic_valid_drop(item_res, release_cell_id):
 		# 检查回收放置，是否存在物品
-		var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
 		if on_cell_entity == null or charactor.cell_id == release_cell_id:
 			print('drop_recycler_failed as no on_cell_entity')
-			return
+			return false
 	else:
-		return
+		return false
 		
 	SfxManager.play_open_chest()
 	AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
 	
-	var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
 	var on_cell_energy = (ResourceLoader.load(Constants.EntityMap[on_cell_entity.type]) as ItemRes).energy_cost
 	charactor.resource_component.consume_resource(item_res.energy_cost)
 	charactor.resource_component.add_resource(on_cell_energy)
 	_on_signal_entity_recycled(on_cell_entity)
 	inventory.add_pickup(on_cell_entity.type)
+	return true
 
 
-func drop_switcher_item(item_res, trans_data):
+func drop_switcher_item(item_res, trans_data)->bool:
 	var origin_slot_idx = trans_data['origin_slot_idx'] 
 	var release_global_postion = trans_data['release_global_postion']
 	var click_count = trans_data['click_count']
@@ -488,12 +531,13 @@ func drop_switcher_item(item_res, trans_data):
 			var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
 			if on_cell_entity == null or charactor.cell_id == release_cell_id:
 				print('drop_switch_failed as no on_cell_entity')
-				return
+				return false
 		else:
-			return
+			return false
 		previrew_node.stat_point_accept(release_global_postion)
+		return false
 			
-	if click_count == 2:
+	elif click_count == 2:
 		var switch_start_global_postion = trans_data['switch_start_global_postion']
 		var switch_end_global_postion = trans_data['switch_end_global_postion']
 		
@@ -508,14 +552,14 @@ func drop_switcher_item(item_res, trans_data):
 			
 			if cell_idx2 not in editable_cells:
 				print('drop_switch_failed as not in editable_cells')
-				return
+				return false
 			
 			if charactor.cell_id == cell_idx2 or cell_idx1 == cell_idx2:
 				print('drop_switch_failed as no on_cell_entity')
-				return
+				return false
 			
 		else:
-			return
+			return false
 		
 		SfxManager.play_open_chest()
 		AutoLoadEvent.signal_pickitem_drop_update_inventory.emit(origin_slot_idx)
@@ -525,5 +569,10 @@ func drop_switcher_item(item_res, trans_data):
 			entity_mov_to_cell(on_cell_entity1, cell_idx2)
 		else:
 			switch_entity_instance(on_cell_entity1, on_cell_entity2)
+		
+		return true
+	else:
+		push_error('invalid click_count param')
+		return false
 
 #endregion

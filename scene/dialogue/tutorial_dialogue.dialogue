@@ -1,22 +1,22 @@
 ~ tutorial_1_1
-{{system}}: 小心前面的[color=#adc5ca]怪物[/color]！在与怪物战斗时双方的血量会减去对方的攻击值，只有击败怪物才能继续前行。
+{{system}}: 小心前面的[color=#ff9b9b]怪物[/color]！在与怪物战斗时双方的血量会减去对方的攻击值，只有击败怪物才能继续前行。
 {{system}}: 小意思，以目前的情况看来打败怪物轻轻松松。
 => END
 
 ~ tutorial_1_2
-{{system}}: 前面有[color=#adc5ca]宝箱[/color]！或许可以获得一些可以帮助到猫咪的[color=#adc5ca]道具[/color]。
+{{system}}: 前面有[color=#ff9b9b]宝箱[/color]！或许可以获得一些可以帮助到猫咪的[color=#ff9b9b]道具[/color]。
 => END
 
 ~ tutorial_1_3
-{{system}}: 啊！猫咪受到[color=#adc5ca]轨道[/color]的影响开始往回走了。
-{{system}}: 我们也可以利用手中的[color=#adc5ca]轨道[/color]改变猫咪的行动路线，点击[color=#adc5ca]道具栏中的轨道[/color]，再把它放置到想放的[color=#adc5ca]地块[/color]试试吧。
+{{system}}: 啊！猫咪受到[color=#ff9b9b]轨道[/color]的影响开始往回走了。
+{{system}}: 我们也可以利用手中的[color=#ff9b9b]轨道[/color]改变猫咪的行动路线，点击[color=#ff9b9b]道具栏中的轨道[/color]，再把它放置到想放的[color=#ff9b9b]地块[/color]试试吧。
 => END
 
 ~ tutorial_1_4
-{{system}}: [color=#adc5ca]生命药剂[/color]可以帮助猫咪恢复生命值。
+{{system}}: [color=#ff9b9b]生命药剂[/color]可以帮助猫咪恢复生命值。
 => END
 
 ~ tutorial_1_5
-{{system}}: 获得了[color=#adc5ca]力量药剂[/color]！将它放置在地块上猫咪使用后可以获得临时的力量增强，快去试试吧！
+{{system}}: 获得了[color=#ff9b9b]力量药剂[/color]！将它放置在地块上猫咪使用后可以获得临时的力量增强，快去试试吧！
 => END
 

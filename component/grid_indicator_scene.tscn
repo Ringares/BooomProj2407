@@ -4,7 +4,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_26hio"]
 atlas = ExtResource("1_2vwne")
-region = Rect2(0, 0, 128, 128)
+region = Rect2(0, 0, 128, 110)
 
 [node name="IndicatorScene" type="Node2D"]
 

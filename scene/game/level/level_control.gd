@@ -71,16 +71,8 @@ func _ready():
 	AutoLoadEvent.signal_step_update.emit(0)
 
 func _on_load():
-
-	if get_tree().get_first_node_in_group('game_ui') == null and debug_game_data:
-		charactor.attack_compoent.init_data(debug_game_data.debug_charactor_strength)
-		charactor.health_component.init_data(debug_game_data.debug_charactor_maxhp)
-		charactor.resource_component.init_data(init_energy, debug_game_data.debug_player_energy_capacity)
-		if debug_game_data.inven_data:
-			inventory.init_debug_data(debug_game_data.inven_data)
-		else:
-			inventory.init_debug_data(GameLevelLog.INIT_INVENTORY_DATA.duplicate())
-			
+	# 单独加载关卡场景，测试用
+	if get_tree().get_first_node_in_group('game_ui') == null:
 		AutoLoadEvent.signal_level_fail.connect(func(): 
 			await get_tree().process_frame
 			get_tree().reload_current_scene())
@@ -90,12 +82,22 @@ func _on_load():
 		AutoLoadEvent.signal_level_reset.connect(func(): 
 			await get_tree().process_frame
 			get_tree().reload_current_scene())
-		
-	else:
-		charactor.attack_compoent.init_data(GameLevelLog.get_charactor_strength())
-		charactor.health_component.init_data(GameLevelLog.get_charactor_maxhp())
-		charactor.resource_component.init_data(init_energy, GameLevelLog.get_player_energy_capacity())
-		inventory.init_data(GameLevelLog.get_inventory_data())
+			
+		if debug_game_data:
+			charactor.attack_compoent.init_data(debug_game_data.debug_charactor_strength)
+			charactor.health_component.init_data(debug_game_data.debug_charactor_maxhp)
+			charactor.resource_component.init_data(init_energy, debug_game_data.debug_player_energy_capacity)
+			if debug_game_data.inven_data:
+				inventory.init_debug_data(debug_game_data.inven_data)
+			else:
+				inventory.init_debug_data(GameLevelLog.INIT_INVENTORY_DATA.duplicate())
+			return
+	
+	# 正常加载关卡
+	charactor.attack_compoent.init_data(GameLevelLog.get_charactor_strength())
+	charactor.health_component.init_data(GameLevelLog.get_charactor_maxhp())
+	charactor.resource_component.init_data(init_energy, GameLevelLog.get_player_energy_capacity())
+	inventory.init_data(GameLevelLog.get_inventory_data())
 
 func _on_save():
 	GameLevelLog.set_charactor_maxhp(charactor.health_component.max_hp)

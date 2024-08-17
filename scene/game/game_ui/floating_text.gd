@@ -3,10 +3,10 @@ class_name FloatingText
 
 @export var init_offset:Vector2
 
-func display_floating(text:String):
+func display_floating(text:String, color:Color):
 	$Label.text = text
-	
 	$Label.position += init_offset
+	$Label.add_theme_color_override("font_color", color)
 	
 	var pos_tween = create_tween()
 	var scale_tween = create_tween()

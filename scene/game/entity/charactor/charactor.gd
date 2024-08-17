@@ -160,7 +160,7 @@ func pre_move_execute(entity:Entity)->bool:
 		
 		# 战斗逻辑
 		var enermy_damage = (entity as Enermy).attack_component.get_attack_damage()
-		number_indicator_component.display("-%d" % enermy_damage)
+		number_indicator_component.display("-%d" % enermy_damage, Color("#ff9b9b"))
 		
 		var is_char_dead = health_component.take_damage(enermy_damage)
 		var is_enermy_dead = (entity as Enermy).health_component.take_damage(attack_compoent.get_attack_damage())
@@ -200,6 +200,7 @@ func post_move_execute(entity:Entity):
 			SfxManager.play_heal()
 			play_heal_anim()
 			health_component.heal_hp((entity as PropertyItem).points)
+			number_indicator_component.display("+%d" % (entity as PropertyItem).points, Color("#ff9b9b"))
 			entity.signal_entity_used.emit(entity)
 			
 		Constants.ENTITY_TYPE.HEALTH_UP:
@@ -207,6 +208,7 @@ func post_move_execute(entity:Entity):
 			SfxManager.play_upgrade()
 			play_heal_anim()
 			health_component.increase_max_hp((entity as PropertyItem).points)
+			number_indicator_component.display("+%d" % (entity as PropertyItem).points, Color("#ff9b9b"))
 			entity.signal_entity_used.emit(entity)
 			
 			
@@ -215,6 +217,7 @@ func post_move_execute(entity:Entity):
 			SfxManager.play_heal()
 			play_str_up_anim()
 			attack_compoent.increase_temp_attack((entity as PropertyItem).points)
+			number_indicator_component.display("+%d" % (entity as PropertyItem).points, Color("#9bb7f0"))
 			entity.signal_entity_used.emit(entity)
 		
 		Constants.ENTITY_TYPE.STRENGTH_UP:
@@ -222,6 +225,7 @@ func post_move_execute(entity:Entity):
 			SfxManager.play_upgrade()
 			play_str_up_anim()
 			attack_compoent.increase_base_attack((entity as PropertyItem).points)
+			number_indicator_component.display("+%d" % (entity as PropertyItem).points, Color("#9bb7f0"))
 			entity.signal_entity_used.emit(entity)
 			
 			
@@ -237,6 +241,7 @@ func post_move_execute(entity:Entity):
 			print('ENTITY_TYPE.ENERGY_UP')
 			SfxManager.play_upgrade()
 			resource_component.add_resource((entity as PropertyItem).points)
+			number_indicator_component.display("+%d" % (entity as PropertyItem).points, Color("#eed7ab"))
 			entity.signal_entity_used.emit(entity)
 			
 		Constants.ENTITY_TYPE.ENERGY_ROOM_UP:

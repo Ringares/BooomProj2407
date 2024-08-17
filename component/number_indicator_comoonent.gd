@@ -5,10 +5,10 @@ class_name NumberIndicatorComponent
 var float_text
 
 
-func display(text:String):
+func display(text:String, color:Color):
 	float_text = float_text_scene.instantiate() as Node2D
 	var tar_node = get_parent()
 	tar_node.get_parent().add_child(float_text)
 	float_text.global_position = tar_node.global_position + Vector2.UP * 16
-	(float_text as FloatingText).display_floating(text)
+	(float_text as FloatingText).display_floating(text, color)
 	

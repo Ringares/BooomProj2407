@@ -57,7 +57,6 @@ func play_hit_anim():
 func shake_sprite(shake_count):
 	var shake = 2
 	sprite_2d.position += Vector2(randf_range(-shake, shake),randf_range(-shake, shake))
-	print('enermy ', sprite_2d.position)
 	
 
 func dead():

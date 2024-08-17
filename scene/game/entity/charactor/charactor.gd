@@ -80,30 +80,30 @@ func move_to_pos_through_edge(to_position:Vector2, need_anim:bool):
 	tween = create_tween()
 	var anim_direction = - (self.position as Vector2).direction_to(to_position)
 	
-	
+	print('move_to_pos_through_edge %v->%v', [self.position, to_position])
 	if self.position.x == to_position.x:
-		tween.tween_property(self, "position", self.position + anim_direction * 64, move_component.move_dutation)\
+		tween.tween_property(self, "position", self.position + anim_direction * 64, move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,0), move_component.move_dutation)\
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 			
 		tween.chain().tween_property(self, 'position', to_position - anim_direction * 64, 0.0)
 			
-		tween.chain().tween_property(self, "position", to_position, move_component.move_dutation)\
+		tween.chain().tween_property(self, "position", to_position, move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation)\
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	else:
-		tween.tween_property(self, "position", self.position + anim_direction * 64, move_component.move_dutation)\
+		tween.tween_property(self, "position", self.position + anim_direction * 64, move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(anim, 'scale', Vector2(0.0,1.0), move_component.move_dutation)\
+		tween.parallel().tween_property(anim, 'scale', Vector2(0.0,1.0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 			
 		tween.chain().tween_property(self, 'position', to_position - anim_direction * 64, 0.0)
 			
-		tween.chain().tween_property(self, "position", to_position, move_component.move_dutation)\
+		tween.chain().tween_property(self, "position", to_position, move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation)\
+		tween.parallel().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation/2)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	
 	await tween.finished
@@ -137,7 +137,6 @@ func play_hit_anim():
 func shake_sprite(shake_count):
 	var shake = 2
 	sprite_2d.position += Vector2(randf_range(-shake, shake),randf_range(-shake, shake))
-	print(sprite_2d.position)
 	
 	
 

@@ -3,7 +3,7 @@ class_name GridMoveComponent
 
 @export var grid_size = 128
 @export var actor:Node2D
-@export var move_dutation = 0.5
+@export var move_dutation = 0.4
 @export var direction = Vector2.RIGHT
 
 #func move_forward(new_direction):

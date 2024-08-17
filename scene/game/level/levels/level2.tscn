@@ -144,6 +144,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="DebugContainer" type="VBoxContainer" parent="LevelUILayer"]
+visible = false
 offset_left = 64.0
 offset_top = 768.0
 offset_right = 384.0

@@ -10,7 +10,7 @@ class_name LevelControl
 @export_category("level setting")
 @export var level_name:String = "default level name"
 @export var is_auto_run:bool = true
-@export var step_duration:float = 0.3
+@export var step_duration:float = 0.9
 @export_enum("right", "down", "left", "up") var init_direction_str = "right"
 @export var init_energy = 0
 @export var debug_game_data:DebugGameData
@@ -52,6 +52,7 @@ func _ready():
 	editable_cells = base_tile.get_used_cells_by_id(0,0,Vector2(1,0))
 	
 	step_timer.timeout.connect(_on_step_timer)
+	step_timer.wait_time = step_duration
 	
 	AutoLoadEvent.signal_pickitem_cancel.connect(_on_signal_pickitem_cancel)
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
@@ -70,7 +71,7 @@ func _ready():
 	
 	
 	# wait for enter level anim
-	await get_tree().create_timer(2.5).timeout
+	await get_tree().create_timer(2.2).timeout
 	
 	# if is_auto_run:
 	# 从关卡设定改为用户操作记录
@@ -130,10 +131,10 @@ func _unhandled_input(event):
 
 func _physics_process(delta):
 	if is_level_ready and not is_pickdroping and Input.is_action_pressed("take_step"):
-		print('action press take_step', manual_interval_passed, is_running())
+		#print('action press take_step', manual_interval_passed, is_running())
 		if manual_interval_passed and not is_running():
 			manual_interval_passed = false
-			get_tree().create_timer(0.8).timeout.connect(func():manual_interval_passed=true)
+			get_tree().create_timer(step_duration).timeout.connect(func():manual_interval_passed=true)
 			take_step()
 			print('take_step')
 
@@ -281,10 +282,11 @@ func place_entity_instance(packed_scene:PackedScene, cell_id:Vector2i):
 	cell_scene.position = entity_tile.map_to_local(cell_id)
 	
 	if cell_data[cell_id.x][cell_id.y] != null:
-		push_error("try set in not null in cell_data at ", cell_id)
-	else:
-		cell_data[cell_id.x][cell_id.y] = cell_scene
-		cell_scene.cell_id = cell_id
+		push_warning("try set in not null in cell_data at ", cell_id)
+		cell_data[cell_id.x][cell_id.y].queue_free()
+	
+	cell_data[cell_id.x][cell_id.y] = cell_scene
+	cell_scene.cell_id = cell_id
 	return cell_scene
 	
 
@@ -417,7 +419,7 @@ func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE, is_switch_second:boo
 					indicate_cells.append(i)
 		_:
 			for i in editable_cells:
-				if cell_data[i.x][i.y] == null and i != charactor.cell_id:
+				if i != charactor.cell_id:
 					indicate_cells.append(i)
 	
 	AutoLoadEvent.signal_gird_indicaotr_show.emit(indicate_cells, valid_flag)
@@ -477,7 +479,7 @@ func drop_general_item(item_res, trans_data)->bool:
 	if check_basic_valid_drop(item_res, release_cell_id):
 		# 检查普通放置，是否重叠
 		var on_cell_entity = cell_data[release_cell_id.x][release_cell_id.y] as Entity
-		if on_cell_entity != null or charactor.cell_id == release_cell_id:
+		if charactor.cell_id == release_cell_id:
 			print('drop_failed as cell ocuppied')
 			return false
 	else:

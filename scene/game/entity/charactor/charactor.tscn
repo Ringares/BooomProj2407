@@ -130,9 +130,9 @@ unique_name_in_owner = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Visual/Anim"]
 unique_name_in_owner = true
-scale = Vector2(1.1, 1.1)
+scale = Vector2(1.2, 1.2)
 texture = SubResource("AtlasTexture_vcb61")
-offset = Vector2(2.08165e-12, -8)
+offset = Vector2(2.08165e-12, -10)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

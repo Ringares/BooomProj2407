@@ -240,7 +240,7 @@ func post_move_execute(entity:Entity):
 			print('ENTITY_TYPE.ENERGY_UP')
 			SfxManager.play_upgrade()
 			resource_component.add_resource((entity as PropertyItem).points)
-			number_indicator_component.display("+%d" % (entity as PropertyItem).points, Color("#eed7ab"))
+			number_indicator_component.display("+%d" % (entity as PropertyItem).points, Color("#f4cda8"))
 			entity.signal_entity_used.emit(entity)
 			
 		Constants.ENTITY_TYPE.ENERGY_ROOM_UP:

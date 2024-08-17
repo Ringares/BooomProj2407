@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfbtsggo1iiqb"
-path="res://.godot/imported/portrait_男孩.png-b379b04638c19f75d40b2e8f5a141edb.ctex"
+uid="uid://bochqh6bck3xp"
+path="res://.godot/imported/portrait_布恩_smile.png-20a1c436a0d9d9ceb0f5e71bd7402408.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/image/portrait/portrait_男孩.png"
-dest_files=["res://.godot/imported/portrait_男孩.png-b379b04638c19f75d40b2e8f5a141edb.ctex"]
+source_file="res://asset/image/portrait/portrait_布恩_smile.png"
+dest_files=["res://.godot/imported/portrait_布恩_smile.png-20a1c436a0d9d9ceb0f5e71bd7402408.ctex"]
 
 [params]
 

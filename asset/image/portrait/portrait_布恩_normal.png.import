@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ct84f0eht2x8l"
-path="res://.godot/imported/portrait_男孩_normal.png-3ae8e3a75c46f9a035a1299c11f41b74.ctex"
+path="res://.godot/imported/portrait_布恩_normal.png-48661e1b91d0b2477ef8c712d48a1602.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/image/portrait/portrait_男孩_normal.png"
-dest_files=["res://.godot/imported/portrait_男孩_normal.png-3ae8e3a75c46f9a035a1299c11f41b74.ctex"]
+source_file="res://asset/image/portrait/portrait_布恩_normal.png"
+dest_files=["res://.godot/imported/portrait_布恩_normal.png-48661e1b91d0b2477ef8c712d48a1602.ctex"]
 
 [params]
 

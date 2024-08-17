@@ -11,7 +11,7 @@ class_name ItemRes
 		if tile_cell != value:
 			tile_cell = value
 			get_tile_cell()
-
+@export_multiline var tooltip = ""
 
 func get_tile_cell():
 	tile_cell = Vector2i(texture.region.position.x / texture.region.size.x, texture.region.position.y / texture.region.size.y)

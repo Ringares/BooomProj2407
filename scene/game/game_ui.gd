@@ -39,17 +39,20 @@ func _on_level_loader_level_loaded():
 
 
 func _on_level_loader_levels_finished():
+	await get_tree().create_timer(0.5).timeout
 	print('game_ui _on_level_loader_levels_finished')
 	SceneLoader.load_scene(main_menu_scene)
 	
 
 func _on_level_lost():
 	print('game_ui _on_level_lost')
+	await get_tree().create_timer(0.5).timeout
 	InGameMenuController.open_menu(UI_DEFEATED, get_viewport())
 
 
 func _on_level_won():
 	print('game_ui _on_level_won')
+	await get_tree().create_timer(0.5).timeout
 	InGameMenuController.open_menu(UI_LEVEL_CLEAR, get_viewport())
 	
 	

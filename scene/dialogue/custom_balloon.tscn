@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://73jm5qjy52vq"]
+[gd_scene load_steps=8 format=3 uid="uid://73jm5qjy52vq"]
 
 [ext_resource type="Script" path="res://scene/dialogue/custom_balloon.gd" id="1_rs6gs"]
 [ext_resource type="Theme" uid="uid://cit323xaompge" path="res://theme/dialog_default_theme.tres" id="2_0p3vb"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_72ixx"]
-[ext_resource type="Texture2D" uid="uid://ddlpfv6bdjhrs" path="res://asset/image/portrait/portrait_星光.png" id="3_g8nhr"]
+[ext_resource type="Texture2D" uid="uid://b6yljv32msw6c" path="res://asset/image/portrait/portrait_AI贝塔.png" id="3_nm6oa"]
+[ext_resource type="StyleBox" uid="uid://ceiff43na7cyu" path="res://theme/dialogue_panel.tres" id="4_0siee"]
 [ext_resource type="AudioStream" uid="uid://bdwxoxho8yg5x" path="res://asset/audio/dialog_audio/typing.wav" id="5_bk8da"]
 
 [node name="CustomBalloon" type="CanvasLayer"]
@@ -22,61 +23,58 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0p3vb")
 
-[node name="Portrait" type="TextureRect" parent="Balloon"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="MarginContainer" parent="Balloon"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 376.0
-offset_top = -528.0
-offset_right = 748.907
-offset_bottom = -155.093
+offset_top = -1088.0
+offset_right = 1920.0
 grow_vertical = 0
-scale = Vector2(-1, 1)
-texture = ExtResource("3_g8nhr")
-expand_mode = 4
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Portrait" type="TextureRect" parent="Balloon/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(2.08165e-12, 600)
+layout_mode = 2
+texture = ExtResource("3_nm6oa")
+expand_mode = 2
 stretch_mode = 5
+flip_h = true
 
-[node name="Panel" type="Panel" parent="Balloon"]
+[node name="PanelContainer" type="PanelContainer" parent="Balloon/VBoxContainer"]
 clip_children = 2
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 21.0
-offset_top = -229.0
-offset_right = -19.0
-offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
+size_flags_vertical = 8
 mouse_filter = 1
+theme_override_styles/panel = ExtResource("4_0siee")
 
-[node name="Dialogue" type="MarginContainer" parent="Balloon/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Dialogue" type="MarginContainer" parent="Balloon/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 180)
+layout_mode = 2
 theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 48
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/Panel/Dialogue"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/VBoxContainer/PanelContainer/Dialogue"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/Panel/Dialogue/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/VBoxContainer/PanelContainer/Dialogue/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/Panel/Dialogue/HBoxContainer/VBoxContainer"]
+[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/VBoxContainer/PanelContainer/Dialogue/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.501961)
 layout_mode = 2
@@ -91,7 +89,7 @@ text = "Character"
 fit_content = true
 scroll_active = false
 
-[node name="DialogueLabel" parent="Balloon/Panel/Dialogue/HBoxContainer/VBoxContainer" instance=ExtResource("2_a8ve6")]
+[node name="DialogueLabel" parent="Balloon/VBoxContainer/PanelContainer/Dialogue/HBoxContainer/VBoxContainer" instance=ExtResource("2_a8ve6")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -101,6 +99,7 @@ theme_override_font_sizes/italics_font_size = 48
 theme_override_font_sizes/bold_italics_font_size = 48
 theme_override_font_sizes/mono_font_size = 48
 text = "Dialogue...
+
 "
 seconds_per_step = 0.04
 
@@ -137,5 +136,5 @@ volume_db = -4.0
 bus = &"SFX"
 
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
-[connection signal="spoke" from="Balloon/Panel/Dialogue/HBoxContainer/VBoxContainer/DialogueLabel" to="." method="_on_dialogue_label_spoke"]
+[connection signal="spoke" from="Balloon/VBoxContainer/PanelContainer/Dialogue/HBoxContainer/VBoxContainer/DialogueLabel" to="." method="_on_dialogue_label_spoke"]
 [connection signal="response_selected" from="Balloon/Responses/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

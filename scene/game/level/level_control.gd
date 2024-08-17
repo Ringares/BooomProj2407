@@ -71,7 +71,7 @@ func _ready():
 	
 	
 	# wait for enter level anim
-	await get_tree().create_timer(2.2).timeout
+	await get_tree().create_timer(2.0).timeout
 	
 	# if is_auto_run:
 	# 从关卡设定改为用户操作记录
@@ -311,9 +311,12 @@ func switch_entity_instance(entity1:Entity, entity2:Entity):
 
 func entity_mov_to_cell(entity1:Entity, tar_cell_id:Vector2i):
 	var tar_pos = entity_tile.map_to_local(tar_cell_id)
+	var cell_id1 = entity1.cell_id
+	
 	entity1.move_to_pos(tar_pos, true)
 	entity1.cell_id = tar_cell_id
 	cell_data[tar_cell_id.x][tar_cell_id.y] = entity1
+	cell_data[cell_id1.x][cell_id1.y] = null
 
 
 func take_step():
@@ -390,7 +393,8 @@ func _on_signal_chest_pickup(entity:FuncChestItem):
 #region useitem
 
 func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE, is_switch_second:bool):
-	is_running_before_pickup = is_running()
+	if not is_switch_second:
+		is_running_before_pickup = is_running()
 	is_pickdroping = true
 	_on_signal_change_level_run_state(false)
 	var indicate_cells = []

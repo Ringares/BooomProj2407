@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvvbeso36s0o4"]
+[gd_scene load_steps=6 format=3 uid="uid://dvvbeso36s0o4"]
 
 [ext_resource type="Script" path="res://scene/menu/main_menu.gd" id="1_du782"]
 [ext_resource type="PackedScene" uid="uid://beaj3udobexnc" path="res://scene/menu/option_menu/simple_option_menu.tscn" id="2_wyugc"]
 [ext_resource type="Script" path="res://script/ui_sound.gd" id="3_8hidd"]
 [ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="4_xpgo8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i85jh"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -82,6 +84,7 @@ visible = false
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i85jh")
 text = "继续游戏"
 
 [node name="NewGameButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer"]
@@ -89,6 +92,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i85jh")
 text = "新游戏"
 
 [node name="OptionButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer"]
@@ -96,6 +100,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i85jh")
 text = "选项"
 
 [node name="ExitButton" type="Button" parent="MenuContainer/VBoxContainer/MenuMargin/VBoxContainer"]
@@ -103,6 +108,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxEmpty_i85jh")
 text = "退出"
 
 [node name="OptionContainer" type="MarginContainer" parent="."]

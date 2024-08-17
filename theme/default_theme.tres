@@ -15,7 +15,7 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0u3s"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q3k8d"]
 bg_color = Color(0.0941176, 0.101961, 0.152941, 0.54902)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -78,7 +78,7 @@ Button/colors/font_disabled_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 32
 Button/styles/focus = SubResource("StyleBoxEmpty_wykat")
 Button/styles/hover = SubResource("StyleBoxFlat_5flwn")
-Button/styles/normal = SubResource("StyleBoxFlat_q0u3s")
+Button/styles/normal = SubResource("StyleBoxFlat_q3k8d")
 Button/styles/pressed = SubResource("StyleBoxFlat_fo135")
 CheckButton/styles/hover = SubResource("StyleBoxFlat_dxt5b")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_pv4ec")

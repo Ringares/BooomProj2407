@@ -47,6 +47,7 @@ func _physics_process(delta):
 			curr_preview.queue_free()
 			curr_preview = null
 			update_ui()
+			AutoLoadEvent.signal_pickitem_cancel.emit(null)
 			return
 	
 	

@@ -1,0 +1,10 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://ceiff43na7cyu"]
+
+[ext_resource type="Texture2D" uid="uid://c0qyo1g12k0my" path="res://asset/image/portrait/dialogue_bg.png" id="1_ahx3w"]
+
+[resource]
+texture = ExtResource("1_ahx3w")
+texture_margin_left = 40.0
+texture_margin_top = 40.0
+texture_margin_right = 40.0
+texture_margin_bottom = 40.0

@@ -3,7 +3,7 @@ class_name GridIndicatorComponent
 
 @export var tile:TileMap
 @export var indicator_scene:PackedScene
-@export var valid_modulate:Color = Color("#a6fea160")
+@export var valid_modulate:Color = Color("#32a6316a")
 @export var invalid_modulate:Color = Color("#cd5c5c60")
 @export var disable_modulate:Color = Color("#181a2760")
 
@@ -43,6 +43,7 @@ func on_signal_gird_indicaotr_show(cells:Array, state:VALID_STATE):
 		node.add_to_group("grid_indicators")
 		add_child(node)
 		node.global_position = tile.to_global(tile.map_to_local(cell))
+		print(state_color[state])
 		node.modulate = state_color[state]
 	show()
 	

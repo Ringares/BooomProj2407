@@ -1,10 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://vveuub1gdeuw"]
+[gd_scene load_steps=32 format=3 uid="uid://vveuub1gdeuw"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_0aac6"]
 [ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="2_86fer"]
 [ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="3_lsdqq"]
-[ext_resource type="StyleBox" uid="uid://dj0l4olgpjqf6" path="res://theme/board.tres" id="3_rcbun"]
-[ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_bqbkv"]
+[ext_resource type="PackedScene" uid="uid://bnc837r0fcok6" path="res://scene/ui/stage_bg.tscn" id="3_mduri"]
 [ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="4_lhxx1"]
 [ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="5_gkxtl"]
 [ext_resource type="Script" path="res://script/ui_sound.gd" id="6_1fqve"]
@@ -119,20 +118,8 @@ layer = -1
 
 [node name="BackgroundTextureRect" parent="LevelBGLayer" instance=ExtResource("11_sbbw6")]
 
-[node name="StageBG" type="PanelContainer" parent="LevelBGLayer" node_paths=PackedStringArray("contain_tile")]
-offset_left = 600.0
-offset_top = 96.0
-offset_right = 1264.0
-offset_bottom = 720.0
-mouse_filter = 2
-theme_override_styles/panel = ExtResource("3_rcbun")
-script = ExtResource("4_bqbkv")
+[node name="StageBG" parent="LevelBGLayer" node_paths=PackedStringArray("contain_tile") instance=ExtResource("3_mduri")]
 contain_tile = NodePath("../../TileContainer/BaseTileMap")
-
-[node name="StagePlacehold" type="Control" parent="LevelBGLayer/StageBG"]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 2
 
 [node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
 

@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://npqwxgd1kuv3"]
+
+[ext_resource type="StyleBox" uid="uid://ceiff43na7cyu" path="res://theme/dialogue_panel.tres" id="1_p5p7l"]
+
+[node name="TooltipScene" type="Node"]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 344.0
+offset_bottom = 193.0
+theme_override_styles/panel = ExtResource("1_p5p7l")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(256, 2.08165e-12)
+layout_mode = 2
+text = "Tooltip Text： 测试测试测试测试测试测试测试测试"
+autowrap_mode = 3

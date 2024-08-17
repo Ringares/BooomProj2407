@@ -41,6 +41,7 @@ var editable_cells:Array[Vector2i]
 var is_level_ready = false
 var is_running_before_pickup = false
 var manual_interval_passed = true
+var is_pickdroping = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -128,7 +129,7 @@ func _unhandled_input(event):
 			AutoLoadEvent.signal_level_reset.emit()
 
 func _physics_process(delta):
-	if is_level_ready and Input.is_action_pressed("take_step"):
+	if is_level_ready and not is_pickdroping and Input.is_action_pressed("take_step"):
 		print('action press take_step', manual_interval_passed, is_running())
 		if manual_interval_passed and not is_running():
 			manual_interval_passed = false
@@ -388,6 +389,8 @@ func _on_signal_chest_pickup(entity:FuncChestItem):
 
 func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE, is_switch_second:bool):
 	is_running_before_pickup = is_running()
+	is_pickdroping = true
+	_on_signal_change_level_run_state(false)
 	var indicate_cells = []
 	var cost = (ResourceLoader.load(Constants.EntityMap[type]) as ItemRes).energy_cost
 	var valid_flag = 1
@@ -421,6 +424,7 @@ func _on_signal_pickitem_pickup(type:Constants.ENTITY_TYPE, is_switch_second:boo
 	
 	
 func _on_signal_pickitem_cancel(trans_data):
+	is_pickdroping = false
 	_on_signal_change_level_run_state(is_running_before_pickup)
 
 
@@ -436,6 +440,7 @@ func _on_signal_pickitem_drop(trans_data):
 			is_done = drop_general_item(item_res, trans_data)
 	
 	if is_done:
+		is_pickdroping = false
 		_on_signal_change_level_run_state(is_running_before_pickup)
 
 

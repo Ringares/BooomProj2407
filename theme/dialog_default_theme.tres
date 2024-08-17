@@ -1,6 +1,7 @@
 [gd_resource type="Theme" load_steps=11 format=3 uid="uid://cit323xaompge"]
 
 [ext_resource type="FontFile" uid="uid://5nhumlafllm5" path="res://asset/font/ZCOOLKuaiLe-Regular.ttf" id="1_5h8t4"]
+[ext_resource type="StyleBox" uid="uid://ceiff43na7cyu" path="res://theme/dialogue_panel.tres" id="2_g5a31"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wykat"]
 
@@ -57,13 +58,6 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dnuw5"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7bnf"]
-bg_color = Color(0.239216, 0.313726, 0.439216, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_di5u7"]
 bg_color = Color(0.388235, 0.470588, 0.631373, 1)
 border_width_left = 8
@@ -90,5 +84,5 @@ CheckButton/styles/pressed = SubResource("StyleBoxEmpty_dnuw5")
 Fonts/fonts/large = ExtResource("1_5h8t4")
 Fonts/fonts/normal = ExtResource("1_5h8t4")
 Label/font_sizes/font_size = 32
-Panel/styles/panel = SubResource("StyleBoxFlat_s7bnf")
+Panel/styles/panel = ExtResource("2_g5a31")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_di5u7")

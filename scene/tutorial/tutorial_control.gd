@@ -20,7 +20,6 @@ func _ready():
 	AutoLoadEvent.signal_level_fail.connect(on_signal_level_end)
 	AutoLoadEvent.signal_level_reset.connect(on_signal_level_end)
 	
-	AutoLoadEvent.signal_cell_arraived.connect(_on_signal_cell_arraived)
 	DialogueManager.dialogue_ended.connect(_on_dialog_ended)
 
 

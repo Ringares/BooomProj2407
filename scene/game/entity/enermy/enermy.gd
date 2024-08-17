@@ -13,6 +13,7 @@ var dead_step:int = 0
 @onready var hp_label = %HPLabel
 @onready var atk_label = %AtkLabel
 @onready var status_label = %StatusLabel
+@onready var countdown_label
 @onready var dead_body
 
 
@@ -20,6 +21,7 @@ var dead_step:int = 0
 func _ready():
 	AutoLoadEvent.signal_step_update.connect(_on_signal_step_update)
 	dead_body = find_child("DeadBody")
+	countdown_label = find_child("CountdownLabel")
 	call_deferred("update_ui")
 
 
@@ -65,8 +67,10 @@ func dead():
 	#visual.hide()
 	#visual.modulate = Color.DIM_GRAY
 	status_label.hide()
+	sprite_2d.hide()
 	if is_instance_valid(dead_body): dead_body.show()
 	start_teleport_out()
+	_on_signal_step_update(curr_step)
 	
 	
 func revive():
@@ -76,12 +80,21 @@ func revive():
 	SfxManager.play_revive()
 	start_teleport_in()
 	health_component.reset_hp()
+	sprite_2d.show()
 	update_ui()
 	if is_instance_valid(dead_body): dead_body.hide()
+	if is_instance_valid(dead_body): countdown_label.hide()
 	get_tree().create_timer(0.3).timeout.connect(func():status_label.show())
 	
 
 func _on_signal_step_update(step:int):
 	curr_step = step
-	if not is_valid and revive_step_gap != -1 and (curr_step - dead_step > revive_step_gap):
-		revive()
+	if not is_valid and revive_step_gap != -1:
+		var remaining_countdown = revive_step_gap - (curr_step - dead_step)
+		print('remaining_countdown', remaining_countdown)
+		if (curr_step - dead_step > revive_step_gap):
+			revive()
+		else:
+			countdown_label.text = str(remaining_countdown+1)
+			countdown_label.show()
+		

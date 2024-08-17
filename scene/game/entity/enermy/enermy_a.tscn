@@ -27,7 +27,6 @@ script = ExtResource("4_g2lb2")
 
 [node name="DeadBody" type="Sprite2D" parent="Visual"]
 unique_name_in_owner = true
-visible = false
 modulate = Color(0, 0, 0, 0.486275)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_ivpil")
@@ -36,6 +35,26 @@ texture = SubResource("AtlasTexture_ivpil")
 unique_name_in_owner = true
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_ivpil")
+
+[node name="CountdownLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.68101, 0.68101, 0.68101, 0.733333)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 15.0
+offset_bottom = 29.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("5_ui6t5")
+theme_override_colors/font_color = Color(0.619489, 0.619489, 0.619489, 1)
+theme_override_font_sizes/font_size = 24
+text = "1"
 
 [node name="StatusLabel" type="Control" parent="."]
 unique_name_in_owner = true

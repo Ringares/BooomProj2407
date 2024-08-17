@@ -1,50 +1,67 @@
 ~ cg1
-
 {{pangbai}}: ——某日，宇宙空间站阿尔法受到不明外星生物的袭击，空间站内发生了多起爆炸。
-{{boy}}: [color=#d8e9f9]星光！快跑！快跟上！[/color]
-{{cat}}: [color=#ff9b9b]喵——！!![/color]
+{{boy}}: [color=#a3d1f4]星光！快跑！快跟上！[/color]
+{{cat}}: [color=#ff6f61]喵——！!![/color]
 
-{{pangbai}}: [shake rate=20 level=10]此时，小男孩和猫咪之间的走廊地板突然开始剧烈震动。[/shake]
-{{boy}}: [color=#d8e9f9]不好！星光，别过来！小心——！[/color]
+{{pangbai}}: [shake rate=20 level=10]此时，布恩和猫咪之间的走廊地板突然开始剧烈震动。[/shake]
+{{boy}}: [color=#a3d1f4]不好！星光，别过来！小心——！[/color]
 
 {{pangbai}}: 一道强烈的爆炸声响彻四周，伴随着刺耳的轰鸣，火光在人和猫之间迅速蔓延。
-{{pangbai}}: 爆炸的冲击波将小男孩和星光抛向不同的方向。
-{{boy}}: [color=#d8e9f9]星光！星光——！[/color]
-{{cat}}: [color=#ff9b9b]喵——！喵…… …… ……[/color]
+{{pangbai}}: 巨大的冲击波将地板撕裂开来，将布恩和星光抛向不同的方向。
+
+{{boy}}: [color=#a3d1f4]星光！星光——！[/color]
+{{cat}}: [color=#ff9b9b]喵——！喵……[/color]
 
 => END
 
 ~ cg2
 
+{{pangbai}}: 布恩被冲击波吹到在地，他挣扎着想要站起来，但眼前的一切已天翻地覆。
 {{pangbai}}: 之前的走廊已经变成一片废墟，星光被浓烟和瓦砾遮挡，已经完全看不见。
+{{boy}}: [shake rate=20 level=15]唔……好痛！[/shake] 星光……星光！你在哪儿？能听到我吗？
 
-{{boy}}: [shake rate=20 level=10]唔……好痛！[/shake] 星光……星光！你在哪儿？能听到我吗？
+{{pangbai}}: 回应他的只有远处隐隐传来的金属断裂声和火花四溅的噼啪声，空气中弥漫着焦灼的气味。
+{{boy}}: [color=#a3d1f4]不……这不是真的！[shake rate=20 level=15]星光……你一定要撑住。[/shake][/color]
+{{boy}}: [color=#a3d1f4]别丢下我……我不会放弃的……我一定会找到你……[/color]
 
-{{pangbai}}: 回应他的只有远处隐隐传来的金属断裂声和火花四溅的噼啪声。空气中弥漫着焦灼的气味，四周陷入一片混乱。
-{{boy}}: [color=#d8e9f9]不……这不是真的！[shake rate=20 level=10]星光……你一定要撑住。[/shake][/color]
-{{boy}}: [color=#d8e9f9]星光……你别丢下我……我不会放弃的……我一定会找到你……[/color]
+{{pangbai}}: 布恩使出了浑身的力气，尝试搬走倒塌下来的废墟瓦砾，但庞大的砾石纹丝不动。
+{{pangbai}}: 巨大的绝望感涌上心头，泪水从布恩眼角滑落。
+{{boy}}: [color=#a3d1f4][shake rate=20 level=10]可恶，我什么都做不到！[/shake][/color]
 
 => END
 
 ~ cg3
 
-{{system_unknow}}: [color=#adc5ca]权限认证通过，检测到不明威胁，切换到紧急模式。[/color]
-{{boy}}: [color=#d8e9f9]这声音……是谁在说话？[/color]
-{{system}}: [color=#adc5ca]AI贝塔人格已启动，我是空间站的辅助人工智能，负责在紧急情况下提供支援。[/color]
-{{boy}}: [color=#d8e9f9]贝塔？你……你能帮我找到我的伙伴星光吗？[/color]
+{{system_unknow}}: [color=#7d9eb1]权限认证通过，检测到不明威胁，切换到紧急模式。[/color]
+{{boy}}: [color=#a3d1f4]这声音……是谁在说话？[/color]
+{{system}}: [color=#7d9eb1]AI贝塔人格已启动，我是空间站的辅助人工智能，负责在紧急情况下提供支援。[/color]
+{{boy}}: [color=#a3d1f4]贝塔？你……你能帮我找到我的伙伴星光吗？[/color]
 
 {{pangbai}}: 周围出现了多个投息屏幕，显示出不同区域的画面。空间站内部的一片狼藉、散落的设备、以及闪烁的红色警报灯无一不在提醒着当前的危机。
-{{system}}: [color=#adc5ca]根据我的监控数据，星光目前生命体征稳定，尽管它处于受困状态。您无需担心。[/color]
-{{boy}}: [color=#d8e9f9]你真的能找到它！贝塔，请告诉我，我该怎么做！[/color]
-{{system}}: [color=#adc5ca]我已分析完毕，请确认下方的监控画面，这是星光当前所在的位置[/color]
-{{system}}: [color=#adc5ca]您可以通过我的系统实时查看它的状态，并根据情况作出指示[/color]
-{{boy}}: [color=#d8e9f9][shake rate=20 level=10]好！那就拜托你了！[/shake][/color]
+{{system}}: [color=#7d9eb1]根据我的监控数据，星光目前生命体征稳定，尽管它处于受困状态。您无需担心。[/color]
+{{boy}}: [color=#a3d1f4]你真的能找到它！贝塔，请告诉我，我该怎么做！[/color]
+{{system}}: [color=#7d9eb1]我已分析完毕，请确认下方的监控画面，这是星光当前所在的位置[/color]
+{{system}}: [color=#7d9eb1]您可以通过我的系统实时查看它的状态，并根据情况作出指示[/color]
+{{boy}}: [color=#a3d1f4][shake rate=20 level=10]好！那就拜托你了！[/shake][/color]
 
 => END
 
 
 ~ cg4
+{{pangbai}}: 逐渐平息的警报声，随之而来的是一片宁静。
+{{pangbai}}: 星光高兴地飞扑向布恩，布恩张开双臂紧紧抱住了它。久违的重逢，难抑的喜悦。
+{{boy}}: [color=#a3d1f4] [shake rate=20 level=15]星光！你回来了！你做到了！[/shake][/color]
+{{cat}}: [color=#ff6f61][shake rate=20 level=15]喵——！喵~~[/shake][/color]
 
+{{boy}}: [color=#a3d1f4] [shake rate=20 level=10]我就知道你能行……我就知道我们一定能再见面！[/shake][/color]
+{{pangbai}}: 星光在布恩怀里蹭了蹭，发出愉悦的呼噜声，尾巴温柔地环绕在布恩的手臂上。
+{{cat}}: [color=#ff6f61][shake rate=20 level=10]喵~[/shake][/color]
+
+{{pangbai}}: 空间站内的灯光渐渐恢复正常，破损的设备虽然依旧残留着战斗的痕迹，但危险已经解除。布恩抬头望向窗外璀璨的星空，眼中充满憧憬。
+{{boy}}: [color=#a3d1f4] “星光，这个世界上只要有你在，我就不再害怕。”[/color]
+{{cat}}: [color=#ff6f61]喵~[/color]
+{{boy}}: [color=#a3d1f4] 我们未来一起探索更多的星星，好吗？[/color]
+{{cat}}: [color=#ff6f61]喵！[/color]
 => END
 
 
@@ -55,5 +72,6 @@
 [color=#ff9b9b][/color]
 [color=#5ac3e9][/color]
 [color=#eed7ab][/color]
+[color=#adc5ca][/color]
 
 => END

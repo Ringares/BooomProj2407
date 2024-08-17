@@ -31,12 +31,35 @@ func update_ui():
 
 
 func play_hit_anim():
-	# TODO anim
-	play_hit_flash()
+	# play_hit_flash()
+	if sprite_2d.material == null:
+		sprite_2d.material = ShaderMaterial.new()
+		sprite_2d.material.resource_local_to_scene = true
+	
+	sprite_2d.material.shader = HIT_FLASH_SHADER
+	
+	if tween !=null and tween.is_valid():
+		tween.kill()
+	
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("lerp_percent", 1.0)
+	
+	var origin_pos = sprite_2d.position
+	tween = create_tween()
+	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	tween.parallel().tween_method(shake_sprite, 0,5,0.3)
+	tween.chain().tween_property(sprite_2d, "position", origin_pos, 0.)
 	update_ui()
+	
 
+func shake_sprite(shake_count):
+	var shake = 2
+	sprite_2d.position += Vector2(randf_range(-shake, shake),randf_range(-shake, shake))
+	print('enermy ', sprite_2d.position)
+	
 
 func dead():
+	await get_tree().create_timer(0.3).timeout
 	is_valid = false
 	dead_step = curr_step
 	#visual.hide()

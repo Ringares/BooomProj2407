@@ -77,7 +77,7 @@ func play_hit_flash(falsh_color = Vector3(1.0, 1.0, 1.0)):
 	tween = create_tween()
 	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-
+	
 
 func start_teleport_in():
 	if sprite_2d.material == null:

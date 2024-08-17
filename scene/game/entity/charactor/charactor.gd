@@ -40,7 +40,9 @@ func move_to_pos(to_position:Vector2, need_anim:bool):
 	
 	tween = create_tween()
 	if self.position.x == to_position.x:
-		var half_position = self.position + (to_position - self.position) * 1/3 + Vector2.UP * 16
+		var jump_direction = (self.position as Vector2).direction_to(to_position).rotated(-PI/2)
+		var half_position = self.position + (to_position - self.position) * 1/3 + jump_direction * 16
+		
 		tween.tween_property(self, "position", half_position, move_component.move_dutation*1/3)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property(self, "position", to_position, move_component.move_dutation*2/3)\
@@ -52,8 +54,7 @@ func move_to_pos(to_position:Vector2, need_anim:bool):
 		#tween.chain().tween_property(anim, 'scale', Vector2(1.0,1.0), move_component.move_dutation/2)\
 			#.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	else:
-		var jump_direction = (self.position as Vector2).direction_to(to_position).rotated(-PI/2)
-		var half_position = self.position + (to_position - self.position) * 1/3 + jump_direction * 16
+		var half_position = self.position + (to_position - self.position) * 1/3 + Vector2.UP * 16
 		tween.tween_property(self, "position", half_position, move_component.move_dutation*1/3)\
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property(self, "position", to_position, move_component.move_dutation*2/3)\
@@ -109,8 +110,36 @@ func move_to_pos_through_edge(to_position:Vector2, need_anim:bool):
 
 
 func play_hit_anim():
-	play_hit_flash()
+	# play_hit_flash()
+	if sprite_2d.material == null:
+		sprite_2d.material = ShaderMaterial.new()
+		sprite_2d.material.resource_local_to_scene = true
+	
+	sprite_2d.material.shader = HIT_FLASH_SHADER
+	
+	if tween !=null and tween.is_valid():
+		tween.kill()
+	
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("lerp_percent", 1.0)
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("flash_color", Vector3(1.0, 1.0, 1.0))
+	
+	var origin_pos = sprite_2d.position
+	tween = create_tween()
+	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
+		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		
+	tween.parallel().tween_method(shake_sprite, 0,5,0.3)
+	tween.parallel().tween_property(sprite_2d, "position", origin_pos + move_component.direction * 128 / 3, 0.1)
+	tween.chain().tween_property(sprite_2d, "position", origin_pos, 0.)
+	
+	
 
+func shake_sprite(shake_count):
+	var shake = 2
+	sprite_2d.position += Vector2(randf_range(-shake, shake),randf_range(-shake, shake))
+	print(sprite_2d.position)
+	
+	
 
 func play_heal_anim():
 	play_hit_flash(Vector3(1.0, 0.8, 0.8))
@@ -140,7 +169,7 @@ func pre_move_execute(entity:Entity)->bool:
 		SfxManager.play_attack()
 		if is_char_dead:
 			SfxManager.play_fail()
-			get_tree().create_timer(0.5).timeout.connect(func():AutoLoadEvent.signal_level_fail.emit())
+			get_tree().create_timer(0.3).timeout.connect(func():AutoLoadEvent.signal_level_fail.emit())
 			return false
 			
 		if is_enermy_dead:
@@ -199,7 +228,7 @@ func post_move_execute(entity:Entity):
 		Constants.ENTITY_TYPE.EXIT:
 			print('ENTITY_TYPE.EXIT')
 			SfxManager.play_win()
-			get_tree().create_timer(0.5).timeout.connect(func():AutoLoadEvent.signal_level_won.emit())
+			get_tree().create_timer(0.3).timeout.connect(func():AutoLoadEvent.signal_level_won.emit())
 			
 		Constants.ENTITY_TYPE.RECYCLER:
 			pass

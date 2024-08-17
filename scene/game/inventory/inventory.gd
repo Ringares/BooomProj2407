@@ -44,10 +44,7 @@ func _physics_process(delta):
 			inven_data[origin_idx] = hover_slot.iven_item
 			inven_data[tar_idx] = curr_preview.inven_item
 			
-			curr_preview.queue_free()
-			curr_preview = null
-			update_ui()
-			AutoLoadEvent.signal_pickitem_cancel.emit(null)
+			AutoLoadEvent.signal_pickitem_cancel.emit({})
 			return
 	
 	
@@ -145,7 +142,6 @@ func get_valid_slot_idx(contain_type:Constants.ENTITY_TYPE):
 		return first_null_idx
 	else:
 		return null
-			
 
 
 func _on_signal_inventory_capacity_increase():
@@ -165,6 +161,7 @@ func _on_signal_mouse_exited_slot(_slot:ItemSlot):
 func _on_signal_pickitem_cancel(trans_data:Dictionary):
 	curr_preview.queue_free()
 	curr_preview = null
+	update_ui()
 
 func _on_signal_pickitem_drop_update_inventory(slot_id):
 	curr_preview.queue_free()

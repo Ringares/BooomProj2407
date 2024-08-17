@@ -98,7 +98,7 @@ _data = {
 "enter_level": SubResource("Animation_6u7xg")
 }
 
-[node name="Chatactor" type="Node2D" node_paths=PackedStringArray("move_component", "attack_compoent", "health_component", "resource_component", "number_indicator_component")]
+[node name="Chatactor" type="Node2D" node_paths=PackedStringArray("move_component", "attack_compoent", "health_component", "resource_component", "number_indicator_component") groups=["charactor"]]
 script = ExtResource("1_2b06r")
 move_component = NodePath("GridMoveComponent")
 attack_compoent = NodePath("AttackComponent")

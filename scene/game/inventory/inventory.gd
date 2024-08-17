@@ -1,14 +1,15 @@
 extends Control
 class_name Inventory
 
-
-@export var max_iven_capacity = 9
-var inven_data = [null] # [IvenItem]
-@onready var grid_container = %GridContainer
 const ITEM_CONTAINER = preload("res://scene/game/inventory/item_container.tscn")
 const ITEM_PREVIEW = preload("res://scene/game/inventory/item_preview.tscn")
 const ROTATE_ITEM_PREVIEW = preload("res://scene/game/inventory/rotate_item_preview.tscn")
 const ITEM_SWITCH_PREVIEW = preload("res://scene/game/inventory/item_switch_preview.tscn")
+
+@export var max_iven_capacity = 9
+var inven_data = [null] # [IvenItem]
+@onready var grid_container = %GridContainer
+
 var hover_slot:ItemSlot = null
 var curr_preview:ItemPreview = null
 var is_stackable = false
@@ -24,17 +25,24 @@ func _ready():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("left_clk"):
 		if hover_slot != null and not hover_slot.is_empty() and curr_preview == null:
+			var charactor = get_tree().get_first_node_in_group("charactor") as Charactor
+			if charactor == null:
+				return
 			
-			if hover_slot.iven_item.item_res.entity_type == Constants.ENTITY_TYPE.TRAIL:
-				curr_preview = ROTATE_ITEM_PREVIEW.instantiate()
-			elif hover_slot.iven_item.item_res.entity_type == Constants.ENTITY_TYPE.SWITCHER:
-				curr_preview = ITEM_SWITCH_PREVIEW.instantiate()
+			if charactor.resource_component.curr_count <= 0:
+				hover_slot.play_invalid_anim()
 			else:
-				curr_preview = ITEM_PREVIEW.instantiate()
+				if hover_slot.iven_item.item_res.entity_type == Constants.ENTITY_TYPE.TRAIL:
+					curr_preview = ROTATE_ITEM_PREVIEW.instantiate()
+				elif hover_slot.iven_item.item_res.entity_type == Constants.ENTITY_TYPE.SWITCHER:
+					curr_preview = ITEM_SWITCH_PREVIEW.instantiate()
+				else:
+					curr_preview = ITEM_PREVIEW.instantiate()
+				
+				curr_preview.set_data(hover_slot.iven_item, hover_slot.idx)
+				get_tree().get_first_node_in_group('group_inventory').add_child(curr_preview)
+				AutoLoadEvent.signal_pickitem_pickup.emit(hover_slot.iven_item.item_res.entity_type, false)
 			
-			curr_preview.set_data(hover_slot.iven_item, hover_slot.idx)
-			get_tree().get_first_node_in_group('group_inventory').add_child(curr_preview)
-			AutoLoadEvent.signal_pickitem_pickup.emit(hover_slot.iven_item.item_res.entity_type, false)
 			return
 		
 		if hover_slot != null and curr_preview != null:

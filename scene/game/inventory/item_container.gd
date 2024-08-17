@@ -3,6 +3,8 @@ class_name ItemSlot
 
 @onready var texture_rect = $TextureRect
 @onready var count_label = $CountLabel
+@onready var animation_player = $AnimationPlayer
+
 
 const POINTER_TOON = preload("res://asset/image/pointer_toon_a.png")
 const HAND_CLOSED = preload("res://asset/image/hand_closed.png")
@@ -30,6 +32,10 @@ func set_data(data:IvenItem):
 
 func is_empty():
 	return iven_item == null
+
+func play_invalid_anim():
+	animation_player.stop()
+	animation_player.play("invalid")
 
 func _on_mouse_entered():
 	#modulate = Color(1.5,1.5,1.5)

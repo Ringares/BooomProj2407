@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="BaseProject"
-config/version="0.8.18.18"
+config/name="CelestialPaths"
+config/version="0.8.18.20"
 run/main_scene="res://scene/opening/opening.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false

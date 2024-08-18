@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c37br3aos5hnb"]
+[gd_scene load_steps=33 format=3 uid="uid://c37br3aos5hnb"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_u7qj1"]
 [ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_fed11"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bxqw21tofdkhb" path="res://scene/game/game_ui/power_ui.tscn" id="9_cfgnc"]
 [ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="10_k4m3a"]
 [ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="11_ltcxx"]
+[ext_resource type="Texture2D" uid="uid://cltlnka3wrdak" path="res://asset/image/ui/rotate_ccw.png" id="12_aef46"]
 [ext_resource type="Texture2D" uid="uid://dar60x7kv27e4" path="res://asset/image/ui/mark_question.png" id="12_t6v8r"]
 [ext_resource type="PackedScene" uid="uid://cnepdj0wy24dp" path="res://scene/ui/tutorial_scene.tscn" id="13_5a8te"]
 [ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="14_56tlw"]
@@ -88,6 +89,8 @@ _data = {
 "RESET": SubResource("Animation_puw1d"),
 "scene_open": SubResource("Animation_gredy")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cr864"]
 
 [sub_resource type="Resource" id="Resource_ysd0n"]
 script = ExtResource("15_8xk1m")
@@ -250,13 +253,24 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="TutorialButton" type="Button" parent="LevelUILayer/MarginContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUILayer/MarginContainer"]
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="LevelUILayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cr864")
+text = "重置关卡"
+icon = ExtResource("12_aef46")
+
+[node name="TutorialButton" type="Button" parent="LevelUILayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 64)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cr864")
+text = "帮助"
 icon = ExtResource("12_t6v8r")
-icon_alignment = 1
-expand_icon = true
 
 [node name="TutorialScene" parent="." instance=ExtResource("13_5a8te")]
 process_mode = 3
@@ -302,4 +316,5 @@ unique_name_in_owner = true
 [connection signal="pressed" from="LevelUILayer/DebugContainer/WinButton" to="." method="_on_win_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/DebugContainer/LoseButton" to="." method="_on_lose_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/DebugContainer/ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="LevelUILayer/MarginContainer/TutorialButton" to="LevelControl" method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/VBoxContainer/ResetButton" to="LevelControl" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/VBoxContainer/TutorialButton" to="LevelControl" method="_on_tutorial_button_pressed"]

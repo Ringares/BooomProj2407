@@ -609,3 +609,7 @@ func _on_tutorial_button_pressed():
 		if tutorial_scene.display(true):
 			is_running_before_pickup = is_running()
 			_on_signal_change_level_run_state(false)
+
+
+func _on_reset_button_pressed():
+	AutoLoadEvent.signal_level_reset.emit()

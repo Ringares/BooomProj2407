@@ -152,7 +152,10 @@ func pre_move_execute(entity:Entity)->bool:
 	if entity == null:
 		return true
 	
-	if entity.type == Constants.ENTITY_TYPE.ENERMY_A or entity.type == Constants.ENTITY_TYPE.ENERMY_B:
+	if entity.type in [
+		Constants.ENTITY_TYPE.ENERMY_A,
+		Constants.ENTITY_TYPE.ENERMY_B,
+		Constants.ENTITY_TYPE.ENERMY_C ]:
 		print('Constants.ENTITY_TYPE.ENERMY...')
 		if not (entity as Enermy).is_valid:
 			return true

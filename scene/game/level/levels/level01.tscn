@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://v8jlsn2ygv3m"]
+[gd_scene load_steps=25 format=3 uid="uid://v8jlsn2ygv3m"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_35h0o"]
 [ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_xvv4u"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="9_s2lsl"]
 [ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="10_lymd1"]
 [ext_resource type="Texture2D" uid="uid://dar60x7kv27e4" path="res://asset/image/ui/mark_question.png" id="11_dylon"]
+[ext_resource type="Texture2D" uid="uid://cltlnka3wrdak" path="res://asset/image/ui/rotate_ccw.png" id="11_phbmx"]
 [ext_resource type="PackedScene" uid="uid://cnepdj0wy24dp" path="res://scene/ui/tutorial_scene.tscn" id="12_rvxc2"]
 [ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="13_vwk8o"]
 [ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="14_chwex"]
@@ -86,6 +87,8 @@ _data = {
 "RESET": SubResource("Animation_puw1d"),
 "scene_open": SubResource("Animation_gredy")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nad3l"]
 
 [sub_resource type="Resource" id="Resource_geuyl"]
 script = ExtResource("14_chwex")
@@ -196,13 +199,24 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="TutorialButton" type="Button" parent="LevelUILayer/MarginContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUILayer/MarginContainer"]
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="LevelUILayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nad3l")
+text = "重置关卡"
+icon = ExtResource("11_phbmx")
+
+[node name="TutorialButton" type="Button" parent="LevelUILayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 64)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nad3l")
+text = "帮助"
 icon = ExtResource("11_dylon")
-icon_alignment = 1
-expand_icon = true
 
 [node name="TutorialScene" parent="." instance=ExtResource("12_rvxc2")]
 process_mode = 3
@@ -246,4 +260,5 @@ unique_name_in_owner = true
 [connection signal="pressed" from="LevelUILayer/DebugContainer/WinButton" to="." method="_on_win_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/DebugContainer/LoseButton" to="." method="_on_lose_button_pressed"]
 [connection signal="pressed" from="LevelUILayer/DebugContainer/ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="LevelUILayer/MarginContainer/TutorialButton" to="LevelControl" method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/VBoxContainer/ResetButton" to="LevelControl" method="_on_reset_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/VBoxContainer/TutorialButton" to="LevelControl" method="_on_tutorial_button_pressed"]

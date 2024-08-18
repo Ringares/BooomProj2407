@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c5ge57d4dya63"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/cg_end_level.gd" id="1_goph3"]
-[ext_resource type="Texture2D" uid="uid://b61b88rt7fv20" path="res://asset/image/cg/cg1.png" id="2_6bo36"]
+[ext_resource type="Texture2D" uid="uid://drrj1r5r717ep" path="res://asset/image/cg/cg4.png" id="2_kqwy4"]
 
 [sub_resource type="Shader" id="Shader_bmwow"]
 code = "shader_type canvas_item;
@@ -30,4 +30,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6bo36")
+texture = ExtResource("2_kqwy4")

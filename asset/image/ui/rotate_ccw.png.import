@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bf1y8yd0mm221"
-path="res://.godot/imported/icons8-repeat-100.png-68997b1029c2e3e700f7efa00d4d661e.ctex"
+uid="uid://cltlnka3wrdak"
+path="res://.godot/imported/rotate_ccw.png-7a9a687555f09071e5b73a92ebbb9432.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/image/icons8-repeat-100.png"
-dest_files=["res://.godot/imported/icons8-repeat-100.png-68997b1029c2e3e700f7efa00d4d661e.ctex"]
+source_file="res://asset/image/ui/rotate_ccw.png"
+dest_files=["res://.godot/imported/rotate_ccw.png-7a9a687555f09071e5b73a92ebbb9432.ctex"]
 
 [params]
 

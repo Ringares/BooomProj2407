@@ -136,6 +136,9 @@ func _unhandled_input(event):
 		
 		if Input.is_action_just_pressed("quick_reset"):
 			AutoLoadEvent.signal_level_reset.emit()
+			
+		if OS.is_debug_build() and Input.is_action_just_pressed("hack_success"):
+			AutoLoadEvent.signal_level_won.emit()
 
 func _physics_process(delta):
 	if is_level_ready and not tutorial_scene.visible and not is_pickdroping and Input.is_action_pressed("take_step"):

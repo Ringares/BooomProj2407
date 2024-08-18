@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5skk3gdn3ma4"]
+
+[ext_resource type="Texture2D" uid="uid://cery1kt47on73" path="res://asset/image/cg/cg_game_end.png" id="1_ap4m4"]
+[ext_resource type="Script" path="res://scene/game/level/levels/game_end_level.gd" id="1_moeae"]
+
+[node name="GameEndLevel" type="CanvasLayer"]
+script = ExtResource("1_moeae")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_ap4m4")

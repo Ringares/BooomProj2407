@@ -44,37 +44,72 @@ func reset():
 	for i in available:
 		(i as AudioStreamPlayer).stop()
 
-	
+
 func play_win():
-	_play("res://asset/audio/level_audio/up.ogg")
+	_play("res://asset/audio/afx_update/up.ogg")
 	
 func play_fail():
-	_play("res://asset/audio/level_audio/down.ogg")
+	_play("res://asset/audio/afx_update/down.ogg")
 	
 	
 func play_walk():
-	_play("res://asset/audio/level_audio/move.ogg")
+	_play("res://asset/audio/afx_update/move.ogg")
 	
 	
 func play_heal():
-	_play("res://asset/audio/ui_audio/confirmation_001.ogg")
+	_play("res://asset/audio/afx_update/confirmation_001.ogg")
 	
 
 func play_attack():
-	_play("res://asset/audio/entity_audio/attack.wav")
+	_play("res://asset/audio/afx_update/attack.ogg")
 	
 
 func play_revive():
-	_play("res://asset/audio/entity_audio/popup.wav")
+	_play("res://asset/audio/afx_update/revive.ogg")
 	
 
 func play_turn_direction():
-	_play("res://asset/audio/entity_audio/turn_direction.wav")
+	_play("res://asset/audio/afx_update/turn_direction.ogg")
 	
 
 func play_upgrade():
-	_play("res://asset/audio/entity_audio/upgrade.wav")
+	_play("res://asset/audio/afx_update/upgrade.ogg")
 	
 
 func play_open_chest():
-	_play("res://asset/audio/entity_audio/open_case.wav")
+	_play("res://asset/audio/afx_update/open_case.ogg")
+	
+		
+#func play_win():
+	#_play("res://asset/audio/level_audio/up.ogg")
+	#
+#func play_fail():
+	#_play("res://asset/audio/level_audio/down.ogg")
+	#
+	#
+#func play_walk():
+	#_play("res://asset/audio/level_audio/move.ogg")
+	#
+	#
+#func play_heal():
+	#_play("res://asset/audio/ui_audio/confirmation_001.ogg")
+	#
+#
+#func play_attack():
+	#_play("res://asset/audio/entity_audio/attack.wav")
+	#
+#
+#func play_revive():
+	#_play("res://asset/audio/entity_audio/popup.wav")
+	#
+#
+#func play_turn_direction():
+	#_play("res://asset/audio/entity_audio/turn_direction.wav")
+	#
+#
+#func play_upgrade():
+	#_play("res://asset/audio/entity_audio/upgrade.wav")
+	#
+#
+#func play_open_chest():
+	#_play("res://asset/audio/entity_audio/open_case.wav")

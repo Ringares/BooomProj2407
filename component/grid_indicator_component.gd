@@ -43,7 +43,6 @@ func on_signal_gird_indicaotr_show(cells:Array, state:VALID_STATE):
 		node.add_to_group("grid_indicators")
 		add_child(node)
 		node.global_position = tile.to_global(tile.map_to_local(cell))
-		print(state_color[state])
 		node.modulate = state_color[state]
 	show()
 	

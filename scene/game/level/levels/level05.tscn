@@ -1,0 +1,261 @@
+[gd_scene load_steps=24 format=3 uid="uid://c37br3aos5hnb"]
+
+[ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_u7qj1"]
+[ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_fed11"]
+[ext_resource type="StyleBox" uid="uid://dj0l4olgpjqf6" path="res://theme/board.tres" id="3_has3x"]
+[ext_resource type="Script" path="res://scene/game/level/levels/stage_bg.gd" id="4_pvm6e"]
+[ext_resource type="Script" path="res://script/ui_sound.gd" id="5_05i5m"]
+[ext_resource type="PackedScene" uid="uid://cwb8wxvcobvus" path="res://scene/game/inventory/inventory.tscn" id="6_a6vrm"]
+[ext_resource type="PackedScene" uid="uid://deiwl7gpwkhmk" path="res://scene/game/game_ui/step_control.tscn" id="7_1sf04"]
+[ext_resource type="PackedScene" uid="uid://chqaicamvdhcb" path="res://scene/game/game_ui/status_ui.tscn" id="8_vydqk"]
+[ext_resource type="PackedScene" uid="uid://bxqw21tofdkhb" path="res://scene/game/game_ui/power_ui.tscn" id="9_cfgnc"]
+[ext_resource type="Shader" path="res://shader/scene_tran.gdshader" id="10_k4m3a"]
+[ext_resource type="Texture2D" uid="uid://cncuvt1fst73s" path="res://asset/image/background3.png" id="11_ltcxx"]
+[ext_resource type="Texture2D" uid="uid://dar60x7kv27e4" path="res://asset/image/ui/mark_question.png" id="12_t6v8r"]
+[ext_resource type="PackedScene" uid="uid://cnepdj0wy24dp" path="res://scene/ui/tutorial_scene.tscn" id="13_5a8te"]
+[ext_resource type="Script" path="res://scene/game/level/level_control.gd" id="14_56tlw"]
+[ext_resource type="Script" path="res://util/debug_game_data.gd" id="15_8xk1m"]
+[ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="17_p6e1v"]
+[ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="18_u6epe"]
+[ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="19_sm5c7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xhj"]
+shader = ExtResource("10_k4m3a")
+shader_parameter/progress = 1.0
+shader_parameter/multiplier = 3.0
+shader_parameter/angle = 0.0
+shader_parameter/anchor = Vector2(0.5, 0.5)
+shader_parameter/anchorOffset = 1.0
+shader_parameter/diamondPixelSize = 80.0
+
+[sub_resource type="Animation" id="Animation_puw1d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_gredy"]
+resource_name = "scene_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/progress")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc1st"]
+_data = {
+"RESET": SubResource("Animation_puw1d"),
+"scene_open": SubResource("Animation_gredy")
+}
+
+[sub_resource type="Resource" id="Resource_ysd0n"]
+script = ExtResource("15_8xk1m")
+debug_charactor_maxhp = 7
+debug_charactor_strength = 1
+debug_player_energy_capacity = 6
+inven_data = Array[int]([])
+
+[node name="Level5" type="Node2D"]
+script = ExtResource("1_u7qj1")
+
+[node name="LevelBGLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundTextureRect" parent="LevelBGLayer" instance=ExtResource("2_fed11")]
+
+[node name="StageBG" type="PanelContainer" parent="LevelBGLayer" node_paths=PackedStringArray("contain_tile")]
+offset_left = 600.0
+offset_top = 96.0
+offset_right = 1304.0
+offset_bottom = 896.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("3_has3x")
+script = ExtResource("4_pvm6e")
+contain_tile = NodePath("../../TileContainer/BaseTileMap")
+
+[node name="StagePlacehold" type="Control" parent="LevelBGLayer/StageBG"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LevelUILayer" type="CanvasLayer" parent="." groups=["level_ui_layer"]]
+
+[node name="UISound" type="Node" parent="LevelUILayer"]
+script = ExtResource("5_05i5m")
+root_path = NodePath("..")
+
+[node name="Inventory" parent="LevelUILayer" instance=ExtResource("6_a6vrm")]
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 16.0
+offset_top = 904.0
+offset_right = 16.0
+offset_bottom = 904.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="DebugContainer" type="VBoxContainer" parent="LevelUILayer"]
+visible = false
+offset_left = 64.0
+offset_top = 768.0
+offset_right = 384.0
+offset_bottom = 1008.0
+
+[node name="Label" type="Label" parent="LevelUILayer/DebugContainer"]
+layout_mode = 2
+text = "
+Test Info
+Test Level 3"
+
+[node name="WinButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Win"
+
+[node name="LoseButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Lose"
+
+[node name="ResetButton" type="Button" parent="LevelUILayer/DebugContainer"]
+custom_minimum_size = Vector2(320, 2.08165e-12)
+layout_mode = 2
+text = "Reset"
+
+[node name="StepControl" parent="LevelUILayer" instance=ExtResource("7_1sf04")]
+offset_left = 1484.0
+offset_right = 1484.0
+
+[node name="StatusUI" parent="LevelUILayer" instance=ExtResource("8_vydqk")]
+
+[node name="PowerUi" parent="LevelUILayer" instance=ExtResource("9_cfgnc")]
+offset_left = 1464.0
+offset_top = 832.0
+offset_right = 1464.0
+offset_bottom = 832.0
+
+[node name="TextureRect" type="TextureRect" parent="LevelUILayer"]
+visible = false
+material = SubResource("ShaderMaterial_k2xhj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_ltcxx")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelUILayer"]
+libraries = {
+"": SubResource("AnimationLibrary_wc1st")
+}
+autoplay = "scene_open"
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelUILayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 64.0
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="TutorialButton" type="Button" parent="LevelUILayer/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+focus_mode = 0
+icon = ExtResource("12_t6v8r")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TutorialScene" parent="." instance=ExtResource("13_5a8te")]
+process_mode = 3
+visible = false
+end_idx = 8
+begin_idx = 8
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer", "tutorial_scene")]
+unique_name_in_owner = true
+script = ExtResource("14_56tlw")
+base_tile = NodePath("../TileContainer/BaseTileMap")
+entity_tile = NodePath("../TileContainer/EntityTileMap")
+inventory = NodePath("../LevelUILayer/Inventory")
+step_timer = NodePath("../Timer")
+tutorial_scene = NodePath("../TutorialScene")
+level_name = "Level 5"
+is_auto_run = false
+debug_game_data = SubResource("Resource_ysd0n")
+
+[node name="TileContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 128)
+
+[node name="BaseTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("17_p6e1v")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 0, 131072, 65536, 1, 196608, 65536, 0, 262144, 65536, 0, 327680, 65536, 1, 1, 65536, 0, 65537, 65536, 1, 131073, 65536, 0, 196609, 65536, 0, 262145, 65536, 1, 327681, 65536, 0, 2, 65536, 0, 65538, 65536, 1, 131074, 65536, 0, 196610, 65536, 0, 262146, 65536, 1, 327682, 65536, 0, 3, 65536, 1, 65539, 65536, 0, 131075, 65536, 0, 196611, 65536, 1, 262147, 65536, 1, 327683, 65536, 1, 4, 65536, 0, 65540, 65536, 1, 131076, 65536, 0, 196612, 65536, 0, 262148, 65536, 1, 327684, 65536, 0, 5, 65536, 1, 65541, 65536, 0, 131077, 65536, 1, 196613, 65536, 1, 262149, 65536, 0, 327685, 65536, 0, 393222, 65536, 0, 393221, 65536, 1, 393220, 65536, 1, 393219, 65536, 0, 393218, 65536, 0, 393217, 65536, 1, 393216, 65536, 0, 327686, 65536, 0, 262150, 65536, 0, 196614, 65536, 1, 131078, 65536, 0, 65542, 65536, 1, 6, 65536, 0)
+
+[node name="GridIndicatorComponent" parent="TileContainer" node_paths=PackedStringArray("tile") instance=ExtResource("18_u6epe")]
+tile = NodePath("../BaseTileMap")
+
+[node name="EntityTileMap" type="TileMap" parent="TileContainer"]
+tile_set = ExtResource("19_sm5c7")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 262146, 65536, 2, 196611, 65536, 2, 327683, 65536, 2, 262148, 65536, 2, 393217, 65536, 1, 65538, 65536, 1, 131077, 65536, 1, 131072, 262144, 0, 3, 262144, 0, 65542, 262144, 0, 196613, 262144, 0, 262145, 262144, 0, 327680, 0, 1, 65537, 0, 1, 5, 0, 1, 65540, 0, 1, 196614, 0, 1, 393221, 0, 1, 393220, 262144, 0, 262147, 327680, 0)
+
+[node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="LevelUILayer/DebugContainer/WinButton" to="." method="_on_win_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/DebugContainer/LoseButton" to="." method="_on_lose_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/DebugContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="LevelUILayer/MarginContainer/TutorialButton" to="LevelControl" method="_on_tutorial_button_pressed"]

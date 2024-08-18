@@ -33,7 +33,7 @@ static func reset_game_data() -> void:
 	Config.set_config(GAME_LOG_SECTION, INVENTORY_DATA, INIT_INVENTORY_DATA.duplicate())
 	
 	#
-	Config.set_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, 0)
+	Config.set_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, -1)
 	
 
 
@@ -79,12 +79,12 @@ static func get_inventory_data():
 
 
 ### tutorial data
-const TUTORIAL_FINISHED = "TutorialFinished"
+const TUTORIAL_FINISHED = "TutorialFinished2"
 static func set_finished_tutorial_id(data:Variant):
 	Config.set_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, data)
 
 static func get_finished_tutorial_id():
-	return Config.get_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, 0)
+	return Config.get_config(GAME_LOG_SECTION, TUTORIAL_FINISHED, -1)
 
 
 ### default autorun mode

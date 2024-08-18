@@ -6,6 +6,7 @@ class_name LevelControl
 @export var entity_tile:TileMap
 @export var inventory:Inventory
 @export var step_timer:Timer
+@export var tutorial_scene:TutorialScene
 
 @export_category("level setting")
 @export var level_name:String = "default level name"
@@ -58,7 +59,8 @@ func _ready():
 	AutoLoadEvent.signal_pickitem_drop.connect(_on_signal_pickitem_drop)
 	AutoLoadEvent.signal_change_level_run_state.connect(_on_signal_change_level_run_state)
 	AutoLoadEvent.signal_pickitem_pickup.connect(_on_signal_pickitem_pickup)
-	
+	if tutorial_scene:
+		tutorial_scene.signal_tutorial_dimiss.connect(func():_on_signal_change_level_run_state(is_running_before_pickup))
 	init_level()
 	call_deferred('_on_load')
 	
@@ -77,6 +79,12 @@ func _ready():
 	# 从关卡设定改为用户操作记录
 	if GameLevelLog.get_player_autorun_enable():
 		step_timer.start()
+	
+	if tutorial_scene:
+		if tutorial_scene.display():
+			is_running_before_pickup = is_running()
+			_on_signal_change_level_run_state(false)
+		
 	AutoLoadEvent.signal_level_run_state_changed.emit(is_running())
 		
 	is_level_ready = true
@@ -122,7 +130,7 @@ func _on_save():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _unhandled_input(event):
-	if is_level_ready:
+	if is_level_ready and not tutorial_scene.visible:
 		if Input.is_action_just_pressed("switch_run_mode"):
 			switch_running_state()
 		
@@ -130,7 +138,7 @@ func _unhandled_input(event):
 			AutoLoadEvent.signal_level_reset.emit()
 
 func _physics_process(delta):
-	if is_level_ready and not is_pickdroping and Input.is_action_pressed("take_step"):
+	if is_level_ready and not tutorial_scene.visible and not is_pickdroping and Input.is_action_pressed("take_step"):
 		#print('action press take_step', manual_interval_passed, is_running())
 		if manual_interval_passed and not is_running():
 			manual_interval_passed = false
@@ -587,3 +595,10 @@ func drop_switcher_item(item_res, trans_data)->bool:
 		return false
 
 #endregion
+
+
+func _on_tutorial_button_pressed():
+	if tutorial_scene:
+		if tutorial_scene.display(true):
+			is_running_before_pickup = is_running()
+			_on_signal_change_level_run_state(false)

@@ -1,0 +1,127 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnepdj0wy24dp"]
+
+[ext_resource type="Script" path="res://scene/ui/tutorial_scene.gd" id="1_i1n42"]
+[ext_resource type="Texture2D" uid="uid://cuwg08y7v4c2i" path="res://asset/image/tutorial/1_1.png" id="2_68cpq"]
+[ext_resource type="Theme" uid="uid://cit323xaompge" path="res://theme/dialog_default_theme.tres" id="3_4hwcd"]
+[ext_resource type="Texture2D" uid="uid://b6yljv32msw6c" path="res://asset/image/portrait/portrait_AI贝塔.png" id="4_kgxgo"]
+[ext_resource type="StyleBox" uid="uid://ceiff43na7cyu" path="res://theme/dialogue_panel.tres" id="5_e0jm6"]
+[ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="6_rj827"]
+[ext_resource type="Texture2D" uid="uid://cq7ugulrq30sj" path="res://asset/image/ui/navigation_w.png" id="7_epfrd"]
+[ext_resource type="Texture2D" uid="uid://c7jo02apmaa1n" path="res://asset/image/ui/navigation_e.png" id="8_bnqan"]
+
+[node name="TutorialScene" type="CanvasLayer"]
+script = ExtResource("1_i1n42")
+
+[node name="BGRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0941176, 0.101961, 0.152941, 0.745098)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_68cpq")
+
+[node name="Balloon" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_4hwcd")
+
+[node name="VBoxContainer" type="MarginContainer" parent="Balloon"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -720.0
+offset_right = 1920.0
+grow_vertical = 0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Portrait" type="TextureRect" parent="Balloon/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 500)
+layout_mode = 2
+texture = ExtResource("4_kgxgo")
+expand_mode = 2
+stretch_mode = 5
+flip_h = true
+
+[node name="PanelContainer" type="PanelContainer" parent="Balloon/VBoxContainer"]
+clip_children = 2
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("5_e0jm6")
+
+[node name="Dialogue" type="MarginContainer" parent="Balloon/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 120)
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_right = 48
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Balloon/VBoxContainer/PanelContainer/Dialogue"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/VBoxContainer/PanelContainer/Dialogue/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="DialogueLabel" parent="Balloon/VBoxContainer/PanelContainer/Dialogue/HBoxContainer/VBoxContainer" instance=ExtResource("6_rj827")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/bold_font_size = 48
+theme_override_font_sizes/italics_font_size = 48
+theme_override_font_sizes/bold_italics_font_size = 48
+theme_override_font_sizes/mono_font_size = 48
+text = "Dialogue...
+12
+"
+seconds_per_step = 0.04
+
+[node name="LeftButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(96, 96)
+offset_left = 464.0
+offset_top = 464.0
+offset_right = 560.0
+offset_bottom = 560.0
+focus_mode = 0
+icon = ExtResource("7_epfrd")
+expand_icon = true
+
+[node name="RightButton" type="Button" parent="."]
+custom_minimum_size = Vector2(96, 96)
+offset_left = 1408.0
+offset_top = 456.0
+offset_right = 1504.0
+offset_bottom = 552.0
+focus_mode = 0
+icon = ExtResource("8_bnqan")
+expand_icon = true
+
+[connection signal="pressed" from="LeftButton" to="." method="_on_left_button_pressed"]
+[connection signal="pressed" from="RightButton" to="." method="_on_right_button_pressed"]

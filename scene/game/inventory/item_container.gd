@@ -39,6 +39,8 @@ func play_invalid_anim():
 
 func _on_mouse_entered():
 	#modulate = Color(1.5,1.5,1.5)
+	SfxManager.play_hover()
+	
 	modulate = Color('#bdcae2')
 	signal_mouse_entered.emit(self)
 	

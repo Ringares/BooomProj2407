@@ -11,11 +11,11 @@ config_version=5
 [application]
 
 config/name="BaseProject"
-config/version="0.8.15.17"
+config/version="0.8.18.11"
 run/main_scene="res://scene/opening/opening.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://asset/image/icon/icon_128.png"
 
 [autoload]
 
@@ -99,7 +99,7 @@ switch_run_mode={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://scene/dialogue/cg_dialogue.dialogue", "res://scene/dialogue/tutorial_dialogue.dialogue")
+locale/translations_pot_files=PackedStringArray("res://scene/dialogue/cg_dialogue.dialogue", "res://scene/dialogue/tutorial_dialogue.dialogue", "res://scene/dialogue/tutorial_dialogue2.dialogue")
 
 [rendering]
 

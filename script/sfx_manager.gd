@@ -79,7 +79,12 @@ func play_upgrade():
 func play_open_chest():
 	_play("res://asset/audio/afx_update/open_case.ogg")
 	
-		
+
+func play_hover():
+	_play("res://asset/audio/ui_audio/ui_hover.ogg")
+	
+	
+			
 #func play_win():
 	#_play("res://asset/audio/level_audio/up.ogg")
 	#

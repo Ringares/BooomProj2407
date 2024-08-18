@@ -1,8 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://gyqpayklhgka"]
+[gd_scene load_steps=7 format=3 uid="uid://gyqpayklhgka"]
 
 [ext_resource type="Script" path="res://scene/game/entity/func_item/item_chest.gd" id="1_68wdb"]
 [ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="2_hb2nn"]
 [ext_resource type="Theme" uid="uid://oagauisywtfc" path="res://theme/ui_label_theme.tres" id="3_oow6n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ielkg"]
+atlas = ExtResource("2_hb2nn")
+region = Rect2(512, 0, 128, 110)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_668i2"]
 atlas = ExtResource("2_hb2nn")
@@ -14,6 +18,12 @@ size = Vector2(128, 128)
 [node name="ItemChest" type="Node2D"]
 script = ExtResource("1_68wdb")
 type = 12
+
+[node name="DeadBody" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0, 0, 0, 0.486275)
+texture = SubResource("AtlasTexture_ielkg")
 
 [node name="Visual" type="Node2D" parent="."]
 
@@ -33,3 +43,23 @@ offset_bottom = 121.5
 theme = ExtResource("3_oow6n")
 theme_override_font_sizes/font_size = 72
 text = "12"
+
+[node name="CountdownLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(0.68101, 0.68101, 0.68101, 0.733333)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 15.0
+offset_bottom = 29.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("3_oow6n")
+theme_override_colors/font_color = Color(0.619489, 0.619489, 0.619489, 1)
+theme_override_font_sizes/font_size = 24
+text = "1"

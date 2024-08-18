@@ -92,6 +92,7 @@ script = ExtResource("14_chwex")
 cell_idx = Vector2i(4, 0)
 contain_type = 2
 contain_count = 1
+revive_step_gap = -1
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_35h0o")

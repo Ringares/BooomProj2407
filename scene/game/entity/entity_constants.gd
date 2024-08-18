@@ -20,6 +20,7 @@ enum ENTITY_TYPE {
 	
 	ENERMY_A = 20,
 	ENERMY_B = 21,
+	ENERMY_C = 22,
 } 
 
 
@@ -44,6 +45,7 @@ static var EntityMap = {
 	
 	ENTITY_TYPE.ENERMY_A: "res://scene/game/entity/enermy/enermy_a.tres",
 	ENTITY_TYPE.ENERMY_B: "res://scene/game/entity/enermy/enermy_b.tres",
+	ENTITY_TYPE.ENERMY_C: "res://scene/game/entity/enermy/enermy_c.tres",
 }
 
 

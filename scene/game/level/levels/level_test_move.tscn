@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dujhw48ste17m"]
+[gd_scene load_steps=28 format=3 uid="uid://dujhw48ste17m"]
 
 [ext_resource type="Script" path="res://scene/game/level/levels/level.gd" id="1_sw4m8"]
 [ext_resource type="PackedScene" uid="uid://cwijwftwr44r3" path="res://scene/ui/background_scene.tscn" id="2_a4cqu"]
@@ -18,7 +18,9 @@
 [ext_resource type="TileSet" uid="uid://clgyila4yj1u3" path="res://scene/game/level/base_tileset.tres" id="16_iva4d"]
 [ext_resource type="Script" path="res://util/debug_game_data.gd" id="16_vih3j"]
 [ext_resource type="PackedScene" uid="uid://c3m3aie8hlsr" path="res://component/grid_indicator_component.tscn" id="17_cw650"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/chest_data.gd" id="17_kfjqj"]
 [ext_resource type="TileSet" uid="uid://ds1opxjusum1b" path="res://scene/game/level/entity_tileset.tres" id="18_fm4x2"]
+[ext_resource type="PackedScene" uid="uid://cnepdj0wy24dp" path="res://scene/ui/tutorial_scene.tscn" id="18_jqfyr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xhj"]
 shader = ExtResource("10_3m2mu")
@@ -94,7 +96,14 @@ script = ExtResource("16_vih3j")
 debug_charactor_maxhp = 5
 debug_charactor_strength = 1
 debug_player_energy_capacity = 6
-inven_data = Array[int]([2])
+inven_data = Array[int]([2, 0, 0, 0, 0, 0])
+
+[sub_resource type="Resource" id="Resource_s2qhp"]
+script = ExtResource("17_kfjqj")
+cell_idx = Vector2i(2, 0)
+contain_type = 2
+contain_count = 3
+revive_step_gap = 5
 
 [node name="LevelTemp" type="Node2D"]
 script = ExtResource("1_sw4m8")
@@ -176,14 +185,19 @@ dialog_resource = ExtResource("14_samyy")
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer")]
+[node name="LevelControl" type="Node" parent="." node_paths=PackedStringArray("base_tile", "entity_tile", "inventory", "step_timer", "tutorial_scene")]
 unique_name_in_owner = true
 script = ExtResource("15_a23ck")
 base_tile = NodePath("../TileContainer/BaseTileMap")
 entity_tile = NodePath("../TileContainer/EntityTileMap")
 inventory = NodePath("../LevelUILayer/Inventory")
 step_timer = NodePath("../Timer")
+tutorial_scene = NodePath("../TutorialScene")
 debug_game_data = SubResource("Resource_sw56u")
+chest_contains = Array[ExtResource("17_kfjqj")]([SubResource("Resource_s2qhp")])
+
+[node name="TutorialScene" parent="." instance=ExtResource("18_jqfyr")]
+begin_idx = -1
 
 [node name="TileContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -200,7 +214,7 @@ tile = NodePath("../BaseTileMap")
 [node name="EntityTileMap" type="TileMap" parent="TileContainer"]
 tile_set = ExtResource("18_fm4x2")
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 3, 65536, 0, 1, 393216, 0, 65537, 65536, 0)
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 3, 65536, 0, 1, 393216, 0, 65537, 65536, 0, 2, 262144, 0)
 
 [node name="EntityContainer" type="Node2D" parent="TileContainer/EntityTileMap"]
 unique_name_in_owner = true

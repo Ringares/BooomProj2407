@@ -23,7 +23,6 @@ func on_recycled():
 	start_teleport_out()
 	get_tree().create_timer(0.3).timeout.connect(func():queue_free())
 	
-	
 
 func start_highlight(last_sec:float=-1):
 	await ready

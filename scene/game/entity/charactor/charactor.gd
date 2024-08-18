@@ -259,8 +259,9 @@ func post_move_execute(entity:Entity):
 			
 		Constants.ENTITY_TYPE.CHEST:
 			print('ENTITY_TYPE.CHEST')
-			if entity.has_signal('signal_chest_pickup'):
-				entity.signal_chest_pickup.emit(entity)
+			if (entity as FuncChestItem).is_valid:
+				if entity.has_signal('signal_chest_pickup'):
+					entity.signal_chest_pickup.emit(entity)
 			
 		Constants.ENTITY_TYPE.SWITCHER:
 			pass

@@ -45,12 +45,10 @@ func play_hit_anim():
 	
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("lerp_percent", 1.0)
 	
-	var origin_pos = sprite_2d.position
 	tween = create_tween()
 	tween.tween_property(sprite_2d.material, "shader_parameter/lerp_percent", 0., 0.3)\
 		.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	tween.parallel().tween_method(shake_sprite, 0,5,0.3)
-	tween.chain().tween_property(sprite_2d, "position", origin_pos, 0.)
 	update_ui()
 	
 
@@ -79,6 +77,7 @@ func revive():
 	SfxManager.play_revive()
 	start_teleport_in()
 	health_component.reset_hp()
+	sprite_2d.position = Vector2.ZERO
 	sprite_2d.show()
 	update_ui()
 	if is_instance_valid(dead_body): dead_body.hide()

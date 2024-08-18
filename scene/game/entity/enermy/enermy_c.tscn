@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=3 uid="uid://ta0tq1xh0esr"]
+
+[ext_resource type="Script" path="res://scene/game/entity/enermy/enermy.gd" id="1_g2mk0"]
+[ext_resource type="Script" path="res://component/attack_component.gd" id="2_g7fmt"]
+[ext_resource type="Script" path="res://component/health_component.gd" id="3_m7bba"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="4_svk1q"]
+[ext_resource type="Theme" uid="uid://oagauisywtfc" path="res://theme/ui_label_theme.tres" id="5_iild0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivpil"]
+atlas = ExtResource("4_svk1q")
+region = Rect2(128, 220, 128, 110)
+
+[node name="EnermyC" type="Node2D"]
+script = ExtResource("1_g2mk0")
+loot_energy = 1
+type = 22
+
+[node name="AttackComponent" type="Node" parent="."]
+script = ExtResource("2_g7fmt")
+base_attack = 9
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_m7bba")
+curr_hp = 9
+max_hp = 9
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+unique_name_in_owner = true
+scale = Vector2(1.05, 1.05)
+texture = SubResource("AtlasTexture_ivpil")
+offset = Vector2(4, -8)
+
+[node name="StatusLabel" type="Control" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HPLabel" type="Label" parent="StatusLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -43.0
+offset_right = 23.0
+offset_bottom = -6.0
+grow_vertical = 0
+theme = ExtResource("5_iild0")
+theme_override_font_sizes/font_size = 24
+text = "1"
+
+[node name="AtkLabel" type="Label" parent="StatusLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -43.0
+offset_right = -7.0
+offset_bottom = -6.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("5_iild0")
+theme_override_colors/font_color = Color(0.607843, 0.717647, 0.941176, 1)
+theme_override_font_sizes/font_size = 24
+text = "2"

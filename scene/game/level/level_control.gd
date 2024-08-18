@@ -363,7 +363,11 @@ func _on_signal_entity_used(entity:Entity):
 	print('_on_signal_entity_used')
 	print(entity, entity.cell_id)
 	entity.on_used()
-	cell_data[entity.cell_id.x][entity.cell_id.y] = null
+	if entity is FuncChestItem:
+		if (entity as FuncChestItem).revive_step_gap == -1:
+			cell_data[entity.cell_id.x][entity.cell_id.y] = null
+	else:
+		cell_data[entity.cell_id.x][entity.cell_id.y] = null
 	
 
 func _on_signal_entity_recycled(entity:Entity):

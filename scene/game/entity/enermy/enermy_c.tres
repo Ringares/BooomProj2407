@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemRes" load_steps=5 format=3 uid="uid://cwpudcybmk5nb"]
+
+[ext_resource type="PackedScene" uid="uid://ta0tq1xh0esr" path="res://scene/game/entity/enermy/enermy_c.tscn" id="1_nv1xd"]
+[ext_resource type="Script" path="res://scene/game/entity/resource/item_res.gd" id="2_ol7k3"]
+[ext_resource type="Texture2D" uid="uid://c1lyivbq3pegh" path="res://asset/image/test_sprite_sheet.png" id="3_xyp84"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hddmi"]
+atlas = ExtResource("3_xyp84")
+region = Rect2(128, 220, 128, 110)
+
+[resource]
+script = ExtResource("2_ol7k3")
+entity_type = 22
+texture = SubResource("AtlasTexture_hddmi")
+block_scene = ExtResource("1_nv1xd")
+energy_cost = 1
+tile_cell = Vector2i(1, 2)
+tooltip = "强大的怪物，没有特殊能力"

@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scene/ui/tutorial_scene.gd" id="1_i1n42"]
 [ext_resource type="Texture2D" uid="uid://cuwg08y7v4c2i" path="res://asset/image/tutorial/1_1.png" id="2_68cpq"]
 [ext_resource type="Theme" uid="uid://cit323xaompge" path="res://theme/dialog_default_theme.tres" id="3_4hwcd"]
-[ext_resource type="Texture2D" uid="uid://b6yljv32msw6c" path="res://asset/image/portrait/portrait_AI贝塔.png" id="4_kgxgo"]
 [ext_resource type="StyleBox" uid="uid://ceiff43na7cyu" path="res://theme/dialogue_panel.tres" id="5_e0jm6"]
+[ext_resource type="Texture2D" uid="uid://dsisk8e63bowp" path="res://asset/image/portrait/portrait_贝塔.png" id="6_1ripw"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="6_rj827"]
 [ext_resource type="Texture2D" uid="uid://cq7ugulrq30sj" path="res://asset/image/ui/navigation_w.png" id="7_epfrd"]
 [ext_resource type="Texture2D" uid="uid://c7jo02apmaa1n" path="res://asset/image/ui/navigation_e.png" id="8_bnqan"]
@@ -104,7 +104,7 @@ size_flags_vertical = 4
 unique_name_in_owner = true
 custom_minimum_size = Vector2(2.08165e-12, 500)
 layout_mode = 2
-texture = ExtResource("4_kgxgo")
+texture = ExtResource("6_1ripw")
 expand_mode = 2
 stretch_mode = 5
 flip_h = true

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6yljv32msw6c"
-path="res://.godot/imported/portrait_AI贝塔.png-55c1f748409ffd2fcf95f9b955327b18.ctex"
+uid="uid://dsisk8e63bowp"
+path="res://.godot/imported/portrait_贝塔.png-f37abf93c4bfa9bfdea70c5cf6165c8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/image/portrait/portrait_AI贝塔.png"
-dest_files=["res://.godot/imported/portrait_AI贝塔.png-55c1f748409ffd2fcf95f9b955327b18.ctex"]
+source_file="res://asset/image/portrait/portrait_贝塔.png"
+dest_files=["res://.godot/imported/portrait_贝塔.png-f37abf93c4bfa9bfdea70c5cf6165c8d.ctex"]
 
 [params]
 

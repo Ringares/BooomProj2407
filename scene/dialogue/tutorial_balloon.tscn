@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="3_ykasn"]
 [ext_resource type="Texture2D" uid="uid://b6yljv32msw6c" path="res://asset/image/portrait/portrait_AI贝塔.png" id="4_1qsfo"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="4_hecyq"]
-[ext_resource type="AudioStream" uid="uid://bdwxoxho8yg5x" path="res://asset/audio/dialog_audio/typing.wav" id="5_qm7ha"]
+[ext_resource type="AudioStream" uid="uid://bcg8fcvbm0t2v" path="res://asset/audio/dialog_audio/typing.wav" id="5_qm7ha"]
 
 [node name="TutorialBalloon" type="CanvasLayer"]
 layer = 100

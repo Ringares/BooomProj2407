@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_72ixx"]
 [ext_resource type="Texture2D" uid="uid://ddlpfv6bdjhrs" path="res://asset/image/portrait/portrait_星光.png" id="3_klwjw"]
 [ext_resource type="StyleBox" uid="uid://ceiff43na7cyu" path="res://theme/dialogue_panel.tres" id="4_0siee"]
-[ext_resource type="AudioStream" uid="uid://bdwxoxho8yg5x" path="res://asset/audio/dialog_audio/typing.wav" id="5_bk8da"]
+[ext_resource type="AudioStream" uid="uid://bcg8fcvbm0t2v" path="res://asset/audio/dialog_audio/typing.wav" id="5_bk8da"]
 
 [node name="CustomBalloon" type="CanvasLayer"]
 layer = 100

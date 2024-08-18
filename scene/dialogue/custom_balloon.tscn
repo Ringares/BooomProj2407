@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://cit323xaompge" path="res://theme/dialog_default_theme.tres" id="2_0p3vb"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
 [ext_resource type="Script" path="res://addons/dialogue_manager/dialogue_reponses_menu.gd" id="3_72ixx"]
-[ext_resource type="Texture2D" uid="uid://b6yljv32msw6c" path="res://asset/image/portrait/portrait_AI贝塔.png" id="3_nm6oa"]
+[ext_resource type="Texture2D" uid="uid://ddlpfv6bdjhrs" path="res://asset/image/portrait/portrait_星光.png" id="3_klwjw"]
 [ext_resource type="StyleBox" uid="uid://ceiff43na7cyu" path="res://theme/dialogue_panel.tres" id="4_0siee"]
 [ext_resource type="AudioStream" uid="uid://bdwxoxho8yg5x" path="res://asset/audio/dialog_audio/typing.wav" id="5_bk8da"]
 
@@ -28,7 +28,7 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -1088.0
+offset_top = -840.0
 offset_right = 1920.0
 grow_vertical = 0
 theme_override_constants/margin_left = 16
@@ -43,9 +43,9 @@ size_flags_vertical = 4
 
 [node name="Portrait" type="TextureRect" parent="Balloon/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(2.08165e-12, 600)
+custom_minimum_size = Vector2(2.08165e-12, 500)
 layout_mode = 2
-texture = ExtResource("3_nm6oa")
+texture = ExtResource("3_klwjw")
 expand_mode = 2
 stretch_mode = 5
 flip_h = true
